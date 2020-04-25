@@ -1,9 +1,7 @@
-const remarkPlugins = [require('remark-autolink-headings'), require('remark-admonitions')];
-
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins,
+    remarkPlugins: [require('remark-autolink-headings'), require('remark-admonitions')],
   },
 });
 

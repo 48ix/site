@@ -6,10 +6,10 @@ export const theme = {
     black: '#000',
     green: '#52FFB8',
     red: '#ED254E',
-    yellow: '#F9DC5C',
+    yellow: '#EEC643',
     orange: '#C44900',
     teal: '#00C2D1',
-    blue: '#3E78B2',
+    blue: '#0D21A1',
     purple: '#8F3985',
     pink: '#F08CAE',
   },
@@ -42,9 +42,9 @@ const asideSections = [
     title: 'Documentation',
     sections: [
       { id: 'interfaces', title: 'Interface Specifications' },
-      { id: 'allowedTraffic', title: 'Allowed Traffic' },
-      { id: 'configGuides', title: 'Configuration Guides' },
-      { id: 'routeServers', title: 'Route Serverrs' },
+      { id: 'allowed-traffic', title: 'Allowed Traffic' },
+      { id: 'config-guides', title: 'Configuration Guides' },
+      { id: 'route-servers', title: 'Route Serverrs' },
     ],
   },
 ];
@@ -96,6 +96,34 @@ const joinForm = {
   buttonText: 'Submit Request',
 };
 
+const endpoints = {
+  members: 'https://webhook.site/289773ff-6d22-4dec-bc51-db0c0c649acb',
+};
+
+const contributors = [
+  {
+    id: 'edgeconnex',
+    name: 'EdgeConneX',
+    color: null,
+    link: 'https://www.edgeconnex.com',
+    imageFormat: 'svg',
+  },
+  {
+    id: 'stellar',
+    name: 'Stellar',
+    color: '#2a3d8f',
+    link: 'https://stellar.tech',
+    imageFormat: 'svg',
+  },
+  {
+    id: 'ddaz',
+    name: 'Delta Dental of Arizona',
+    color: '#43B02A',
+    link: 'https://www.deltadentalaz.com',
+    imageFormat: 'svg',
+  },
+];
+
 export default {
   title: '48-IX',
   siteName: '48-IX Internet Exchange',
@@ -107,4 +135,6 @@ export default {
   sections: asideSections,
   links: asideLinks,
   joinForm: joinForm,
+  endpoints: endpoints,
+  contributors: contributors,
 };

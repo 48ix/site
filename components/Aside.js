@@ -4,6 +4,7 @@ import { ComponentLink, TopNavLink } from './NavLink';
 import { useConfig } from './Provider';
 
 const titleColor = { dark: 'whiteAlpha.900', light: 'blackAlpha.900' };
+const borderColor = { dark: 'dark.300', light: 'teal.500' };
 
 const NavGroupHeading = props => (
   <Heading
@@ -20,7 +21,13 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
   const { colorMode } = useColorMode();
   const config = useConfig();
   return (
-    <Box top="4rem" position="relative" overflowY="auto" borderRightWidth="1px" {...props}>
+    <Box
+      top="4rem"
+      position="relative"
+      overflowY="auto"
+      borderRightWidth="1px"
+      borderColor={borderColor[colorMode]}
+      {...props}>
       <Box as="nav" height={contentHeight} aria-label="Main Navigation" fontSize="sm" p="6">
         <Box mb="8">
           {config.links.map(link => (
