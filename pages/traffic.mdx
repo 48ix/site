@@ -1,0 +1,70 @@
+import SEO from '../components/SEO';
+
+<SEO title="Allowed Traffic" description="48-IX Allowed Traffic" />
+
+# Allowed Traffic
+
+## Layer 1
+
+### Interface settings
+
+All Ethernet interfaces attached to 48-IX ports must be configured for auto-negotiation, unless a specific arrangement has been made otherwise.
+
+## Layer 2
+
+### Ethernet framing
+
+Frames forwarded to 48-IX ports must have one of the following EtherTypes:
+
+- `0x0800` IPv4
+- `0x0806` ARP
+- `0x86dd` IPv6
+
+### No Proxy ARP
+
+Use of Proxy ARP on a member router's interface to the Exchange is prohibited.
+
+### Unicast only
+
+Frames forwarded to 48-IX ports shall not be addressed to a multicast or broadcast MAC destination address except as follows:
+
+- Broadcast ARP packets
+- Multicast ICMPv6 Neighbor Discovery packets. Please note that this does _not_ include Router Solicitation or Advertisement packets.
+
+### No link-local traffic
+
+Traffic related to link-local protocols will be filtered out on ingress, and will not be forwarded to other 48-IX ports. Link-local protocols include, but are not limited to, the following list:
+
+- ICMP redirects
+- IEEE 802 Spanning Tree
+- Discovery protocols: CDP, EDP
+- VLAN/trunking protocols: VTP, DTP
+- Interior routing protocol broadcasts (e.g. OSPF, ISIS, RIP, EIGRP)
+- BOOTP/DHCP
+- PIM-SM/PIM-DM
+- ICMPv6 Neighbor Discovery
+- ICMPv6 Router Solicitation
+- UDLD
+- L2 Keepalives
+
+The following link-local protocols are exceptions and are allowed:
+
+- ARP
+- IPv6 Neighbor Discovery
+
+## Layer 3
+
+### Export of 48-IX Peering Networks
+
+IP address space assigned to 48-IX Peering Networks must not be advertised to other networks without explicit permission of 48-IX. 48-IX reserves the right to disable the Exchange port of any member found to be violating this policy, accidentally or intentionally, until the violation has been resolved.
+
+## Layer 4
+
+Using application layer protocols to unleash malicious actions against other 48-IX customers over 48-IX infrastructure, is forbidden. 48-IX reserves the right to disable a member's port in case of complaints of attacks/abuse originating from such customers. The following list includes, but is not limited to:
+
+- BGP hijacking
+- DNS amplification/flood
+- HTTP flood
+- NTP amplification
+- UDP flood
+- ICMP flood

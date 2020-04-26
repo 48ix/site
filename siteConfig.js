@@ -43,7 +43,7 @@ const asideSections = [
     title: 'Documentation',
     sections: [
       { id: 'interfaces', title: 'Interface Specifications' },
-      { id: 'allowed-traffic', title: 'Allowed Traffic' },
+      { id: 'traffic', title: 'Traffic' },
       { id: 'config-guides', title: 'Configuration Guides' },
       { id: 'route-servers', title: 'Route Servers' },
     ],

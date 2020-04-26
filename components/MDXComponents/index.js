@@ -26,7 +26,7 @@ export default {
   td: TableCell,
   a: Link,
   p: props => <Text pl={2} as="p" mt={4} fontWeight="normal" lineHeight="tall" {...props} />,
-  strong: props => <Text as="strong" fontWeight={600} {...props} />,
+  strong: props => <Text as="strong" fontWeight={800} {...props} />,
   ul: props => <Box as="ul" pt={4} pl={10} {...props} />,
   ol: props => <Box as="ol" pt={4} pl={10} {...props} />,
   li: props => <Box as="li" pb={1} {...props} />,
