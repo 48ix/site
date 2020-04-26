@@ -8,13 +8,17 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useColorMode,
 } from '@chakra-ui/core';
 import { FaArrowAltCircleRight, FaCheckCircle } from 'react-icons/fa';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useConfig } from './Provider';
 
-const sendEmail = async email => {
-  return await axios.post('https://webhook.site/289773ff-6d22-4dec-bc51-db0c0c649acb', email);
+const border = { dark: 'yellow.200', light: 'red.300' };
+
+const sendEmail = async (url, email) => {
+  return await axios.post(url, email);
 };
 
 const validateEmail = value => {
@@ -28,12 +32,15 @@ const validateEmail = value => {
 const Form = props => <Flex as="form" {...props} />;
 
 const Subscribe = props => {
+  const config = useConfig();
+  const { colorMode } = useColorMode();
+
   const { handleSubmit, errors, register, reset, formState } = useForm();
   const [btnColor, setBtnColor] = useState(null);
 
   const onSubmit = values => {
     console.log(values);
-    sendEmail(values);
+    sendEmail(config.endpoints.subscribe, values);
     setBtnColor('green');
     setTimeout(() => {
       setBtnColor(null);
@@ -46,6 +53,7 @@ const Subscribe = props => {
       <FormControl isInvalid={errors.email} w="100%">
         <InputGroup>
           <Input
+            _focus={{ borderColor: border[colorMode] }}
             isFullWidth
             size="sm"
             variant="flushed"
