@@ -151,10 +151,9 @@ const makeTheme = userTheme => ({
   colors: importColors(userTheme.colors),
   fonts: importFonts(userTheme.fonts),
   fontWeights: {
-    lighter: 200,
+    light: 200,
     normal: 300,
-    medium: 300,
-    semibold: 600,
+    medium: 600,
     bold: 800,
   },
 });

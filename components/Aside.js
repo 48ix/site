@@ -4,7 +4,6 @@ import { ComponentLink, TopNavLink } from './NavLink';
 import { useConfig } from './Provider';
 
 const titleColor = { dark: 'whiteAlpha.900', light: 'blackAlpha.900' };
-const borderColor = { dark: 'dark.300', light: 'teal.500' };
 
 const NavGroupHeading = props => (
   <Heading
@@ -22,14 +21,14 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
   const config = useConfig();
   return (
     <Box
+      as="aside"
       top="4rem"
-      position="relative"
       overflowY="auto"
+      position="relative"
       borderRightWidth="1px"
-      borderColor={borderColor[colorMode]}
       {...props}>
-      <Box as="nav" height={contentHeight} aria-label="Main Navigation" fontSize="sm" p="6">
-        <Box mb="8">
+      <Box as="nav" height={contentHeight} aria-label="Main Navigation" fontSize="sm" p={6}>
+        <Box mb={8}>
           {config.links.map(link => (
             <TopNavLink key={link.id} href={link.id}>
               {link.title}
@@ -37,7 +36,7 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
           ))}
         </Box>
         {config.sections.map(section => (
-          <Box key={section.id} as="section" mb="10">
+          <Box key={section.id} as="section" mb={10}>
             <NavGroupHeading color={titleColor[colorMode]}>{section.title}</NavGroupHeading>
             {section.sections.map(link => (
               <ComponentLink key={link.id} href={link.id}>
@@ -52,13 +51,23 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
 };
 
 const AsideContainer = props => (
-  <Box position="fixed" left="0" width="100%" height="100%" top="0" right="0" {...props} />
+  <Box
+    pos="fixed"
+    top="0"
+    left="0"
+    right="0"
+    width="100%"
+    height="100%"
+    maxW="18rem"
+    display={['none', null, 'block']}
+    {...props}
+  />
 );
 
-const Aside = props => {
+const Aside = ({ borderColor, ...props }) => {
   return (
     <AsideContainer {...props}>
-      <AsideContent />
+      <AsideContent borderColor={borderColor} />
     </AsideContainer>
   );
 };

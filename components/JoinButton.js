@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, useColorMode } from '@chakra-ui/core';
 
-const btnColor = { dark: 'teal', light: 'dark' };
+const btnColor = { dark: 'teal', light: 'blue' };
 
 const JoinButton = props => {
   const { colorMode } = useColorMode();

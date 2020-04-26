@@ -34,6 +34,7 @@ const asideSections = [
     sections: [
       { id: 'network', title: 'Network' },
       { id: 'members', title: 'Members' },
+      { id: 'communication', title: 'Communication' },
       { id: 'fees', title: 'Fees' },
     ],
   },
@@ -44,7 +45,16 @@ const asideSections = [
       { id: 'interfaces', title: 'Interface Specifications' },
       { id: 'allowed-traffic', title: 'Allowed Traffic' },
       { id: 'config-guides', title: 'Configuration Guides' },
-      { id: 'route-servers', title: 'Route Serverrs' },
+      { id: 'route-servers', title: 'Route Servers' },
+    ],
+  },
+  {
+    id: 'policy',
+    title: 'Policy & Procedure',
+    sections: [
+      { id: 'connection-agreement', title: 'Connection Agreement' },
+      { id: 'sla', title: 'Service Level Agreement' },
+      { id: 'maintenance', title: 'Maintenance' },
     ],
   },
 ];

@@ -1,26 +1,26 @@
 import * as React from 'react';
-import { Box, Flex, Text } from '@chakra-ui/core';
+import { Box, Flex, Stack, Text } from '@chakra-ui/core';
+import Subscribe from './Subscribe';
 
-const Footer = () => {
+const Footer = props => {
   return (
-    <Box
-      textAlign="center"
-      pt={12}
-      pb={4}
-      pos="fixed"
-      bottom="0"
-      left="0"
-      right="0"
-      pl={[0, null, '18rem']}
-      w="100%">
-      <Flex justify="center" fontSize="xs">
-        <Flex userSelect="none">
-          <Text opacity="0.4">
+    <Box as="footer" pt={12} pb={4} {...props}>
+      <Stack
+        isInline
+        fontSize="xs"
+        justify="space-between"
+        align="center"
+        spacing={8}
+        flex="1 0 100%">
+        <Flex justify="flex-start">
+          <Text fontWeight="medium" opacity="0.4" whiteSpace="nowrap">
             {`Copyright © ${new Date().getFullYear()} `}
             <Text as="span">48-IX Inc.</Text>
           </Text>
         </Flex>
-      </Flex>
+        <Flex w="40vh" justify="center" />
+        <Subscribe />
+      </Stack>
     </Box>
   );
 };

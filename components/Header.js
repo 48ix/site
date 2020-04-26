@@ -9,10 +9,8 @@ import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
 
 const bg = { light: 'white', dark: 'original.dark' };
-const borderColor = { dark: 'dark.300', light: 'teal.500' };
 
 export const BaseHeader = props => {
-  const { colorMode } = useColorMode();
   return (
     <Box
       pos="fixed"
@@ -22,7 +20,6 @@ export const BaseHeader = props => {
       left="0"
       right="0"
       borderBottomWidth="1px"
-      borderColor={borderColor[colorMode]}
       width="full"
       height="4rem"
       {...props}

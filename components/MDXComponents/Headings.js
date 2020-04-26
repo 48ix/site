@@ -45,7 +45,17 @@ const BaseHeading = props => {
   );
 };
 
-const H1 = props => <Heading as="h1" size="xl" my="1em" {...props} />;
+const H1 = props => (
+  <Heading
+    as="h1"
+    borderBottomWidth="1px"
+    borderColor="whiteAlpha.200"
+    size="xl"
+    my="1em"
+    lineHeight={2}
+    {...props}
+  />
+);
 
 const H2 = props => <BaseHeading as="h2" fontWeight="semibold" size="lg" {...props} />;
 

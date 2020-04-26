@@ -38,7 +38,7 @@ export const SideNavLink = forwardRef(({ children, icon, ...props }, ref) => {
       px="2"
       py="1"
       transition="all 0.2s"
-      fontWeight="medium"
+      fontWeight="normal"
       outline="none"
       _focus={{ shadow: 'outline' }}
       color={color[colorMode]}
