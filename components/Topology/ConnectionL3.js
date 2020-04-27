@@ -5,7 +5,7 @@ const ConnectionL3 = props => {
   const { colors } = useTheme();
   const { colorMode } = useColorMode();
   const ixFill = { dark: colors.whiteAlpha[50], light: colors.blackAlpha[100] };
-  const ixColor = { dark: colors.teal[300], light: colors.teal[600] };
+  const ixColor = { dark: colors.teal[300], light: colors.blue[500] };
   const memberStroke = { dark: colors.red[300], light: colors.red[500] };
   const lineColor = { dark: colors.whiteAlpha[300], light: colors.blackAlpha[500] };
   const crossConnectBg = { dark: colors.blue[300], light: colors.blue[500] };

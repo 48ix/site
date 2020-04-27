@@ -18,7 +18,6 @@ const Footer = props => {
             <Text as="span">48-IX Inc.</Text>
           </Text>
         </Flex>
-        <Flex w="40vh" justify="center" />
         <Subscribe />
       </Stack>
     </Box>

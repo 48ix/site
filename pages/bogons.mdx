@@ -1,0 +1,64 @@
+import SEO from '../components/SEO';
+
+<SEO
+  title="Bogon Addresses"
+  description="Information about bogon & martian IPv4 & IPv6 addresses"
+/>
+
+# Bogon Addresses
+
+The following numbers are considered "bogon" or "martian" space, and will not be permitted on the 48-IX Network.
+
+## IPv4
+
+| Address Block        | Description                     | RFC                                                |
+| :------------------- | :------------------------------ | :------------------------------------------------- |
+| `0.0.0.0/8`          | "This host on this network"     | [RFC1122](https://tools.ietf.org/html/rfc/RFC1122) |
+| `10.0.0.0/8`         | Private-Use                     | [RFC1918](https://tools.ietf.org/html/rfc/RFC1918) |
+| `100.64.0.0/10`      | Shared Address Space            | [RFC6598](https://tools.ietf.org/html/rfc/RFC6598) |
+| `127.0.0.0/8`        | Loopback                        | [RFC1122](https://tools.ietf.org/html/rfc/RFC1122) |
+| `169.254.0.0/16`     | Link Local                      | [RFC3927](https://tools.ietf.org/html/rfc/RFC3927) |
+| `172.16.0.0/12`      | Private-Use                     | [RFC1918](https://tools.ietf.org/html/rfc/RFC1918) |
+| `192.0.0.0/24`       | IETF Protocol Assignments       | [RFC6890](https://tools.ietf.org/html/rfc/RFC6890) |
+| `192.52.193.0/24`    | AMT                             | [RFC7450](https://tools.ietf.org/html/rfc/RFC7450) |
+| `192.88.99.0/24`     | Deprecated (6to4 Relay Anycast) | [RFC7526](https://tools.ietf.org/html/rfc/RFC7526) |
+| `192.168.0.0/16`     | Private-Use                     | [RFC1918](https://tools.ietf.org/html/rfc/RFC1918) |
+| `198.18.0.0/15`      | Benchmarking                    | [RFC2544](https://tools.ietf.org/html/rfc/RFC2544) |
+| `198.51.100.0/24`    | Documentation (TEST-NET-2)      | [RFC5737](https://tools.ietf.org/html/rfc/RFC5737) |
+| `203.0.113.0/24`     | Documentation (TEST-NET-3)      | [RFC5737](https://tools.ietf.org/html/rfc/RFC5737) |
+| `224.0.0.0/4`        | Multicast                       | [RFC1112](https://tools.ietf.org/html/rfc/RFC1112) |
+| `240.0.0.0/4`        | Class E Reserved                | [RFC1112](https://tools.ietf.org/html/rfc/RFC1112) |
+| `255.255.255.255/32` | Limited Broadcast               | [RFC919](https://tools.ietf.org/html/rfc/RFC919)   |
+
+## IPv6
+
+| Address Block   | Description                     | RFC                                                |
+| :-------------- | :------------------------------ | :------------------------------------------------- |
+| `::/8`          | Loopback & IPv4-mapped Address  | [RFC4291](https://tools.ietf.org/html/rfc/RFC4291) |
+| `100::/64`      | Discard-Only Address Block      | [RFC6666](https://tools.ietf.org/html/rfc/RFC6666) |
+| `2001::/32`     | TEREDO                          | [RFC4380](https://tools.ietf.org/html/rfc/RFC4380) |
+| `2001:2::/48`   | Benchmarking                    | [RFC5180](https://tools.ietf.org/html/rfc/RFC5180) |
+| `2001:3::/32`   | Automatic Multicast Tunneling   | [RFC7450](https://tools.ietf.org/html/rfc/RFC7450) |
+| `2001:10::/28`  | ORCHID                          | [RFC4843](https://tools.ietf.org/html/rfc/RFC4843) |
+| `2001:20::/28`  | ORCHIDv2                        | [RFC7343](https://tools.ietf.org/html/rfc/RFC7343) |
+| `2001:db8::/32` | Documentation                   | [RFC3849](https://tools.ietf.org/html/rfc/RFC3849) |
+| `2002::/16`     | 6to4                            | [RFC3056](https://tools.ietf.org/html/rfc/RFC3056) |
+| `3ffe::/16`     | 6bone                           | [RFC2471](https://tools.ietf.org/html/rfc/RFC2471) |
+| `fc00::/7`      | Unique-Local                    | [RFC4193](https://tools.ietf.org/html/rfc/RFC4193) |
+| `fe80::/10`     | Link-Local Unicast              | [RFC4291](https://tools.ietf.org/html/rfc/RFC4291) |
+| `fec0::/10`     | Site-local Unicast (Deprecated) | [RFC3513](https://tools.ietf.org/html/rfc/RFC3513) |
+| `ff00::/8`      | Multicast                       | [RFC4291](https://tools.ietf.org/html/rfc/RFC4291) |
+
+## ASNs
+
+| ASN                     | Description                    | RFC                                                |
+| :---------------------- | :----------------------------- | :------------------------------------------------- |
+| `0`                     | Reserved & Non-Routed Networks | [RFC7607](https://tools.ietf.org/html/rfc/RFC7607) |
+| `23456`                 | 4-byte ASN Transition          | [RFC6793](https://tools.ietf.org/html/rfc/RFC6793) |
+| `64496-64511`           | Documentation & Sample Code    | [RFC5398](https://tools.ietf.org/html/rfc/RFC5398) |
+| `64512-65534`           | Private-Use                    | [RFC6996](https://tools.ietf.org/html/rfc/RFC6996) |
+| `65536-65551`           | Documentation & Sample Code    | [RFC5398](https://tools.ietf.org/html/rfc/RFC5398) |
+| `65535`                 | Reserved                       | [RFC7300](https://tools.ietf.org/html/rfc/RFC7300) |
+| `65552-131071`          | Reserved                       | [RFC7300](https://tools.ietf.org/html/rfc/RFC7300) |
+| `4200000000-4294967294` | Private-Use                    | [RFC6996](https://tools.ietf.org/html/rfc/RFC6996) |
+| `4294967295`            | Reserved                       | [RFC7300](https://tools.ietf.org/html/rfc/RFC7300) |

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Box, useColorMode, useTheme } from '@chakra-ui/core';
 
-const bg = { dark: 'gray.800', light: 'blackAlpha.100' };
+const bg = { dark: 'whiteAlpha.50', light: 'blackAlpha.50' };
 const color = { dark: 'white', light: 'black' };
 
 const CodeBlock = props => {
+  console.log(props);
   const { colorMode } = useColorMode();
   return (
     <Box

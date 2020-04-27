@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createContext, useContext, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { MDXProvider } from '@mdx-js/react';
-import { CSSReset, ThemeProvider } from '@chakra-ui/core';
+import { CSSReset, ThemeProvider, useDisclosure } from '@chakra-ui/core';
 import { useMediaLayout } from 'use-media';
 import MDXComponents from '../components/MDXComponents';
 import { makeTheme } from '../util';
@@ -51,9 +51,15 @@ const MediaProvider = ({ theme, children }) => {
 };
 
 const StateProvider = ({ children }) => {
-  // Create State here
+  const {
+    isOpen: joinFormOpen,
+    onOpen: joinFormOnOpen,
+    onClose: joinFormOnClose,
+  } = useDisclosure();
   const value = useMemo(() => ({
-    // reference state and setState funcs here
+    joinFormOpen,
+    joinFormOnOpen,
+    joinFormOnClose,
   }));
   return <StateContext.Provider value={value}>{children}</StateContext.Provider>;
 };

@@ -17,7 +17,7 @@ import {
   useColorMode,
 } from '@chakra-ui/core';
 import { useForm } from 'react-hook-form';
-import { useConfig } from '../components/Provider';
+import { useConfig, useGlobalState } from '../components/Provider';
 
 const btnColor = { dark: 'teal', light: 'dark' };
 
@@ -30,15 +30,16 @@ const formElement = {
   select: Select,
 };
 
-const JoinForm = ({ isOpen, onClose }) => {
+const JoinForm = () => {
   const { colorMode } = useColorMode();
   const config = useConfig();
+  const { joinFormOpen, joinFormOnClose } = useGlobalState();
   const { register, handleSubmit, errors, formState } = useForm();
   const onSubmit = data => {
     console.log(data);
   };
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={joinFormOpen} onClose={joinFormOnClose}>
       <ModalOverlay />
       <ModalContent borderRadius="md" bg={modalBg[colorMode]}>
         <form onSubmit={handleSubmit(onSubmit)}>

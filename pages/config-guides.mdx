@@ -61,3 +61,104 @@ While we don't recommend connecting router router to 48-IX via an intermediate l
 We strongly recommend using a dedicated VLAN for the path from your router to the 48-IX port.
 
 <ConnectionL2 />
+
+## Cisco IOS Configuration Examples
+
+Cisco IOS devices tend to come with _lots_ of features silently enabled which are generally unneeded, and may cause problems when connecting to an internet exchange. The following configurations may be more verbose than your typical configuration standards, but they will ensure no problematic traffic enters the IX.
+
+### Router Interface
+
+```
+interface Ethernet0/0
+   mtu 9000
+   no keepalive
+   no cdp enable
+   no mop enabled
+   no lldp receive
+   no lldp transmit
+ ! IPv4
+   no ip redirects
+   no ip proxy-arp
+   no ip directed-broadcast
+   ip address 192.0.2.40 255.255.255.0
+   !
+ ! IPv6
+   ipv6 enable
+   no ipv6 pim
+   no ipv6 mld snooping
+   ipv6 nd suppress-ra all
+   ipv6 address 2001:db8:48:1::40/64
+ !
+```
+
+### Switch Interface
+
+```
+vlan 3800
+ name 48ix
+!
+vtp mode transparent
+!
+no spanning-tree vlan 3800
+!
+interface Ethernet0/0
+  no keepalive
+  no cdp enable
+  no udld enable
+  no lldp receive
+  no lldp transmit
+  switchport nonegotiate
+  switchport mode access
+  switchport access vlan 3800
+  spanning-tree bpdufilter enable
+```
+
+<!--
+### BGP
+
+```
+router bgp 64496
+ bgp log-neighbor-changes
+ no bgp enforce-first-as
+ !
+ neighbor 48ix-ipv4 peer-group
+ neighbor 48ix-ipv4 remote-as 65000
+ neighbor 192.0.2.1 peer-group 48ix-ipv4
+ neighbor 192.0.2.2 peer-group 48ix-ipv4
+ !
+ neighbor 48ix-ipv6 peer-group
+ neighbor 48ix-ipv6 remote-as 65000
+ neighbor 2001:db8:48:1::1 peer-group 48ix-ipv6
+ neighbor 2001:db8:48:1::2 peer-group 48ix-ipv6
+!
+address-family ipv4
+ network 203.0.113.0 mask 255.255.255.0
+ neighbor 48ix-ipv4 next-hop-self
+ neighbor 48ix-ipv4 soft-reconfiguration inbound
+ neighbor 48ix-ipv4 prefix-list RS-OUT out
+ neighbor 48ix-ipv4 route-map LOCALPREF-ix in
+ neighbor 192.0.2.1 activate
+ neighbor 192.0.2.2 activate
+ no neighbor 2001:db8:48:1::1 activate
+ no neighbor 2001:db8:48:1::2 activate
+exit-address-family
+!
+address-family ipv6
+ network 2001:db8:1::/48
+ neighbor 48ix-ipv6 next-hop-self
+ neighbor 48ix-ipv6 soft-reconfiguration inbound
+ neighbor 48ix-ipv6 prefix-list RS6-OUT out
+ neighbor 48ix-ipv6 route-map LOCALPREF-ix in
+ neighbor 2001:db8:48:1::1 activate
+ neighbor 2001:db8:48:1::2 activate
+exit-address-family
+```
+-->
+
+## Juniper JunOS Configuration Examples
+
+### Global Configuration
+
+```
+set system arp aging-timer 240
+```

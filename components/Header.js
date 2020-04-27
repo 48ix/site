@@ -1,6 +1,6 @@
 import * as React from 'react';
 import NextLink from 'next/link';
-import { Box, Flex, Link, useDisclosure, useColorMode } from '@chakra-ui/core';
+import { Box, Flex, Link, useColorMode } from '@chakra-ui/core';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import JoinButton from './JoinButton';
 import MobileNav from './MobileNav';
@@ -29,7 +29,6 @@ export const BaseHeader = props => {
 
 const Header = props => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const config = useConfig();
 
   return (
@@ -50,8 +49,8 @@ const Header = props => {
           color="gray.500"
           justify="flex-end">
           <HeaderGraph />
-          <JoinButton onClick={onOpen} />
-          <JoinForm isOpen={isOpen} onClose={onClose} />
+          <JoinButton />
+          <JoinForm />
           <DarkModeToggle speed={2.5} onChange={toggleColorMode} checked={colorMode === 'dark'} />
           <MobileNav />
         </Flex>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Code, useColorMode } from '@chakra-ui/core';
 
-const color = { dark: 'red', light: 'blue' };
+const color = { dark: 'red', light: 'blackAlpha' };
 
 const InlineCode = props => {
   const { colorMode } = useColorMode();

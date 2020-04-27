@@ -46,6 +46,7 @@ const asideSections = [
       { id: 'traffic', title: 'Traffic' },
       { id: 'config-guides', title: 'Configuration Guides' },
       { id: 'route-servers', title: 'Route Servers' },
+      { id: 'bogons', title: 'Bogon Addresses' },
     ],
   },
   {

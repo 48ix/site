@@ -1,0 +1,42 @@
+import SEO from '../components/SEO';
+import Admonition from '../components/Admonition';
+import ASN from '../components/ASN';
+
+<SEO title="Route Servers" description="48-IX Router Server Information" />
+
+# Route Servers
+
+48-IX route servers run on Ubuntu Linux 18.04 LTS virtual machines, with [FRRouting](https://frrouting.org/) as the routing daemon.
+
+<Admonition
+  type="warning"
+  title="Forwarding"
+  message="Don't try to point traffic towards the 48-IX route servers — IPv4 & IPv6 forwarding are disabled."
+/>
+
+## ASN
+
+48-IX operates two route servers, which are members of AS <ASN />, which is the 48-IX Peering ASN.
+
+Each route server's peering IPv4 & IPv6 addresses are listed below:
+
+| Route Server      | IPv4 Address |       IPv6 Address |
+| :---------------- | -----------: | -----------------: |
+| rs1.phx.48-ix.net |  `192.0.2.1` | `2001:db8:48:1::1` |
+| rs2.phx.48-ix.net |  `192.0.2.2` | `2001:db8:48:1::2` |
+
+## Routing Policy
+
+48-IX automatically rejects the following BGP updates:
+
+- Routes to a [bogon](bogons.mdx) network
+- Routes with a [bogon](bogons.mdx) ASN in the `AS_PATH`
+- RPKI-invalid routes
+- Any update containing the AS number of any other 48-IX member in the `AS_PATH`
+
+48-IX performs the following actions upon receiving a valid BGP update from a member router:
+
+- Strip all BGP communities in the 48-IX namespace except those allowed for use by members
+- Apply blackhole logic if blackhole community is attached
+- Set Local Preference to `200`
+- Set informational BGP communities

@@ -16,6 +16,7 @@ const CardBody = ({ onClick = () => false, children, ...props }) => {
       onClick={onClick}
       bg={bg[colorMode]}
       color={color[colorMode]}
+      overflow="hidden"
       {...props}>
       {children}
     </Flex>

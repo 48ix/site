@@ -1,12 +1,19 @@
 import * as React from 'react';
 import { Button, useColorMode } from '@chakra-ui/core';
+import { useGlobalState } from './Provider';
 
 const btnColor = { dark: 'teal', light: 'blue' };
 
 const JoinButton = props => {
   const { colorMode } = useColorMode();
+  const { joinFormOnOpen } = useGlobalState();
   return (
-    <Button mx={8} variantColor={btnColor[colorMode]} variant="outline" {...props}>
+    <Button
+      mx={8}
+      variantColor={btnColor[colorMode]}
+      variant="outline"
+      onClick={joinFormOnOpen}
+      {...props}>
       Join 48-IX
     </Button>
   );
