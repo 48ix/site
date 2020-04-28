@@ -21,6 +21,7 @@ const Feature = ({ title, icon, children, ...props }) => {
       <Heading as="h2" size="md" fontWeight="medium" mt={6} mb={4}>
         {title}
       </Heading>
+
       <Text fontSize="sm" opacity="0.7">
         {children}
       </Text>
@@ -78,11 +79,11 @@ export default () => {
             Routing through a well-connected internet exchange drastically reduces upstream transit
             costs.
           </Feature>
-          <Feature icon={LightningBolt} title="Performance">
+          <Feature icon={LightningBolt} title="Fast">
             Reduce hops, lower latency, increase bandwidth by using more direct paths between
             networks.
           </Feature>
-          <Feature icon={IoIosGitNetwork} title="Reliability">
+          <Feature icon={IoIosGitNetwork} title="Reliable">
             Reduce reliance on upstream transit providers by peering directly.
           </Feature>
         </Grid>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 import { Box, Heading, useColorMode } from '@chakra-ui/core';
 import { ComponentLink, TopNavLink } from './NavLink';
 import { useConfig } from './Provider';
@@ -17,6 +18,7 @@ const NavGroupHeading = props => (
 );
 
 export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props }) => {
+  const { pathname } = useRouter();
   const { colorMode } = useColorMode();
   const config = useConfig();
   return (
@@ -39,7 +41,10 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
           <Box key={section.id} as="section" mb={10}>
             <NavGroupHeading color={titleColor[colorMode]}>{section.title}</NavGroupHeading>
             {section.sections.map(link => (
-              <ComponentLink key={link.id} href={link.id}>
+              <ComponentLink
+                key={link.id}
+                href={link.id}
+                isActive={pathname.replace('/', '') === link.id}>
                 {link.title}
               </ComponentLink>
             ))}
