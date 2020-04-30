@@ -3577,6 +3577,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.3.tgz#4a12ff1b60376ef09862c2093edd908328be8423"
   integrity sha512-a30VEBm4PEdx1dRB7MFK7BejejvCvBronbLjht+sHuGYj8PHs7M/5Z+rt5lw551vZ7yfTCj4Vuyy3mSJytDWRQ==
 
+hamburger-react@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/hamburger-react/-/hamburger-react-2.0.0.tgz#40c7c5a92880f472df74596b20ea2b8422d3aa82"
+  integrity sha512-n7oeWdnYVx6g1jMe939kTTVogSln2CTnRTezFcGaO3CRx6i8v5giXNvCcE5M+BtWWS/8JpqEsbMoiprW6bXkAQ==
+
 has-ansi@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-2.0.0.tgz#34f5049ce1ecdf2b0649af3ef24e45ed35416d91"

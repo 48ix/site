@@ -13,7 +13,7 @@ export const theme = {
     purple: '#8F3985',
     pink: '#F08CAE',
   },
-  fonts: { body: 'Poppins', mono: 'Roboto Mono' },
+  fonts: { body: 'Inter', mono: 'Roboto Mono' },
 };
 
 const asideLinks = [];

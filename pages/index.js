@@ -35,44 +35,42 @@ export default () => {
   return (
     <>
       <Box as="section" pt={24} pb={24}>
-        <Container>
-          <Box mx="auto" textAlign="center">
-            <Heading as="h1" size="xl" fontWeight="bold">
-              Arizona's
-              <Text as="span" color={accent[colorMode]}>
-                {' '}
-                Open Internet Exchange
-              </Text>
-            </Heading>
-
-            <Text opacity="0.7" fontSize="xl" mt={6}>
-              The network fabric where ISPs, content providers, and enterprises can interconnect in
-              a more optimized way.
+        <Container textAlign="center">
+          <Heading as="h1" size="xl">
+            <Text as="span" fontWeight="normal">{`Arizona's `}</Text>
+            <br />
+            <Text as="span" fontWeight="bold" color={accent[colorMode]}>
+              Open Internet Exchange
             </Text>
+          </Heading>
 
-            <Box mt={12}>
-              <Button size="lg" variantColor={accentVar[colorMode]} m={2} onClick={joinFormOnOpen}>
-                Join the Exchange
+          <Text opacity="0.7" fontSize="xl" mt={6}>
+            The network fabric where ISPs, content providers, and enterprises can freely
+            interconnect.
+          </Text>
+
+          <Box mt={12}>
+            <Button size="lg" variantColor={accentVar[colorMode]} m={2} onClick={joinFormOnOpen}>
+              Join the Exchange
+            </Button>
+            <NextLink href="/network" passHref>
+              <Button
+                as="a"
+                size="lg"
+                m={2}
+                leftIcon={props => <IoMdBook size="1.5em" {...props} />}>
+                Read the Docs
               </Button>
-              <NextLink href="/network" passHref>
-                <Button
-                  as="a"
-                  size="lg"
-                  m={2}
-                  leftIcon={props => <IoMdBook size="1.5em" {...props} />}>
-                  Read the Docs
-                </Button>
-              </NextLink>
-            </Box>
+            </NextLink>
           </Box>
         </Container>
       </Box>
 
       <Divider my={16} />
 
-      <Container>
+      <Container px={4}>
         <Grid
-          templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
+          templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
           gap={10}
           px={{ md: 8 }}>
           <Feature icon={FaDollarSign} title="Cost Effective">

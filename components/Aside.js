@@ -24,7 +24,7 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
   return (
     <Box
       as="aside"
-      top="4rem"
+      top={[0, 0, 16]}
       overflowY="auto"
       position="relative"
       borderRightWidth="1px"

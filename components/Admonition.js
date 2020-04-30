@@ -31,14 +31,14 @@ const AdmonitionContainer = ({ type, bg, ...props }) => (
 );
 
 const AdmonitionHeader = props => (
-  <Heading as="h3" fontWeight={600} fontSize="md" textTransform="capitalize" {...props} />
+  <Heading as="h3" fontWeight="bold" fontSize="md" textTransform="capitalize" {...props} />
 );
 
 const AdmonitionIcon = ({ type, ...props }) => <Icon size={5} name={iconMap[type]} {...props} />;
 
 const AdmonitionBody = ({ children, color, ...props }) => (
   <Box {...props}>
-    <Text fontSize="sm" fontWeight={300} color={color}>
+    <Text fontSize="sm" fontWeight="normal" color={color}>
       {children}
     </Text>
   </Box>

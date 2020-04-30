@@ -20,6 +20,7 @@
     "chroma-js": "^2.1.0",
     "emotion-theming": "^10.0.27",
     "filesize": "^6.1.0",
+    "hamburger-react": "^2.0.0",
     "next": "9.3.5",
     "next-seo": "^4.4.0",
     "react": "16.13.1",

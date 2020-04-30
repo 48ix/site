@@ -49,7 +49,12 @@ const Subscribe = props => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} maxW="50%" display="flex" flex="1 0 auto">
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      maxW={['80%', '80%', '50%']}
+      w="100%"
+      display="flex"
+      flex="1 0 auto">
       <FormControl isInvalid={errors.email} w="100%">
         <InputGroup>
           <Input

@@ -71,7 +71,7 @@ const MemberTable = () => {
   const [{ data, loading, error }, refetch] = useAxios(endpoints.members);
   error && console.dir(error);
   return (
-    <Box w="80%">
+    <Box>
       <Skeleton isLoaded={Boolean(data)}>
         {!error && !loading && data && (
           <Table

@@ -23,7 +23,7 @@ const opposingColor = (theme, color) => {
   return opposing;
 };
 
-const googleFontUrl = (fontFamily, weights = [200, 300, 600, 800]) => {
+const googleFontUrl = (fontFamily, weights = [200, 400, 500, 700]) => {
   const urlWeights = weights.join(',');
   const fontName = fontFamily.split(/, /)[0].trim().replace(/'|"/g, '');
   const urlFont = fontName.split(/ /).join('+');
@@ -152,9 +152,9 @@ const makeTheme = userTheme => ({
   fonts: importFonts(userTheme.fonts),
   fontWeights: {
     light: 200,
-    normal: 300,
-    medium: 600,
-    bold: 800,
+    normal: 400,
+    medium: 500,
+    bold: 700,
   },
 });
 

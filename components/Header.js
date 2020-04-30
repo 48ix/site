@@ -4,24 +4,26 @@ import { Box, Flex, Link, useColorMode } from '@chakra-ui/core';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import JoinButton from './JoinButton';
 import MobileNav from './MobileNav';
-import { useConfig } from './Provider';
+import { useConfig, useMedia } from './Provider';
 import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
 
 const bg = { light: 'white', dark: 'original.dark' };
 
 export const BaseHeader = props => {
+  const { colorMode } = useColorMode();
   return (
     <Box
-      pos="fixed"
-      as="header"
       top="0"
-      zIndex="4"
       left="0"
       right="0"
-      borderBottomWidth="1px"
+      zIndex="4"
+      pos="fixed"
+      as="header"
       width="full"
-      height="4rem"
+      height={[20, 20, 16]}
+      bg={bg[colorMode]}
+      borderBottomWidth="1px"
       {...props}
     />
   );
@@ -30,12 +32,13 @@ export const BaseHeader = props => {
 const Header = props => {
   const { colorMode, toggleColorMode } = useColorMode();
   const config = useConfig();
+  const { isSm, isMd, isLg, isXl } = useMedia();
 
   return (
-    <BaseHeader bg={bg[colorMode]} {...props}>
-      <Flex size="100%" px="6" align="center" justify="space-between">
+    <BaseHeader {...props}>
+      <Flex size="100%" px={6} align="center" justify="space-between">
         <Flex justify="flex-start" justify="space-between">
-          <Flex align="center" mr={5}>
+          <Flex align="center">
             <NextLink href="/" passHref>
               <Link>{config.title}</Link>
             </NextLink>
@@ -43,17 +46,23 @@ const Header = props => {
           <Flex align="center" ml={5}></Flex>
         </Flex>
         <Flex
-          flex={{ sm: '1', md: 'none' }}
-          ml={5}
           align="center"
           color="gray.500"
-          justify="flex-end">
-          <HeaderGraph />
-          <JoinButton />
-          <JoinForm />
-          <DarkModeToggle speed={2.5} onChange={toggleColorMode} checked={colorMode === 'dark'} />
-          <MobileNav />
+          justify={['space-between', 'space-between', 'flex-end']}>
+          {(isLg || isXl) && (
+            <>
+              <HeaderGraph />
+              <JoinButton />
+              <JoinForm />
+              <DarkModeToggle
+                speed={2.5}
+                onChange={toggleColorMode}
+                checked={colorMode === 'dark'}
+              />
+            </>
+          )}
         </Flex>
+        {(isSm || isMd) && <MobileNav />}
       </Flex>
     </BaseHeader>
   );

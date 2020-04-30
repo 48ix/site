@@ -10,7 +10,7 @@ const ConnectionL3 = props => {
   const lineColor = { dark: colors.whiteAlpha[300], light: colors.blackAlpha[500] };
   const crossConnectBg = { dark: colors.blue[300], light: colors.blue[500] };
   return (
-    <Box mt={8} ml={4} maxW={['90%', '60%', '60%', '60%']}>
+    <Box mt={8} ml={4} maxW={['90%', '60%', '60%', '60%']} overflowX="auto">
       <svg viewBox="180 341 388.5 111.5" {...props}>
         <g fill="none">
           <path

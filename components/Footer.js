@@ -6,13 +6,12 @@ const Footer = props => {
   return (
     <Box as="footer" pt={12} pb={4} {...props}>
       <Stack
-        isInline
+        flexDir={{ sm: 'column-reverse', md: 'column-reverse', lg: 'row', xl: 'row' }}
         fontSize="xs"
         justify="space-between"
-        align="center"
-        spacing={8}
+        alignItems="center"
         flex="1 0 100%">
-        <Flex justify="flex-start">
+        <Flex justifyItems="flex-start" my={{ sm: 6, md: 6, lg: 0, xl: 0 }}>
           <Text fontWeight="medium" opacity="0.4" whiteSpace="nowrap">
             {`Copyright © ${new Date().getFullYear()} `}
             <Text as="span">48-IX Inc.</Text>

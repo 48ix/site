@@ -54,18 +54,18 @@ const HeaderGraph = ({
   const theme = useTheme();
   const refLineColor = { dark: theme.colors.original.red, light: theme.colors.original.red };
   return (
-    <Stack isInline>
-      <StatGroup>
-        <Stat>
-          <StatLabel fontWeight="lighter" whiteSpace="pre">
+    <Stack isInline {...props} alignItems="center" justifyContent="space-around">
+      <StatGroup flexDir={['column', 'column', 'row']} alignItems={['flex-end', 'flex-end', null]}>
+        <Stat pr={[1, 1, null]} textAlign={['right', 'right', null]}>
+          <StatLabel fontWeight="light" fontSize={['xs', 'xs', null]} whiteSpace="pre">
             Current
           </StatLabel>
           <StatNumber fontSize="xs" whiteSpace="pre">
             {humanData(current)}
           </StatNumber>
         </Stat>
-        <Stat>
-          <StatLabel fontWeight="lighter" whiteSpace="pre">
+        <Stat pr={[1, 1, null]} textAlign={['right', 'right', null]}>
+          <StatLabel fontWeight="light" fontSize={['xs', 'xs', null]} whiteSpace="pre">
             Peak
           </StatLabel>
           <StatNumber fontSize="xs" whiteSpace="pre">

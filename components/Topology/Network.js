@@ -15,7 +15,7 @@ const Network = props => {
   const lineColor = { dark: colors.whiteAlpha[700], light: colors.blackAlpha[700] };
 
   return (
-    <Box>
+    <Box overflowX="auto">
       <svg viewBox="-39.35 -49.743 910.7 598.743" width={910.7} height={598.743} {...props}>
         <g fill="none">
           <path

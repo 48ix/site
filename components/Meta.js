@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useTheme } from '@chakra-ui/core';
-import { useConfig } from './components/Provider';
+import { useConfig } from './Provider';
 import { googleFontUrl } from '../util';
 
 const Meta = () => {
@@ -42,3 +42,5 @@ const Meta = () => {
 };
 
 Meta.displayName = 'Meta';
+
+export default Meta;
