@@ -2,7 +2,7 @@ import * as React from 'react';
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 import { Box, Button, Divider, Flex, Heading, Grid, Text, useColorMode } from '@chakra-ui/core';
-import { useGlobalState, useMedia } from '../components/Provider';
+import { useGlobalState, useMedia, useConfig } from '../components/Provider';
 
 const FaDollarSign = dynamic(() => import('react-icons/fa').then(i => i.FaDollarSign));
 const IoMdBook = dynamic(() => import('react-icons/io').then(i => i.IoMdBook));
@@ -37,6 +37,7 @@ export default () => {
   const { colorMode } = useColorMode();
   const { joinFormOnOpen } = useGlobalState();
   const { isSm, isMd } = useMedia();
+  const config = useConfig();
   return (
     <>
       <Box as="section" pt={24} pb={24}>
@@ -49,9 +50,8 @@ export default () => {
             </Text>
           </Heading>
 
-          <Text opacity="0.7" fontSize="xl" mt={6}>
-            The network fabric where ISPs, content providers, and enterprises can freely
-            interconnect.
+          <Text as="h2" opacity="0.7" fontSize="xl" mt={6}>
+            {config.siteDescription}
           </Text>
 
           <Box mt={12}>

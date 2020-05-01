@@ -296,8 +296,9 @@ const contributors = [
 
 export default {
   title: '48-IX',
-  siteName: '48-IX Internet Exchange',
-  siteDescription: "Arizona's Open Internet Exchange",
+  siteName: "48-IX | Arizona's Open Internet Exchange",
+  siteDescription:
+    'The network fabric where ISPs, content providers, and enterprises can freely interconnect.',
   siteKeywords: keywordsGlobal,
   orgName: '48-IX Inc.',
   url: 'https://48ix.net',
