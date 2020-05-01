@@ -23,7 +23,7 @@ const Main = ({ Component, pageProps }) => {
     setLocation(window.location);
 
     const WebFont = require('webfontloader');
-    WebFont.load({ google: { families: ['Inter:200,400,500,700', 'Fira Code'] } });
+    WebFont.load({ google: { families: ['Inter:200,400,500,700', 'Fira Code&display=swap'] } });
   });
   return (
     <>

@@ -66,6 +66,7 @@ const Subscribe = props => {
             name="email"
             ref={register({ validate: validateEmail })}
             placeholder="Subscribe to our mailing list"
+            aria-label="Subscribe"
             {...props}
           />
           <InputRightElement>

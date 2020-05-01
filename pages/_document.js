@@ -18,7 +18,8 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="preload" href="https://www.google-analytics.com" />
+          <link rel="preconnect" href="https://www.google-analytics.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
         </Head>
         <Body>
           <Main />
