@@ -1,11 +1,14 @@
 import * as React from 'react';
+import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 import { Box, Button, Divider, Flex, Heading, Grid, Text, useColorMode } from '@chakra-ui/core';
-import { FaDollarSign } from 'react-icons/fa';
-import LightningBolt from '../components/Icons/LightningBolt';
-import { IoMdBook, IoIosGitNetwork } from 'react-icons/io';
 import { useGlobalState, useMedia } from '../components/Provider';
-import JoinForm from '../components/JoinForm';
+
+const FaDollarSign = dynamic(() => import('react-icons/fa').then(i => i.FaDollarSign));
+const IoMdBook = dynamic(() => import('react-icons/io').then(i => i.IoMdBook));
+const IoIosGitNetwork = dynamic(() => import('react-icons/io').then(i => i.IoIosGitNetwork));
+const LightningBolt = dynamic(() => import('../components/Icons/LightningBolt'));
+const JoinForm = dynamic(() => import('../components/JoinForm'));
 
 const accent = { dark: 'teal.500', light: 'blue.500' };
 const accentVar = { dark: 'teal', light: 'blue' };

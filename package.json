@@ -34,7 +34,8 @@
     "react-use": "^14.2.0",
     "remark-admonitions": "^1.2.1",
     "remark-autolink-headings": "^6.0.0",
-    "use-media": "^1.4.0"
+    "use-media": "^1.4.0",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@upstatement/eslint-config": "^0.4.3",

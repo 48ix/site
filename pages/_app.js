@@ -21,6 +21,9 @@ const Main = ({ Component, pageProps }) => {
   const pageKeywords = pageConfig.keywords ?? siteConfig.siteKeywords;
   useEffect(() => {
     setLocation(window.location);
+
+    const WebFont = require('webfontloader');
+    WebFont.load({ google: { families: ['Inter:200,400,500,700', 'Fira Code'] } });
   });
   return (
     <>

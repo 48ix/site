@@ -1,9 +1,11 @@
 import * as React from 'react';
+import dynamic from 'next/dynamic';
 import { Box, useColorMode, useTheme } from '@chakra-ui/core';
-import Aside from './Aside';
-import Header from './Header';
-import Footer from './Footer';
 import { useMedia } from './Provider';
+
+const Aside = dynamic(() => import('./Aside'));
+const Header = dynamic(() => import('./Header'));
+const Footer = dynamic(() => import('./Footer'));
 
 const bg = { dark: 'original.dark', light: 'white' };
 const borderColor = { dark: 'dark.300', light: 'blue.500' };

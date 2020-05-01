@@ -55,7 +55,10 @@ const HeaderGraph = ({
   const refLineColor = { dark: theme.colors.original.red, light: theme.colors.original.red };
   return (
     <Stack isInline {...props} alignItems="center" justifyContent="space-around">
-      <StatGroup flexDir={['column', 'column', 'row']} alignItems={['flex-end', 'flex-end', null]}>
+      <StatGroup
+        flexDir={['column', 'column', 'row']}
+        alignItems={['flex-end', 'flex-end', null]}
+        color={lineColor[colorMode]}>
         <Stat pr={[1, 1, null]} textAlign={['right', 'right', null]}>
           <StatLabel fontWeight="light" fontSize={['xs', 'xs', null]} whiteSpace="pre">
             Current

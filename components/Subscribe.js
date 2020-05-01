@@ -75,6 +75,7 @@ const Subscribe = props => {
               variantColor={btnColor}
               transition="0.5s ease"
               icon={btnColor === 'green' ? FaCheckCircle : FaArrowAltCircleRight}
+              aria-label="Subscribe"
             />
           </InputRightElement>
         </InputGroup>
