@@ -27,10 +27,8 @@ const Main = ({ children, ...props }) => (
 
 const Layout = ({ children }) => {
   const theme = useTheme();
-  console.dir(theme);
   const { colorMode } = useColorMode();
-  const { isLg, isXl, mediaSize } = useMedia();
-  console.log(`%c${mediaSize}`, 'color:yellow; font-size:20px');
+  const { isLg, isXl } = useMedia();
   return (
     <SiteContainer>
       <Header borderColor={borderColor[colorMode]} />
@@ -39,8 +37,6 @@ const Layout = ({ children }) => {
         <Box
           pr={{ _: 2, lg: 0, xl: 0 }}
           pl={{ _: 2, lg: '18rem', xl: '18rem' }}
-          // pr={[2, 2, 32, '18rem']}
-          // pl={[2, 2, 32, '18rem']}
           mt={[20, 20, 16, 16]}
           minH="70vh">
           {children}

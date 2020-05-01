@@ -72,7 +72,7 @@ const MemberTable = () => {
   error && console.dir(error);
   return (
     <Box>
-      <Skeleton isLoaded={Boolean(data)}>
+      <Skeleton isLoaded={!loading}>
         {!error && !loading && data && (
           <Table
             bordersHorizontal

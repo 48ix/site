@@ -30,15 +30,15 @@ All 48-IX Exchange ports are configured with an MTU of `9216` bytes. It is recom
 
 ## Physical Connection
 
-[48-IX policy dictates](interfaces.mdx) that only one MAC address is allowed behind a member port. This means that you'll need to be extremely careful when connecting a device that can act as a L2 device. Instabilities in a layer 2 network outside of our control can and typically do have a significant impact on the exchange as a whole. Bridging loops and spanning tree topology changes are good examples of this.
+[48-IX policy dictates](interfaces.mdx) that up to two MAC addresses are allowed behind a member port. This means that you'll need to be extremely careful when connecting a device that can act as a L2 device. Instabilities in a layer 2 network outside of our control can and typically do have a significant impact on the exchange as a whole. Bridging loops and spanning tree topology changes are good examples of this.
 
-An intermediate L2 device may only bridge frames from the member's router to the 48-IX port, so that we see only one MAC address, and should otherwise be completely invisible. No connected device should bridge frames from other devices onto the 48-IX network, or send STP traffic on its 48-IX port.
+An intermediate L2 device may only bridge frames from the member's router(s) to the 48-IX port, and should otherwise be completely invisible. No connected device should bridge frames from other devices onto the 48-IX network, or send STP traffic on its 48-IX port.
 
 ### Connecting a Layer 3 Device
 
 The most preferred way to connect to 48-IX is to directly connect a layer 3 device (router) to your cross connect. This nearly automatically ensures:
 
-- Only a single MAC address is learned on the port (matching [our interface policy](interfaces.mdx))
+- Eliminates any risk associated with bridging two layer 2 domains
 - No STP traffic ingresses the port, removing any filtering overhead from the switch fabric
 - Easier troubleshooting in the event of connectivity or traffic flow issues
 

@@ -4,7 +4,8 @@ import { Box, Button, Divider, Flex, Heading, Grid, Text, useColorMode } from '@
 import { FaDollarSign } from 'react-icons/fa';
 import LightningBolt from '../components/Icons/LightningBolt';
 import { IoMdBook, IoIosGitNetwork } from 'react-icons/io';
-import { useGlobalState } from '../components/Provider';
+import { useGlobalState, useMedia } from '../components/Provider';
+import JoinForm from '../components/JoinForm';
 
 const accent = { dark: 'teal.500', light: 'blue.500' };
 const accentVar = { dark: 'teal', light: 'blue' };
@@ -32,6 +33,7 @@ const Feature = ({ title, icon, children, ...props }) => {
 export default () => {
   const { colorMode } = useColorMode();
   const { joinFormOnOpen } = useGlobalState();
+  const { isSm, isMd } = useMedia();
   return (
     <>
       <Box as="section" pt={24} pb={24}>
@@ -88,6 +90,7 @@ export default () => {
       </Container>
 
       <Divider my={16} />
+      {(isSm || isMd) && <JoinForm />}
     </>
   );
 };
