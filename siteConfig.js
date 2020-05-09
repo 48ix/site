@@ -266,7 +266,7 @@ const joinForm = {
 };
 
 const endpoints = {
-  members: 'https://webhook.site/289773ff-6d22-4dec-bc51-db0c0c649acb',
+  members: 'https://square-frost-ee00.48ix.workers.dev',
   subscribe: 'https://webhook.site/289773ff-6d22-4dec-bc51-db0c0c649acb',
 };
 
