@@ -41,6 +41,14 @@ const Table = ({
     [],
   );
 
+  let hiddenColumns = [];
+
+  tableColumns.map(col => {
+    if (col.hidden === true) {
+      hiddenColumns.push(col.accessor);
+    }
+  });
+
   const {
     getTableProps,
     headerGroups,
@@ -60,7 +68,7 @@ const Table = ({
       columns: tableColumns,
       defaultColumn,
       data,
-      initialState: { pageIndex: 0, pageSize: initialPageSize },
+      initialState: { pageIndex: 0, pageSize: initialPageSize, hiddenColumns: hiddenColumns },
     },
     useSortBy,
     usePagination,

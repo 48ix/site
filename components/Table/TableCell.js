@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, useColorMode } from '@chakra-ui/core';
+import { PseudoBox, useColorMode } from '@chakra-ui/core';
 
 // export const TableCell = styled("div")`
 //     ${space};
@@ -26,10 +26,12 @@ const TableCell = ({ bordersVertical = [false, 0, 0], align, cell, children, ...
   if (doVerticalBorders && index !== 0) {
     borderProps = cellBorder[colorMode];
   }
+
   return (
-    <Box
+    <PseudoBox
       as="td"
-      p={4}
+      py={2}
+      px={3}
       m={0}
       w="1%"
       whiteSpace="nowrap"
@@ -37,7 +39,7 @@ const TableCell = ({ bordersVertical = [false, 0, 0], align, cell, children, ...
       {...borderProps}
       {...props}>
       {children}
-    </Box>
+    </PseudoBox>
   );
 };
 

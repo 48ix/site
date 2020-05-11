@@ -11,7 +11,7 @@ const JoinButton = props => {
     <Button
       mx={8}
       variantColor={btnColor[colorMode]}
-      variant="outline"
+      variant="solid"
       onClick={joinFormOnOpen}
       {...props}>
       Join 48-IX

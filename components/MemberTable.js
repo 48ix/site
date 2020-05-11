@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {
   Box,
   Button,
+  Flex,
   Alert,
   AlertIcon,
   AlertTitle,
@@ -10,16 +11,74 @@ import {
   Skeleton,
   Text,
   Icon,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Stack,
+  PseudoBox,
+  Tag,
   useColorMode,
   useClipboard,
+  useDisclosure,
 } from '@chakra-ui/core';
 import { IoIosRefresh } from 'react-icons/io';
 import useAxios from 'axios-hooks';
 import Table from './Table';
+import Graph from './Graphs/Graph';
+import LittleGraph from './Graphs/LittleGraph';
 import { useConfig } from './Provider';
 
 const asnColor = { dark: 'teal.300', light: 'red.500' };
 const copiedColor = { dark: 'green.300', light: 'green.600' };
+const modalBg = { dark: 'original.dark', light: 'white' };
+
+const PortGraph = ({ v, rowData, ...props }) => {
+  const { colorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <>
+      <Button onClick={onOpen} variant="link" textDecoration="none">
+        <LittleGraph circuitId={props.v} />
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent maxWidth={['100%', '100%', '75%', '75%']} bg={modalBg[colorMode]}>
+          <ModalCloseButton />
+          <ModalBody p={8}>
+            <Box mb={6}>
+              <Text as="h3" fontSize="xl" fontWeight="bold">
+                {rowData.name}
+              </Text>
+              <Text fontSize="sm" opacity={0.6}>{`AS${rowData.asn}`}</Text>
+            </Box>
+            <Graph circuitId={props.v} />
+            <Flex p={0} my={4} justify={['center', 'center', 'flex-end', 'flex-end']}>
+              <Stack
+                isInline
+                flexWrap="wrap"
+                align="center"
+                mt={4}
+                flexWrap="wrap"
+                justify={['center', 'center', null, null]}>
+                <Tag size="sm" fontFamily="mono" fontWeight="medium" mx={[1, 2, 2, 2]} my={2}>
+                  {rowData.ipv4}
+                </Tag>
+                <Tag size="sm" fontFamily="mono" fontWeight="medium" mx={[1, 2, 2, 2]} my={2}>
+                  {rowData.ipv6}
+                </Tag>
+                <Tag size="sm" mx={[1, 2, 2, 2]} my={2}>{`${rowData.port_speed} Gbps`}</Tag>
+              </Stack>
+            </Flex>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
 
 const MonoField = props => {
   const [value] = useState(props.v);
@@ -27,7 +86,7 @@ const MonoField = props => {
   const { colorMode } = useColorMode();
   return (
     <>
-      <Text onClick={onCopy} {...props}>
+      <PseudoBox as={Text} _hover={{ cursor: 'pointer' }} onClick={onCopy} {...props}>
         {hasCopied ? (
           <Box
             ml={2}
@@ -35,7 +94,7 @@ const MonoField = props => {
             opacity={hasCopied ? '1' : '0'}
             transition="opacity .25s ease-in-out">
             <Icon name="check" color="green" />
-            <Text ml={1} as="span" fontSize="sm">
+            <Text ml={1} as="span" fontSize="sm" _hover={{ cursor: 'pointer' }}>
               Copied
             </Text>
           </Box>
@@ -48,12 +107,13 @@ const MonoField = props => {
             {props.v}
           </Text>
         )}
-      </Text>
+      </PseudoBox>
     </>
   );
 };
 
 const Cell = ({ data }) => {
+  const rowData = data.rowsById[data.row.id].original;
   const { colorMode } = useColorMode();
   const component = {
     name: <Text>{data.value}</Text>,
@@ -61,6 +121,7 @@ const Cell = ({ data }) => {
     port_speed: <Text>{`${data.value} Gbps`}</Text>,
     ipv4: <MonoField v={data.value} />,
     ipv6: <MonoField v={data.value} />,
+    circuit_id: <PortGraph v={data.value} rowData={rowData} />,
   };
   return component[data.column.id];
 };

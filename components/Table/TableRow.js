@@ -43,7 +43,6 @@ const TableRow = ({
     <PseudoBox
       as="tr"
       _hover={{
-        cursor: 'pointer',
         backgroundColor: highlight
           ? `${highlightBg}.${alphaMapHover[colorMode]}`
           : hoverBg[colorMode],

@@ -9,7 +9,8 @@ import {
   useTheme,
   useColorMode,
 } from '@chakra-ui/core';
-import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
+// import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
+import LittleGraph from './Graphs/LittleGraph';
 import filesize from 'filesize';
 
 const lineColor = { dark: 'white', light: 'gray' };
@@ -53,6 +54,8 @@ const HeaderGraph = ({
   const { colorMode } = useColorMode();
   const theme = useTheme();
   const refLineColor = { dark: theme.colors.original.red, light: theme.colors.original.red };
+  const topColor = { dark: theme.colors.whiteAlpha[800], light: theme.colors.blackAlpha[800] };
+  const bottomColor = { dark: theme.colors.whiteAlpha[600], light: theme.colors.blackAlpha[600] };
   return (
     <Stack isInline {...props} alignItems="center" justifyContent="space-around">
       <StatGroup
@@ -77,16 +80,13 @@ const HeaderGraph = ({
         </Stat>
       </StatGroup>
       <Flex>
-        <Sparklines data={data} svgHeight={40} margin={5} {...props}>
-          <SparklinesLine color={lineColor[colorMode]} style={{ fill: 'none' }} />
-          <SparklinesReferenceLine
-            value={average}
-            style={{
-              stroke: refLineColor[colorMode],
-              strokeDasharray: '2,2',
-            }}
-          />
-        </Sparklines>
+        <LittleGraph
+          circuitId="1.84047.19322.5026"
+          yRef
+          refColor={refLineColor}
+          topColor={topColor}
+          bottomColor={bottomColor}
+        />
       </Flex>
     </Stack>
   );
