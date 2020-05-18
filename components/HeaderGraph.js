@@ -9,34 +9,13 @@ import {
   useTheme,
   useColorMode,
 } from '@chakra-ui/core';
-// import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
 import LittleGraph from './Graphs/LittleGraph';
 import filesize from 'filesize';
 
 const lineColor = { dark: 'white', light: 'gray' };
 
-const exampleData = [
-  100000000, // 100M
-  50000000, // 50M
-  300000000, // 300M
-  100000000, // 100M
-  120000000, // 120M
-  80000000, // 80M
-  80000000, // 60M
-  40000000, // 40M
-  100000000, // 100M
-  300000000, // 300M
-  600000000, // 600M
-  1000000000, // 1G
-  500000000, // 500M
-  600000000, // 600M
-  800000000, // 800M
-  1000000000, // 1G
-  150000000, // 1.5G
-];
 const exampleCurrent = 200000000; // 200M
 const examplePeak = 2000000000; // 2G
-const exampleAvg = 120000000; // 120M
 
 const humanData = data => {
   data = data / 8;
@@ -44,18 +23,12 @@ const humanData = data => {
   return `${dataStr}ps`;
 };
 
-const HeaderGraph = ({
-  data = exampleData,
-  current = exampleCurrent,
-  peak = examplePeak,
-  average = exampleAvg,
-  ...props
-}) => {
+const HeaderGraph = ({ current = exampleCurrent, peak = examplePeak, ...props }) => {
   const { colorMode } = useColorMode();
   const theme = useTheme();
   const refLineColor = { dark: theme.colors.original.red, light: theme.colors.original.red };
-  const topColor = { dark: theme.colors.whiteAlpha[800], light: theme.colors.blackAlpha[800] };
-  const bottomColor = { dark: theme.colors.whiteAlpha[600], light: theme.colors.blackAlpha[600] };
+  const topColor = { dark: theme.colors.teal[300], light: theme.colors.blue[500] };
+  const bottomColor = { dark: theme.colors.teal[700], light: theme.colors.blue[200] };
   return (
     <Stack isInline {...props} alignItems="center" justifyContent="space-around">
       <StatGroup

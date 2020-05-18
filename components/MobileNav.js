@@ -10,6 +10,7 @@ import {
   DrawerContent,
   Flex,
   useColorMode,
+  useTheme,
 } from '@chakra-ui/core';
 import { Sling as Hamburger } from 'hamburger-react';
 import DarkModeToggle from 'react-dark-mode-toggle';
@@ -17,8 +18,6 @@ import { AsideContent } from './Aside';
 import JoinButton from './JoinButton';
 import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
-
-const burgerColor = { dark: 'white', light: 'black' };
 
 const useRouteChanged = callback => {
   const router = useRouter();
@@ -38,6 +37,8 @@ const useRouteChanged = callback => {
 const MobileNav = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+  const theme = useTheme();
+  const burgerColor = { dark: theme.colors.dark[300], light: theme.colors.blue[500] };
   useRouteChanged(onClose);
 
   return (

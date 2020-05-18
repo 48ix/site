@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { Box, Flex, Link, useColorMode } from '@chakra-ui/core';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import JoinButton from './JoinButton';
@@ -7,6 +9,7 @@ import MobileNav from './MobileNav';
 import { useConfig, useMedia } from './Provider';
 import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
+import { StateOutline } from './Logo';
 
 const bg = { light: 'white', dark: 'original.dark' };
 
@@ -33,15 +36,27 @@ const Header = props => {
   const { colorMode, toggleColorMode } = useColorMode();
   const config = useConfig();
   const { isSm, isMd, isLg, isXl } = useMedia();
-
+  const { pathname } = useRouter();
+  const [showHeader, setShowHeader] = useState(true);
+  useEffect(() => {
+    if (isSm || isMd) {
+      if (pathname === '/' && showHeader === true) {
+        setShowHeader(false);
+      }
+    }
+  }, [isSm, isMd, pathname]);
   return (
     <BaseHeader {...props}>
       <Flex size="100%" px={6} align="center" justify="space-between">
         <Flex justify="flex-start" justify="space-between">
           <Flex align="center">
-            <NextLink href="/" passHref>
-              <Link>{config.title}</Link>
-            </NextLink>
+            {showHeader && (
+              <NextLink href="/" passHref>
+                <Link>
+                  <StateOutline strokeWidth={30} size={48} />
+                </Link>
+              </NextLink>
+            )}
           </Flex>
           <Flex align="center" ml={5}></Flex>
         </Flex>
