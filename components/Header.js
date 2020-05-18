@@ -6,7 +6,7 @@ import { Box, Flex, Link, useColorMode } from '@chakra-ui/core';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import JoinButton from './JoinButton';
 import MobileNav from './MobileNav';
-import { useConfig, useMedia } from './Provider';
+import { useMedia } from './Provider';
 import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
 import { StateOutline } from './Logo';
@@ -34,7 +34,6 @@ export const BaseHeader = props => {
 
 const Header = props => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const config = useConfig();
   const { isSm, isMd, isLg, isXl } = useMedia();
   const { pathname } = useRouter();
   const [showHeader, setShowHeader] = useState(true);
@@ -52,7 +51,7 @@ const Header = props => {
           <Flex align="center">
             {showHeader && (
               <NextLink href="/" passHref>
-                <Link alt="Home">
+                <Link aria-label="Home">
                   <StateOutline strokeWidth={30} size={48} />
                 </Link>
               </NextLink>

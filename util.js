@@ -1,6 +1,21 @@
 import chroma from 'chroma-js';
 import { theme as chakraTheme } from '@chakra-ui/core';
 
+const idCounter = {};
+
+const uniqueId = prefix => {
+  if (!idCounter[prefix]) {
+    idCounter[prefix] = 0;
+  }
+
+  const id = ++idCounter[prefix];
+  if (prefix === undefined) {
+    return `${id}`;
+  }
+
+  return `${prefix}${id}`;
+};
+
 const isDark = color => {
   // YIQ equation from http://24ways.org/2010/calculating-color-contrast
   const rgb = chroma(color).rgb();
@@ -158,4 +173,4 @@ const makeTheme = userTheme => ({
   },
 });
 
-export { isDark, isLight, opposingColor, googleFontUrl, makeTheme };
+export { isDark, isLight, opposingColor, googleFontUrl, makeTheme, uniqueId };

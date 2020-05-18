@@ -1,21 +1,24 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Box, useColorMode, useTheme } from '@chakra-ui/core';
 import { motion } from 'framer-motion';
+import { uniqueId } from '../../util';
 
 const StateOutline = ({ size = 128, strokeWidth = 10, ...props }) => {
   const { colorMode } = useColorMode();
   const theme = useTheme();
   const strokeColor = { dark: theme.colors.teal[300], light: theme.colors.blue[500] };
   const ixColor = { dark: theme.colors.red[400], light: theme.colors.gray[800] };
+  const [id] = useState(uniqueId('logo_'));
   return (
     <Box m={4} {...props}>
       <motion.svg viewBox="0 0 616.25 439.22" width={size} {...props}>
         <defs>
-          <clipPath id="logo_stateoutline">
+          <clipPath id={id}>
             <path fill="none" d="M0 0h628v438H0z" />
           </clipPath>
         </defs>
-        <g clipPath="url(#logo_stateoutline)">
+        <g clipPath={`url(#${id})`}>
           <motion.path
             fill="none"
             stroke={strokeColor[colorMode]}
