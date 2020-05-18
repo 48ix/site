@@ -12,9 +12,10 @@ const JoinButton = props => {
       mx={8}
       variantColor={btnColor[colorMode]}
       variant="solid"
+      aria-label="Join 48 IX"
       onClick={joinFormOnOpen}
       {...props}>
-      Join 48-IX
+      Join 48 IX
     </Button>
   );
 };

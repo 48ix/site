@@ -11,11 +11,11 @@ const StateOutline = ({ size = 128, strokeWidth = 10, ...props }) => {
     <Box m={4} {...props}>
       <motion.svg viewBox="0 0 616.25 439.22" width={size} {...props}>
         <defs>
-          <clipPath id="prefix__a">
+          <clipPath id="logo_stateoutline">
             <path fill="none" d="M0 0h628v438H0z" />
           </clipPath>
         </defs>
-        <g clipPath="url(#prefix__a)">
+        <g clipPath="url(#logo_stateoutline)">
           <motion.path
             fill="none"
             stroke={strokeColor[colorMode]}

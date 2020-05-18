@@ -1,5 +1,6 @@
 import * as React from 'react';
 import dynamic from 'next/dynamic';
+import NextHead from 'next/head';
 import { Box, useColorMode, useTheme } from '@chakra-ui/core';
 import { useMedia } from './Provider';
 
@@ -32,20 +33,26 @@ const Layout = ({ children }) => {
   const { colorMode } = useColorMode();
   const { isLg, isXl } = useMedia();
   return (
-    <SiteContainer>
-      <Header borderColor={borderColor[colorMode]} />
-      {(isLg || isXl) && <Aside borderColor={borderColor[colorMode]} />}
-      <Main>
-        <Box
-          pr={{ _: 2, lg: 0, xl: 0 }}
-          pl={{ _: 2, lg: '18rem', xl: '18rem' }}
-          mt={[20, 20, 16, 16]}
-          minH="70vh">
-          {children}
-        </Box>
-        <Footer pl={{ sm: 0, md: 0, lg: '18rem', xl: '18rem' }} mt={16} />
-      </Main>
-    </SiteContainer>
+    <>
+      <NextHead>
+        <link rel="icon" type="image/png" sizes="32x32" href={`/favicon-${colorMode}-32x32.png`} />
+        <link rel="icon" type="image/png" sizes="32x32" href={`/favicon-${colorMode}-16x16.png`} />
+      </NextHead>
+      <SiteContainer>
+        <Header borderColor={borderColor[colorMode]} />
+        {(isLg || isXl) && <Aside borderColor={borderColor[colorMode]} />}
+        <Main>
+          <Box
+            pr={{ _: 2, lg: 0, xl: 0 }}
+            pl={{ _: 2, lg: '18rem', xl: '18rem' }}
+            mt={[20, 20, 16, 16]}
+            minH="70vh">
+            {children}
+          </Box>
+          <Footer pl={{ sm: 0, md: 0, lg: '18rem', xl: '18rem' }} mt={16} />
+        </Main>
+      </SiteContainer>
+    </>
   );
 };
 

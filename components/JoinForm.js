@@ -75,6 +75,7 @@ const JoinForm = () => {
           <ModalFooter>
             <Button
               type="submit"
+              aria-label={config.joinForm.buttonText}
               variantColor={btnColor[colorMode]}
               isLoading={formState.isSubmitting}>
               {config.joinForm.buttonText}

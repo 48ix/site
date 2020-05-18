@@ -29,7 +29,7 @@ const asideSections = [
       {
         id: 'contributors',
         title: 'Contributors',
-        description: '48-IX Contributors',
+        description: '48 IX Contributors',
         keywords: [
           'donate',
           'donations',
@@ -44,7 +44,7 @@ const asideSections = [
       {
         id: 'governance',
         title: 'Governance',
-        description: '48-IX Governance & Leadership',
+        description: '48 IX Governance & Leadership',
         keywords: [
           'governance',
           'board',
@@ -64,19 +64,19 @@ const asideSections = [
       {
         id: 'network',
         title: 'Network',
-        description: '48-IX Network Locations & Architecture',
+        description: '48 IX Network Locations & Architecture',
         keywords: ['network', 'architecture', 'topology', 'locations', 'design', ...keywordsGlobal],
       },
       {
         id: 'members',
         title: 'Members',
-        description: '48-IX Members',
+        description: '48 IX Members',
         keywords: ['members', 'participants', 'networks', 'asns', ...keywordsGlobal],
       },
       {
         id: 'communication',
         title: 'Communication',
-        description: '48-IX Communication Policy',
+        description: '48 IX Communication Policy',
         keywords: [
           'communication',
           'email',
@@ -91,7 +91,7 @@ const asideSections = [
       {
         id: 'fees',
         title: 'Fees',
-        description: '48-IX Fee Scheduled',
+        description: '48 IX Fee Scheduled',
         keywords: ['fees', 'cost', 'fee', 'annual', 'monthly', 'free', ...keywordsGlobal],
       },
     ],
@@ -103,7 +103,7 @@ const asideSections = [
       {
         id: 'interfaces',
         title: 'Interface Specifications',
-        description: '48-IX Documentation - Interfaces',
+        description: '48 IX Documentation - Interfaces',
         keywords: [
           'port',
           'ports',
@@ -119,7 +119,7 @@ const asideSections = [
       {
         id: 'traffic',
         title: 'Traffic',
-        description: '48-IX Documentation - Traffic',
+        description: '48 IX Documentation - Traffic',
         keywords: [
           'traffic',
           'allowed',
@@ -138,7 +138,7 @@ const asideSections = [
       {
         id: 'config-guides',
         title: 'Configuration Guides',
-        description: '48-IX Documentation - Configuration Guides',
+        description: '48 IX Documentation - Configuration Guides',
         keywords: [
           'example',
           'configuration',
@@ -154,7 +154,7 @@ const asideSections = [
       {
         id: 'route-servers',
         title: 'Route Servers',
-        description: '48-IX Documentation - Route Servers',
+        description: '48 IX Documentation - Route Servers',
         keywords: [
           'route server',
           'rs',
@@ -170,7 +170,7 @@ const asideSections = [
       {
         id: 'bogons',
         title: 'Bogon Addresses',
-        description: '48-IX Documentation - Bogons & Martians',
+        description: '48 IX Documentation - Bogons & Martians',
         keywords: [
           'bogons',
           'allowed',
@@ -192,19 +192,19 @@ const asideSections = [
       {
         id: 'connection-agreement',
         title: 'Connection Agreement',
-        description: '48-IX Connection Agreement',
+        description: '48 IX Connection Agreement',
         keywords: ['legal', 'msa', 'agreement', 'paperwork', ...keywordsGlobal],
       },
       {
         id: 'sla',
         title: 'Service Level Agreement',
-        description: '48-IX Service Level Agreement',
+        description: '48 IX Service Level Agreement',
         keywords: ['sla', 'uptime', 'guarantee', 'service level agreement', ...keywordsGlobal],
       },
       {
         id: 'maintenance',
         title: 'Maintenance',
-        description: '48-IX Maintenance Policy',
+        description: '48 IX Maintenance Policy',
         keywords: [
           'maintenance',
           'outage',
@@ -295,12 +295,12 @@ const contributors = [
 ];
 
 export default {
-  title: '48-IX',
-  siteName: "48-IX | Arizona's Open Internet Exchange",
+  title: '48 IX',
+  siteName: "48 IX | Arizona's Open Internet Exchange",
   siteDescription:
     'The network fabric where ISPs, content providers, and enterprises can freely interconnect.',
   siteKeywords: keywordsGlobal,
-  orgName: '48-IX Inc.',
+  orgName: '48 IX, Inc.',
   url: 'https://48ix.net',
   address: {
     streetAddress: '3011 S 52nd St',

@@ -1,9 +1,6 @@
-import SEO from '../components/SEO';
 import Admonition from '../components/Admonition';
 import ConnectionL2 from '../components/Topology/ConnectionL2';
 import ConnectionL3 from '../components/Topology/ConnectionL3';
-
-<SEO title="Governance" description="48-IX Governance & Leadership" />
 
 # Configuration Guides
 
@@ -19,24 +16,24 @@ We recommend setting the ARP cache timeout to at least two hours, preferably fou
 
 ### Peering Network Prefix
 
-The 48-IX Peering Network Prefix ( NEED PREFIX ) is part of ( NEED ASN ), and should **not** be globally routable. As such, the following guidelines should be followed when configuring your equipment:
+The 48 IX Peering Network Prefix ( NEED PREFIX ) is part of ( NEED ASN ), and should **not** be globally routable. As such, the following guidelines should be followed when configuring your equipment:
 
 - Do not configure `network < NEED PREFIX >` (or similar) in your router's BGP configuration.
 - Do not redistribute the route, a supernet, or a more specific prefix outside of your AS. We ( NEED PREFIX ) announce it with a `no-export` community — please honor it.
 
 ### MTU
 
-All 48-IX Exchange ports are configured with an MTU of `9216` bytes. It is recommended that member ports be configured with an MTU of `9000`, leaving enough overhead for future protocols which may be used by the exchange.
+All 48 IX Exchange ports are configured with an MTU of `9216` bytes. It is recommended that member ports be configured with an MTU of `9000`, leaving enough overhead for future protocols which may be used by the exchange.
 
 ## Physical Connection
 
-[48-IX policy dictates](interfaces.mdx) that up to two MAC addresses are allowed behind a member port. This means that you'll need to be extremely careful when connecting a device that can act as a L2 device. Instabilities in a layer 2 network outside of our control can and typically do have a significant impact on the exchange as a whole. Bridging loops and spanning tree topology changes are good examples of this.
+[48 IX policy dictates](interfaces.mdx) that up to two MAC addresses are allowed behind a member port. This means that you'll need to be extremely careful when connecting a device that can act as a L2 device. Instabilities in a layer 2 network outside of our control can and typically do have a significant impact on the exchange as a whole. Bridging loops and spanning tree topology changes are good examples of this.
 
-An intermediate L2 device may only bridge frames from the member's router(s) to the 48-IX port, and should otherwise be completely invisible. No connected device should bridge frames from other devices onto the 48-IX network, or send STP traffic on its 48-IX port.
+An intermediate L2 device may only bridge frames from the member's router(s) to the 48 IX port, and should otherwise be completely invisible. No connected device should bridge frames from other devices onto the 48 IX network, or send STP traffic on its 48 IX port.
 
 ### Connecting a Layer 3 Device
 
-The most preferred way to connect to 48-IX is to directly connect a layer 3 device (router) to your cross connect. This nearly automatically ensures:
+The most preferred way to connect to 48 IX is to directly connect a layer 3 device (router) to your cross connect. This nearly automatically ensures:
 
 - Eliminates any risk associated with bridging two layer 2 domains
 - No STP traffic ingresses the port, removing any filtering overhead from the switch fabric
@@ -46,19 +43,19 @@ The most preferred way to connect to 48-IX is to directly connect a layer 3 devi
 
 ### Connecting a Layer 2 Device
 
-While we don't recommend connecting router router to 48-IX via an intermediate layer 2 device, keep the following mind should you choose to do so:
+While we don't recommend connecting router router to 48 IX via an intermediate layer 2 device, keep the following mind should you choose to do so:
 
-- You must guarantee that only traffic to/from your router's IX interface goes to/from the 48-IX port
+- You must guarantee that only traffic to/from your router's IX interface goes to/from the 48 IX port
 - IGMP/MLD snooping on the intermediate switch may block legitimate ICMPv6 neighbor solicitations
-- You must disable spanning tree on your port facing 48-IX.
+- You must disable spanning tree on your port facing 48 IX.
 
 <Admonition
   type="critical"
   title="Spanning Tree"
-  message="48-IX ports are configured with Spanning-Tree BPDU Guard/Protection, which means a port will be immediately shut down if STP frames are received on the port."
+  message="48 IX ports are configured with Spanning-Tree BPDU Guard/Protection, which means a port will be immediately shut down if STP frames are received on the port."
 />
 
-We strongly recommend using a dedicated VLAN for the path from your router to the 48-IX port.
+We strongly recommend using a dedicated VLAN for the path from your router to the 48 IX port.
 
 <ConnectionL2 />
 

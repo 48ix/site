@@ -9,6 +9,7 @@ const SlackButton = props => (
     ml={4}
     my={6}
     variantColor="green"
+    aria-label="Request Slack Invitation"
     {...props}>
     Request Slack Invite
   </Button>

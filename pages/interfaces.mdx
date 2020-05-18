@@ -2,16 +2,16 @@
 
 ## Loop Prevention
 
-In order to prevent bridging loops, 48-IX takes stringent precautions to ensure uptime of the peering fabric. A bridging loop can easily bring down a given layer 2 domain, adversely affecting performance and availability of the attached. network infrastructure. During a bridging loop (also commonly referred to as a broadcast storm), broadcast frames are looped back to the network, which creates continuous duplicate traffic, and overloads the CPUs of all connected equipment.
+In order to prevent bridging loops, 48 IX takes stringent precautions to ensure uptime of the peering fabric. A bridging loop can easily bring down a given layer 2 domain, adversely affecting performance and availability of the attached. network infrastructure. During a bridging loop (also commonly referred to as a broadcast storm), broadcast frames are looped back to the network, which creates continuous duplicate traffic, and overloads the CPUs of all connected equipment.
 
 ## Port Security
 
-48-IX uses [MAC address](https://en.wikipedia.org/wiki/MAC_address) filtering and persistent MAC learning (also commonly referred to as 'sticky MAC') to limit the MAC addresses allowed to communicate on a port to the first two learned when a port first comes online. The 48-IX Connection Agreement allows for connecting up to two routers to each member's port.
+48 IX uses [MAC address](https://en.wikipedia.org/wiki/MAC_address) filtering and persistent MAC learning (also commonly referred to as 'sticky MAC') to limit the MAC addresses allowed to communicate on a port to the first two learned when a port first comes online. The 48 IX Connection Agreement allows for connecting up to two routers to each member's port.
 
 ## MAC Address Changes
 
-If a MAC address change is needed, please contact 48-IX NOC by email or phone for immediate resolution.
+If a MAC address change is needed, please contact 48 IX NOC by email or phone for immediate resolution.
 
 ## Port Flap Dampening
 
-In addition to port security, 48-IX also implements port flap dampening on all customer facing interfaces. If a port transitions from an Up to a Down state and back more than three times in five seconds, the port is disabled. After ten seconds it is automatically re-enabled.
+In addition to port security, 48 IX also implements port flap dampening on all customer facing interfaces. If a port transitions from an Up to a Down state and back more than three times in five seconds, the port is disabled. After ten seconds it is automatically re-enabled.

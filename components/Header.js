@@ -52,7 +52,7 @@ const Header = props => {
           <Flex align="center">
             {showHeader && (
               <NextLink href="/" passHref>
-                <Link>
+                <Link alt="Home">
                   <StateOutline strokeWidth={30} size={48} />
                 </Link>
               </NextLink>

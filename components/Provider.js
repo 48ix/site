@@ -79,7 +79,7 @@ const Provider = ({ config, children }) => {
   return (
     <ProviderContext.Provider value={value}>
       <ThemeProvider theme={theme}>
-        <ColorModeProvider value="dark">
+        <ColorModeProvider>
           <CSSReset />
           <MediaProvider theme={theme}>
             <MDXProvider components={MDXComponents}>
