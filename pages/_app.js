@@ -7,15 +7,12 @@ import Layout from '../components/Layout';
 import siteConfig from '../siteConfig';
 
 const Main = ({ Component, pageProps }) => {
-  const [location, setLocation] = useState({});
   const [pageConfig, setPageConfig] = useState({});
   const { pathname } = useRouter();
   const pageName = pathname.replace('/', '');
 
   const pageKeywords = pageConfig.keywords ?? siteConfig.siteKeywords;
   useEffect(() => {
-    setLocation(window.location);
-
     const WebFont = require('webfontloader');
     WebFont.load({ google: { families: ['Inter:200,400,500,700', 'Fira Code&display=swap'] } });
 
@@ -37,14 +34,14 @@ const Main = ({ Component, pageProps }) => {
         additionalMetaTags={[{ name: 'keywords', content: pageKeywords.join(',') }]}
         openGraph={{
           title: pageConfig.title ?? siteConfig.siteName,
-          url: `${location.origin}/${pageName}`,
+          url: `${siteConfig.url}/${pageName}`,
           description: pageConfig.description ?? siteConfig.siteDescription,
           site_name: siteConfig.siteName,
           canonical: siteConfig.url,
           type: 'website',
           images: [
             {
-              url: `${location.origin}/opengraph.jpg`,
+              url: `${siteConfig.url}/opengraph.jpg`,
               width: 1200,
               height: 630,
               alt: siteConfig.siteName,
@@ -60,7 +57,7 @@ const Main = ({ Component, pageProps }) => {
         id={siteConfig.url}
         url={siteConfig.url}
         address={siteConfig.address}
-        images={[`${location.origin}/opengraph.jpg`]}
+        images={[`${siteConfig.url}/opengraph.jpg`]}
         geo={{
           latitude: '33.395512',
           longitude: '-111.969949',
