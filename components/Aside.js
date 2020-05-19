@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Box, Heading, useColorMode } from '@chakra-ui/core';
 import { ComponentLink, TopNavLink } from './NavLink';
-import { useConfig } from './Provider';
+import { useConfig, useMedia } from './Provider';
 
 const titleColor = { dark: 'whiteAlpha.900', light: 'blackAlpha.900' };
 
@@ -20,6 +20,7 @@ const NavGroupHeading = props => (
 export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props }) => {
   const { pathname } = useRouter();
   const { colorMode } = useColorMode();
+  const { isSm, isMd } = useMedia();
   const config = useConfig();
   return (
     <Box
@@ -31,6 +32,11 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
       {...props}>
       <Box as="nav" height={contentHeight} aria-label="Main Navigation" fontSize="sm" p={6}>
         <Box mb={8}>
+          {(isSm || isMd) && (
+            <TopNavLink href="/" fontWeight="bold">
+              Home
+            </TopNavLink>
+          )}
           {config.links.map(link => (
             <TopNavLink key={link.id} href={link.id}>
               {link.title}

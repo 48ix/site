@@ -1,4 +1,5 @@
 import * as React from 'react';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import {
   Flex,
@@ -10,10 +11,14 @@ import {
   InputRightElement,
   useColorMode,
 } from '@chakra-ui/core';
-import { FaArrowAltCircleRight, FaCheckCircle } from 'react-icons/fa';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useConfig } from './Provider';
+
+const FaArrowAltCircleRight = dynamic(() =>
+  import('react-icons/fa').then(i => i.FaArrowAltCircleRight),
+);
+const FaCheckCircle = dynamic(() => import('react-icons/fa').then(i => i.FaCheckCircle));
 
 const border = { dark: 'yellow.200', light: 'red.300' };
 

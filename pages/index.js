@@ -9,8 +9,6 @@ const IoMdBook = dynamic(() => import('react-icons/io').then(i => i.IoMdBook));
 const IoIosGitNetwork = dynamic(() => import('react-icons/io').then(i => i.IoIosGitNetwork));
 const LightningBolt = dynamic(() => import('../components/Icons/LightningBolt'));
 const JoinForm = dynamic(() => import('../components/JoinForm'));
-const LogoIcon = dynamic(() => import('../components/Logo').then(i => i.LogoIcon));
-const NewLogo = dynamic(() => import('../components/Logo').then(i => i.NewLogo));
 const StateOutline = dynamic(() => import('../components/Logo').then(i => i.StateOutline));
 
 const accent = { dark: 'teal.500', light: 'blue.500' };
@@ -45,7 +43,7 @@ export default () => {
     <>
       <Box as="section" pt={18} pb={24}>
         <Container textAlign="center">
-          <Box my={8} display="inline-block">
+          <Box mt={[null, null, 8, 8]} mb={8} display="inline-block">
             <StateOutline size={256} />
           </Box>
           <Heading as="h1" size="xl">

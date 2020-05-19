@@ -36,6 +36,7 @@ const Main = ({ Component, pageProps }) => {
           description: pageConfig.description ?? siteConfig.siteDescription,
           site_name: siteConfig.siteName,
           canonical: siteConfig.url,
+          type: 'website',
           images: [
             {
               url: `${location.origin}/opengraph.jpg`,

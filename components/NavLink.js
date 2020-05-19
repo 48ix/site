@@ -3,13 +3,13 @@ import { cloneElement, forwardRef } from 'react';
 import NextLink from 'next/link';
 import { Box, PseudoBox, useColorMode } from '@chakra-ui/core';
 
-export const stringToUrl = (str, path = '/') => {
+const stringToUrl = (str, path = '/') => {
   return `${path}${str.toLowerCase().split(' ').join('-')}`;
 };
 
 const color = { light: 'gray.700', dark: 'whiteAlpha.700' };
 
-export const SideNavLink = forwardRef(({ children, icon, ...props }, ref) => {
+const SideNavLink = forwardRef(({ children, icon, ...props }, ref) => {
   const { colorMode } = useColorMode();
   return (
     <PseudoBox
@@ -34,7 +34,7 @@ export const SideNavLink = forwardRef(({ children, icon, ...props }, ref) => {
   );
 });
 
-export const TopNavLink = forwardRef(({ href, isActive = false, ...props }, ref) => {
+const TopNavLink = forwardRef(({ href, isActive = false, ...props }, ref) => {
   return (
     <NextLink href={href} passHref>
       <SideNavLink
@@ -52,7 +52,7 @@ const hoverColor = { dark: 'whiteAlpha.900', light: 'blackAlpha.900' };
 const activeColor = { dark: 'dark.200', light: 'blue.500' };
 const activeBg = { dark: 'whiteAlpha.100', light: 'blackAlpha.100' };
 
-export const ComponentLink = forwardRef(({ href, isActive = false, ...props }, ref) => {
+const ComponentLink = forwardRef(({ href, isActive = false, ...props }, ref) => {
   const { colorMode } = useColorMode();
   return (
     <NextLink href={href} passHref>
@@ -74,3 +74,8 @@ export const ComponentLink = forwardRef(({ href, isActive = false, ...props }, r
     </NextLink>
   );
 });
+
+SideNavLink.displayName = 'SideNavLink';
+TopNavLink.displayName = 'TopNavLink';
+ComponentLink.displayName = 'ComponentLink';
+export { ComponentLink, TopNavLink, SideNavLink, stringToUrl };

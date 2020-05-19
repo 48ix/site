@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import {
   Box,
   Button,
@@ -14,8 +15,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Stack,
@@ -25,12 +24,15 @@ import {
   useClipboard,
   useDisclosure,
 } from '@chakra-ui/core';
-import { IoIosRefresh } from 'react-icons/io';
 import useAxios from 'axios-hooks';
-import Table from './Table';
-import Graph from './Graphs/Graph';
-import LittleGraph from './Graphs/LittleGraph';
 import { useConfig } from './Provider';
+
+const Table = dynamic(() => import('./Table'), { loading: Skeleton });
+const Graph = dynamic(() => import('./Graphs/Graph'));
+const LittleGraph = dynamic(() => import('./Graphs/LittleGraph'), { loading: Skeleton });
+const IoIosRefresh = dynamic(() => import('react-icons/io').then(i => i.IoIosRefresh), {
+  loading: Skeleton,
+});
 
 const asnColor = { dark: 'teal.300', light: 'red.500' };
 const copiedColor = { dark: 'green.300', light: 'green.600' };

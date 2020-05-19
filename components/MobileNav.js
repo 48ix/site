@@ -34,6 +34,8 @@ const useRouteChanged = callback => {
   }, [router.events, callback]);
 };
 
+const drawerBg = { dark: 'dark.800', light: 'gray.50' };
+
 const MobileNav = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
@@ -46,7 +48,7 @@ const MobileNav = () => {
       <Hamburger toggled={isOpen} toggle={onToggle} rounded color={burgerColor[colorMode]} />
       <Drawer size="xs" isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg={drawerBg[colorMode]}>
           <DrawerBody p={0}>
             <DrawerHeader>
               <HeaderGraph />

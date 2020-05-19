@@ -13,7 +13,7 @@ import { StateOutline } from './Logo';
 
 const bg = { light: 'white', dark: 'original.dark' };
 
-export const BaseHeader = props => {
+export const BaseHeader = ({ showBorder, ...props }) => {
   const { colorMode } = useColorMode();
   return (
     <Box
@@ -26,7 +26,7 @@ export const BaseHeader = props => {
       width="full"
       height={[20, 20, 16]}
       bg={bg[colorMode]}
-      borderBottomWidth="1px"
+      borderBottomWidth={showBorder ? '1px' : null}
       {...props}
     />
   );
@@ -41,18 +41,20 @@ const Header = props => {
     if (isSm || isMd) {
       if (pathname === '/' && showHeader === true) {
         setShowHeader(false);
+      } else if (pathname !== '/' && showHeader === false) {
+        setShowHeader(true);
       }
     }
   }, [isSm, isMd, pathname]);
   return (
-    <BaseHeader {...props}>
+    <BaseHeader showBorder={showHeader} {...props}>
       <Flex size="100%" px={6} align="center" justify="space-between">
         <Flex justify="flex-start" justify="space-between">
           <Flex align="center">
             {showHeader && (
               <NextLink href="/" passHref>
                 <Link aria-label="Home">
-                  <StateOutline strokeWidth={30} size={48} />
+                  <StateOutline strokeWidth={30} size={48} noanimate />
                 </Link>
               </NextLink>
             )}

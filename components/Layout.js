@@ -1,7 +1,7 @@
 import * as React from 'react';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
-import { Box, useColorMode, useTheme } from '@chakra-ui/core';
+import { Box, useColorMode } from '@chakra-ui/core';
 import { useMedia } from './Provider';
 
 const Aside = dynamic(() => import('./Aside'));
@@ -29,7 +29,6 @@ const Main = ({ children, ...props }) => (
 );
 
 const Layout = ({ children }) => {
-  const theme = useTheme();
   const { colorMode } = useColorMode();
   const { isLg, isXl } = useMedia();
   return (

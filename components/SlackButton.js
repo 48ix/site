@@ -1,6 +1,8 @@
 import * as React from 'react';
+import dynamic from 'next/dynamic';
 import { Button } from '@chakra-ui/core';
-import { FaSlack } from 'react-icons/fa';
+
+const FaSlack = dynamic(() => import('react-icons/fa').then(i => i.FaSlack));
 
 const SlackButton = props => (
   <Button

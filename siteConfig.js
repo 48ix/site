@@ -16,7 +16,23 @@ export const theme = {
   fonts: { body: 'Inter', mono: 'Fira Code' },
 };
 
-const keywordsGlobal = ['internet', 'exchange', 'ix', 'phoenix', 'arizona', 'az'];
+const keywordsGlobal = [
+  'internet exchange',
+  'internet',
+  'exchange',
+  'ix',
+  'isp',
+  'ixp',
+  'traffic',
+  'local',
+  'carrier',
+  'content delivery network',
+  'networks',
+  'peering',
+  'phoenix',
+  'arizona',
+  'az',
+];
 
 const asideLinks = [];
 
