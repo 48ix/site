@@ -12,5 +12,11 @@ const withMDX = require('@next/mdx')({
 module.exports = withBundleAnalyzer(
   withMDX({
     pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+    webpack: (config, { isServer }) => {
+      if (isServer) {
+        require('./generateSitemap');
+      }
+      return config;
+    },
   }),
 );
