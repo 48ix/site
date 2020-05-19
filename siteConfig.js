@@ -326,7 +326,7 @@ export default {
     postalCode: '85282',
     addressCountry: 'US',
   },
-  googleAnalytics: { trackingId: null },
+  googleAnalytics: { trackingId: 'UA-126189890-6' },
   theme: theme,
   sections: asideSections,
   links: asideLinks,
