@@ -8,31 +8,36 @@ import siteConfig from '../siteConfig';
 
 const Main = ({ Component, pageProps }) => {
   const [location, setLocation] = useState({});
+  const [pageConfig, setPageConfig] = useState({});
   const { pathname } = useRouter();
   const pageName = pathname.replace('/', '');
-  let pageConfig = {};
-  siteConfig.sections.map(page => {
-    page.sections?.map(sub => {
-      if (sub.id === pageName) {
-        pageConfig = sub;
-      }
-    });
-  });
+
   const pageKeywords = pageConfig.keywords ?? siteConfig.siteKeywords;
   useEffect(() => {
     setLocation(window.location);
 
     const WebFont = require('webfontloader');
     WebFont.load({ google: { families: ['Inter:200,400,500,700', 'Fira Code&display=swap'] } });
-  });
+
+    siteConfig.sections.map(page => {
+      page.sections?.map(sub => {
+        if (sub.id === pageName) {
+          setPageConfig(sub);
+        } else if (pageName === '') {
+          setPageConfig({ title: siteConfig.siteSlogan, description: siteConfig.siteDescription });
+        }
+      });
+    });
+  }, [pageName]);
   return (
     <>
       <NextSeo
-        title={pageConfig.title ?? siteConfig.siteName}
-        description={pageConfig.description ?? siteConfig.siteDescription}
+        title={pageConfig.title}
+        description={pageConfig.description}
         additionalMetaTags={[{ name: 'keywords', content: pageKeywords.join(',') }]}
         openGraph={{
           title: pageConfig.title ?? siteConfig.siteName,
+          url: `${location.origin}/${pageName}`,
           description: pageConfig.description ?? siteConfig.siteDescription,
           site_name: siteConfig.siteName,
           canonical: siteConfig.url,
@@ -46,7 +51,7 @@ const Main = ({ Component, pageProps }) => {
             },
           ],
         }}
-        titleTemplate={Object.keys(pageConfig).length > 0 ? `${siteConfig.title} | %s` : null}
+        titleTemplate={`${siteConfig.title} ❮ %s`}
       />
       <LocalBusinessJsonLd
         type="LocalBusiness"
