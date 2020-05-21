@@ -1,5 +1,10 @@
 import * as React from 'react';
+import { useState } from 'react';
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
   Box,
   FormControl,
   FormLabel,
@@ -17,7 +22,24 @@ import {
   useColorMode,
 } from '@chakra-ui/core';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import { useConfig, useGlobalState } from '../components/Provider';
+
+const constructData = data => {
+  const now = new Date();
+  return {
+    memberName: data.org,
+    memberAsn: data.asn,
+    contactName: data.contact,
+    facilityName: data.facility,
+    portSpeed: data.port_speed,
+    timestamp: now.getTime(),
+  };
+};
+
+const sendForm = async (url, data) => {
+  return await axios.post(url, data);
+};
 
 const btnColor = { dark: 'teal', light: 'dark' };
 
@@ -31,12 +53,22 @@ const formElement = {
 };
 
 const JoinForm = () => {
+  const env = process.env.NODE_ENV;
   const { colorMode } = useColorMode();
   const config = useConfig();
   const { joinFormOpen, joinFormOnClose } = useGlobalState();
-  const { register, handleSubmit, errors, formState } = useForm();
-  const onSubmit = data => {
-    console.log(data);
+  const [submitSuccess, setSubmitSuccess] = useState(null);
+  const { register, handleSubmit, errors, formState, setError } = useForm();
+  const onSubmit = async data => {
+    const url = env === 'development' ? '/member-request/' : config.endpoints.join;
+    const message = constructData(data);
+    const sendRes = await sendForm(url, message);
+    if (sendRes.status === 200) {
+      joinFormOnClose();
+    } else {
+      setSubmitSuccess(sendRes.statusText);
+    }
+    return sendRes;
   };
   return (
     <Modal isOpen={joinFormOpen} onClose={joinFormOnClose}>
@@ -70,7 +102,21 @@ const JoinForm = () => {
                 </FormField>
               );
             })}
-            <FormField></FormField>
+            {submitSuccess !== null && (
+              <Alert
+                borderRadius="md"
+                status="error"
+                variant="subtle"
+                flexDirection="column"
+                justifyContent="center"
+                textAlign="center">
+                <AlertIcon mr={0} />
+                <AlertTitle mt={2} mb={1} fontSize="md">
+                  An error occurred while submitting the request
+                </AlertTitle>
+                <AlertDescription maxWidth="sm">{submitSuccess}</AlertDescription>
+              </Alert>
+            )}
           </ModalBody>
           <ModalFooter>
             <Button
