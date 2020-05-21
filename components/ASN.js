@@ -7,7 +7,7 @@ const ASN = ({ as, ...props }) => {
   const { colorMode } = useColorMode();
   return (
     <Text as="span" color={color[colorMode]} fontWeight={600} fontFamily="mono" {...props}>
-      {as || '65000'}
+      {as || '62484'}
     </Text>
   );
 };
