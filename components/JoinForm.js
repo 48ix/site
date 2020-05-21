@@ -53,16 +53,14 @@ const formElement = {
 };
 
 const JoinForm = () => {
-  const env = process.env.NODE_ENV;
   const { colorMode } = useColorMode();
   const config = useConfig();
   const { joinFormOpen, joinFormOnClose } = useGlobalState();
   const [submitSuccess, setSubmitSuccess] = useState(null);
-  const { register, handleSubmit, errors, formState, setError } = useForm();
+  const { register, handleSubmit, errors, formState } = useForm();
   const onSubmit = async data => {
-    const url = env === 'development' ? '/member-request/' : config.endpoints.join;
     const message = constructData(data);
-    const sendRes = await sendForm(url, message);
+    const sendRes = await sendForm('/member-request/', message);
     if (sendRes.status === 200) {
       joinFormOnClose();
     } else {
