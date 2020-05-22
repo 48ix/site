@@ -37,7 +37,6 @@ const Main = ({ Component, pageProps }) => {
           url: `${siteConfig.url}/${pageName}`,
           description: pageConfig.description ?? siteConfig.siteDescription,
           site_name: siteConfig.siteName,
-          canonical: siteConfig.url,
           type: 'website',
           images: [
             {

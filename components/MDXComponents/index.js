@@ -19,7 +19,7 @@ export default {
   code: CodeBlock,
   pre: Pre,
   kbd: Kbd,
-  br: props => <Box height="24px" {...props} />,
+  br: props => <Box as="p" height="24px" {...props} />,
   hr: props => <Box as="hr" borderTopWidth="1px" my={8} {...props} />,
   table: Table,
   th: TableHeader,

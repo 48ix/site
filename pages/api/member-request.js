@@ -17,17 +17,20 @@ function initMiddleware(middleware) {
 const cors = initMiddleware(
   Cors({
     methods: ['POST', 'OPTIONS'],
+    origin: '*',
   }),
 );
 
 export default async function handler(req, res) {
   await cors(req, res);
-  let message;
+  let message, status;
   try {
     const slackResponse = await axios.post(siteConfig.endpoints.join, req.body);
     message = slackResponse.statusText;
+    status = slackResponse.status;
   } catch (err) {
     message = err;
+    status = 400;
   }
-  res.json({ response: String(message) });
+  res.status(status).json({ response: String(message) });
 }
