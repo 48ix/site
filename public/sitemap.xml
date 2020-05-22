@@ -57,6 +57,10 @@
   </url>
 
   <url>
+    <loc>https://48ix.net/privacy</loc>
+  </url>
+
+  <url>
     <loc>https://48ix.net/route-servers</loc>
   </url>
 
@@ -70,5 +74,9 @@
 
   <url>
     <loc>https://48ix.net/traffic</loc>
+  </url>
+
+  <url>
+    <loc>https://48ix.net/api/member-request</loc>
   </url>
 </urlset>

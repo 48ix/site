@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node nextdev",
+    "localdev": "node nextdev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "export": "next build && next export",
@@ -21,6 +22,7 @@
     "axios": "^0.19.2",
     "axios-hooks": "^1.10.0",
     "chroma-js": "^2.1.0",
+    "cors": "^2.8.5",
     "dayjs": "^1.8.26",
     "emotion-theming": "^10.0.27",
     "filesize": "^6.1.0",

@@ -60,7 +60,7 @@ const JoinForm = () => {
   const { register, handleSubmit, errors, formState } = useForm();
   const onSubmit = async data => {
     const message = constructData(data);
-    const sendRes = await sendForm('/member-request/', message);
+    const sendRes = await sendForm('/api/member-request', message);
     if (sendRes.status === 200) {
       joinFormOnClose();
     } else {

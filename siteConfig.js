@@ -230,6 +230,12 @@ const asideSections = [
           ...keywordsGlobal,
         ],
       },
+      {
+        id: 'privacy',
+        title: 'Privacy Policy',
+        description: '48 IX Privacy Policy',
+        keywords: ['privacy', 'legal', 'data', ...keywordsGlobal],
+      },
     ],
   },
 ];
