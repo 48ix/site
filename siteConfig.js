@@ -333,7 +333,7 @@ export default {
     postalCode: '85282',
     addressCountry: 'US',
   },
-  googleAnalytics: { trackingId: 'UA-126189890-6' },
+  googleAnalytics: { trackingId: process.env.GOOGLE_ANALYTICS_ID || null },
   theme: theme,
   sections: asideSections,
   links: asideLinks,
