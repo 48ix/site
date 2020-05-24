@@ -289,8 +289,6 @@ const joinForm = {
 
 const endpoints = {
   members: 'https://square-frost-ee00.48ix.workers.dev',
-  join: 'https://member-request.48ix.workers.dev/',
-  subscribe: 'https://webhook.site/289773ff-6d22-4dec-bc51-db0c0c649acb',
 };
 
 const contributors = [
