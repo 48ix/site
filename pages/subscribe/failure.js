@@ -60,7 +60,7 @@ const Failure = () => {
             </Link>
           </Text>
         </Box>
-        {typeof error !== undefined && (
+        {typeof error !== 'undefined' && (
           <Alert
             status="error"
             flexDirection="column"
