@@ -14,7 +14,6 @@ const readQuery = query => {
   } catch (err) {
     console.warn(err);
   }
-  console.log(parsed);
   return parsed;
 };
 

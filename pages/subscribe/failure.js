@@ -1,7 +1,17 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Box, Heading, Link, Text, useColorMode } from '@chakra-ui/core';
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Box,
+  Heading,
+  Link,
+  Text,
+  useColorMode,
+} from '@chakra-ui/core';
 import NotFound from '../404';
 import queryString from 'query-string';
 
@@ -27,7 +37,7 @@ const Failure = () => {
   if (Object.keys(router.query).length === 0) {
     return <NotFound />;
   }
-  const { emailAddr, listName } = readQuery(router.query);
+  const { emailAddr, listName, error } = readQuery(router.query);
   if (typeof emailAddr === 'undefined' || typeof listName === 'undefined') {
     return <NotFound />;
   }
@@ -44,13 +54,30 @@ const Failure = () => {
           <Text as="span" color={highlightColor[colorMode]}>{` ${listName} `}</Text>
           mailing list.
         </Heading>
-        <Box>
+        <Box mt={8}>
           <Text color="gray.500">
             <Link as="a" to="mailto:noc@48ix.net" isExternal>
               Please contact the NOC so we can look into this.
             </Link>
           </Text>
         </Box>
+        {typeof error !== undefined && (
+          <Alert
+            status="error"
+            flexDirection="column"
+            justifyContent="center"
+            textAlign="center"
+            mx="auto"
+            borderRadius="md"
+            mt={8}
+            maxW={[null, null, '50%', '50%']}>
+            <AlertIcon size="32px" mr={0} />
+            <AlertTitle mt={4} mb={1} fontSize="lg">
+              Error Details
+            </AlertTitle>
+            <AlertDescription maxWidth="sm">{error}</AlertDescription>
+          </Alert>
+        )}
       </Box>
     </>
   );
