@@ -73,10 +73,18 @@
   </url>
 
   <url>
+    <loc>https://48ix.net/test2</loc>
+  </url>
+
+  <url>
     <loc>https://48ix.net/traffic</loc>
   </url>
 
   <url>
-    <loc>https://48ix.net/api/member-request</loc>
+    <loc>https://48ix.net/subscribe/failure</loc>
+  </url>
+
+  <url>
+    <loc>https://48ix.net/subscribe/index</loc>
   </url>
 </urlset>
