@@ -71,7 +71,7 @@ const Provider = ({ config, children }) => {
   const theme = makeTheme(config.theme);
   useEffect(() => {
     if (!window.GA_INITIALIZED) {
-      initGA(value.googleAnalytics.trackingId);
+      initGA(process.env.GOOGLE_ANALYTICS_ID || null);
       window.GA_INITIALIZED = true;
     }
     logPageView();
