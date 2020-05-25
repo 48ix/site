@@ -82,7 +82,7 @@ const Provider = ({ page, children }) => {
     <>
       <NextSeo
         title={config.siteSlogan}
-        description={config.description}
+        description={config.siteDescription}
         additionalMetaTags={[{ name: 'keywords', content: config.siteKeywords.join(',') }]}
         openGraph={{
           title: config.siteName,

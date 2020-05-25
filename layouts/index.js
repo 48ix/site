@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { NextSeo } from 'next-seo';
+import title from 'title';
 import { H1 } from '../components/MDXComponents/Headings';
 
 const MDXDefaultLayout = ({
   id,
-  title,
+  title: pageTitle,
   description,
   keywords = [],
   defaultTitle = true,
@@ -14,19 +15,20 @@ const MDXDefaultLayout = ({
   if (typeof pageId === 'undefined') {
     [pageId] = __resourcePath.split('.mdx');
   }
+  const displayName = title(pageTitle);
   return ({ children }) => (
     <>
       <NextSeo
-        title={title}
+        title={displayName}
         description={description}
         additionalMetaTags={[{ name: 'keywords', content: keywords.join(',') }]}
         openGraph={{
-          title: title,
+          title: displayName,
           url: `https://48ix.net/${pageId}`,
           description: description,
         }}
       />
-      {defaultTitle && <H1>{title}</H1>}
+      {defaultTitle && <H1>{displayName}</H1>}
       {children}
     </>
   );

@@ -45,7 +45,14 @@ const MobileNav = () => {
 
   return (
     <>
-      <Hamburger toggled={isOpen} toggle={onToggle} rounded color={burgerColor[colorMode]} />
+      <Hamburger
+        rounded
+        toggled={isOpen}
+        alt="Navigation"
+        toggle={onToggle}
+        aria-label="Navigation"
+        color={burgerColor[colorMode]}
+      />
       <Drawer size="xs" isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent bg={drawerBg[colorMode]}>
@@ -66,4 +73,5 @@ const MobileNav = () => {
   );
 };
 
+MobileNav.displayName = 'MobileNav';
 export default MobileNav;
