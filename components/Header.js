@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { Box, Flex, Link, useColorMode } from '@chakra-ui/core';
-import DarkModeToggle from 'react-dark-mode-toggle';
 import JoinButton from './JoinButton';
 import MobileNav from './MobileNav';
 import { useMedia } from './Provider';
 import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
 import { StateOutline } from './Logo';
+import ColorModeButton from './ColorModeButton';
 
 const bg = { light: 'white', dark: 'original.dark' };
 
@@ -17,10 +17,10 @@ export const BaseHeader = ({ showBorder, ...props }) => {
   const { colorMode } = useColorMode();
   return (
     <Box
-      top="0"
-      left="0"
-      right="0"
-      zIndex="4"
+      top={0}
+      left={0}
+      right={0}
+      zIndex={4}
       pos="fixed"
       as="header"
       width="full"
@@ -33,7 +33,6 @@ export const BaseHeader = ({ showBorder, ...props }) => {
 };
 
 const Header = props => {
-  const { colorMode, toggleColorMode } = useColorMode();
   const { isSm, isMd, isLg, isXl } = useMedia();
   const { pathname } = useRouter();
   const [showHeader, setShowHeader] = useState(true);
@@ -70,11 +69,7 @@ const Header = props => {
               <HeaderGraph />
               <JoinButton />
               <JoinForm />
-              <DarkModeToggle
-                speed={2.5}
-                onChange={toggleColorMode}
-                checked={colorMode === 'dark'}
-              />
+              <ColorModeButton />
             </>
           )}
         </Flex>

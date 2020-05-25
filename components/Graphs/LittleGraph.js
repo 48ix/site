@@ -51,6 +51,7 @@ const LittleGraph = ({
           }}>
           {yRef && <ReferenceLine y={topRef} stroke={dataRefColor[colorMode]} strokeWidth={0.5} />}
           <Area
+            animationDuration={200}
             type="linear"
             dataKey="inBits"
             stroke={dataColorTop[colorMode]}
@@ -74,6 +75,7 @@ const LittleGraph = ({
             <ReferenceLine y={bottomRef} stroke={dataRefColor[colorMode]} strokeWidth={0.5} />
           )}
           <Area
+            animationDuration={200}
             type="linear"
             dataKey="outBits"
             stroke={dataColorBottom[colorMode]}

@@ -2,6 +2,9 @@
 
 /.vscode/
 
+# next-mdx-enhanced
+.mdx-data/
+
 # dependencies
 /node_modules
 /.pnp

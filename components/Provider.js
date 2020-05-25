@@ -2,11 +2,13 @@ import * as React from 'react';
 import { createContext, useContext, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { MDXProvider } from '@mdx-js/react';
+import { NextSeo, LocalBusinessJsonLd } from 'next-seo';
 import { CSSReset, ThemeProvider, useDisclosure } from '@chakra-ui/core';
 import { useMediaLayout } from 'use-media';
 import MDXComponents from '../components/MDXComponents';
 import { makeTheme } from '../util';
 import { initGA, logPageView } from '../analytics';
+import siteConfig from '../siteConfig';
 const MediaContext = createContext(null);
 const ProviderContext = createContext(null);
 const StateContext = createContext(null);
@@ -66,9 +68,9 @@ const StateProvider = ({ children }) => {
 
 export const useHyperglassState = () => useContext(StateContext);
 
-const Provider = ({ config, children }) => {
-  const value = useMemo(() => config, [config]);
-  const theme = makeTheme(config.theme);
+const Provider = ({ page, children }) => {
+  const config = useMemo(() => siteConfig, [siteConfig]);
+  const theme = useMemo(() => makeTheme(config.theme), [config]);
   useEffect(() => {
     if (!window.GA_INITIALIZED) {
       initGA(process.env.GOOGLE_ANALYTICS_ID || null);
@@ -77,18 +79,54 @@ const Provider = ({ config, children }) => {
     logPageView();
   });
   return (
-    <ProviderContext.Provider value={value}>
-      <ThemeProvider theme={theme}>
-        <ColorModeProvider>
-          <CSSReset />
-          <MediaProvider theme={theme}>
-            <MDXProvider components={MDXComponents}>
-              <StateProvider>{children}</StateProvider>
-            </MDXProvider>
-          </MediaProvider>
-        </ColorModeProvider>
-      </ThemeProvider>
-    </ProviderContext.Provider>
+    <>
+      <NextSeo
+        title={config.siteSlogan}
+        description={config.description}
+        additionalMetaTags={[{ name: 'keywords', content: config.siteKeywords.join(',') }]}
+        openGraph={{
+          title: config.siteName,
+          url: `${config.url}/${page}`,
+          description: config.siteDescription,
+          site_name: config.siteName,
+          type: 'website',
+          images: [
+            {
+              url: `${config.url}/opengraph.jpg`,
+              width: 1200,
+              height: 630,
+              alt: config.siteName,
+            },
+          ],
+        }}
+        titleTemplate={`%s ❮ ${config.title}`}
+      />
+      <LocalBusinessJsonLd
+        type="LocalBusiness"
+        name={config.orgName}
+        description={config.siteDescription}
+        id={config.url}
+        url={config.url}
+        address={config.address}
+        images={[`${config.url}/opengraph.jpg`]}
+        geo={{
+          latitude: '33.395512',
+          longitude: '-111.969949',
+        }}
+      />
+      <ProviderContext.Provider value={config}>
+        <ThemeProvider theme={theme}>
+          <ColorModeProvider>
+            <CSSReset />
+            <MediaProvider theme={theme}>
+              <MDXProvider components={MDXComponents}>
+                <StateProvider>{children}</StateProvider>
+              </MDXProvider>
+            </MediaProvider>
+          </ColorModeProvider>
+        </ThemeProvider>
+      </ProviderContext.Provider>
+    </>
   );
 };
 

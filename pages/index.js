@@ -2,6 +2,7 @@ import * as React from 'react';
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 import { Box, Button, Divider, Flex, Heading, Grid, Text, useColorMode } from '@chakra-ui/core';
+import { NextSeo } from 'next-seo';
 import { useGlobalState, useMedia, useConfig } from '../components/Provider';
 
 const FaDollarSign = dynamic(() => import('react-icons/fa').then(i => i.FaDollarSign));
@@ -41,6 +42,7 @@ export default () => {
   const config = useConfig();
   return (
     <>
+      <NextSeo title={`${config.title} ❯ ${config.siteSlogan}`} titleTemplate="%s" />
       <Box as="section" pt={18} pb={24}>
         <Container textAlign="center">
           <Box mt={[null, null, 8, 8]} mb={8} display="inline-block">

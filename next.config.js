@@ -2,6 +2,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const withMdxEnhanced = require('next-mdx-enhanced');
+
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
@@ -10,8 +12,11 @@ const withMDX = require('@next/mdx')({
 });
 
 module.exports = withBundleAnalyzer(
-  withMDX({
-    pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+  withMdxEnhanced({
+    fileExtensions: ['mdx'],
+    remarkPlugins: [require('remark-autolink-headings'), require('remark-admonitions')],
+    defaultLayout: true,
+  })({
     webpack: (config, { isServer }) => {
       if (isServer) {
         require('./generateSitemap');

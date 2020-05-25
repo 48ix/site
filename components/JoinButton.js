@@ -9,7 +9,9 @@ const JoinButton = props => {
   const { joinFormOnOpen } = useGlobalState();
   return (
     <Button
-      mx={8}
+      mx={[6, 6, null, null]}
+      ml={[null, null, 8, 8]}
+      mr={[null, null, 4, 4]}
       variantColor={btnColor[colorMode]}
       variant="solid"
       aria-label="Join 48 IX"

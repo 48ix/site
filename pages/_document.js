@@ -1,11 +1,19 @@
 import * as React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { Box } from '@chakra-ui/core';
 
 const Body = ({ children }) => (
-  <Box as="body" w="100%" h="100%" minH="100%" overflowX="hidden" margin={0}>
+  <body className="body">
     {children}
-  </Box>
+    <style jsx>{`
+      .body {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+        margin: 0;
+      }
+    `}</style>
+  </body>
 );
 
 class MyDocument extends Document {

@@ -91,6 +91,7 @@ const Graph = ({ circuitId, ...props }) => {
           <Tooltip content={<GraphTooltip avg={avgIn} avgUnit={avgInUnit} />} />
           <ReferenceLine y={avgIn} stroke={refLineColor[colorMode]} strokeWidth={0.5} />
           <Area
+            animationDuration={750}
             type="linear"
             dataKey="inBits"
             stroke={topColor[colorMode]}
@@ -129,6 +130,7 @@ const Graph = ({ circuitId, ...props }) => {
           <Tooltip content={<GraphTooltip avg={avgOut} avgUnit={avgOutUnit} />} />
           <ReferenceLine y={avgOut} stroke={refLineColor[colorMode]} strokeWidth={0.5} />
           <Area
+            animationDuration={750}
             type="linear"
             dataKey="outBits"
             stroke={bottomColor[colorMode]}
