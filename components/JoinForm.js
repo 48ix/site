@@ -31,6 +31,7 @@ const constructData = data => {
     memberName: data.org,
     memberAsn: data.asn,
     contactName: data.contact,
+    contactEmail: data.email,
     facilityName: data.facility,
     portSpeed: data.port_speed,
     timestamp: now.getTime(),

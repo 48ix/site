@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
 import NextLink from 'next/link';
-import { useColorMode, Link as ChakraLink } from '@chakra-ui/core';
+import { PseudoBox, useColorMode, Link as ChakraLink } from '@chakra-ui/core';
 
 const color = { dark: 'teal.500', light: 'blue.500' };
 
 const BaseLink = props => (
-  <ChakraLink
+  <PseudoBox
+    as={ChakraLink}
     cursor="pointer"
-    textDecoration="underline"
+    textDecoration="none"
     outline="none"
     _hover={{ opacity: '0.8' }}
     _focus={{ boxShadow: 'outline' }}
@@ -29,7 +30,7 @@ const Link = forwardRef(({ href, ...props }, ref) => {
   if (href.match(/(http|https|mailto)\:\/\/.*/g)) {
     componentType = 'external';
   } else {
-    href = '/' + href.match(/^(\w+)\.mdx$/m)[1];
+    href = '/' + href.match(/^(.+)\.mdx$/m)[1];
   }
 
   const componentMap = { internal: InternalLink, external: ExternalLink };

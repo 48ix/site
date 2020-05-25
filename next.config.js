@@ -4,17 +4,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const withMdxEnhanced = require('next-mdx-enhanced');
 
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [require('remark-autolink-headings'), require('remark-admonitions')],
-  },
-});
-
 module.exports = withBundleAnalyzer(
   withMdxEnhanced({
     fileExtensions: ['mdx'],
-    remarkPlugins: [require('remark-autolink-headings'), require('remark-admonitions')],
+    remarkPlugins: [require('remark-autolink-headings')],
     defaultLayout: true,
   })({
     webpack: (config, { isServer }) => {

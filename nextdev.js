@@ -11,6 +11,10 @@ const devProxy = {
     target: 'https://mailing-list.48ix.workers.dev/',
     changeOrigin: true,
   },
+  '/invite-request': {
+    target: 'https://invite-request.48ix.workers.dev/',
+    changeOrigin: true,
+  },
 };
 
 const port = parseInt(process.env.PORT, 10) || 3000;

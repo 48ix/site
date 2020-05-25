@@ -5,7 +5,7 @@ const color = { dark: 'red', light: 'blackAlpha' };
 
 const InlineCode = props => {
   const { colorMode } = useColorMode();
-  return <Code variantColor={color[colorMode]} fontSize="0.84em" {...props} />;
+  return <Code variantColor={color[colorMode]} fontSize="sm" {...props} />;
 };
 
 InlineCode.displayName = 'InlineCode';

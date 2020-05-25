@@ -1,6 +1,14 @@
 import chroma from 'chroma-js';
 import { theme as chakraTheme } from '@chakra-ui/core';
 
+const validateEmail = value => {
+  if (!value.match(/^\w+\@\w+\.\w+/m)) {
+    return `'${value}' is an invalid email address`;
+  } else {
+    return true;
+  }
+};
+
 const idCounter = {};
 
 const uniqueId = prefix => {
@@ -173,4 +181,4 @@ const makeTheme = userTheme => ({
   },
 });
 
-export { isDark, isLight, opposingColor, googleFontUrl, makeTheme, uniqueId };
+export { isDark, isLight, opposingColor, googleFontUrl, makeTheme, uniqueId, validateEmail };

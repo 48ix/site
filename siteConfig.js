@@ -149,6 +149,13 @@ const joinForm = {
       element: 'input',
     },
     {
+      id: 'email',
+      label: 'Email Address',
+      required: true,
+      error: 'This field is required.',
+      element: 'input',
+    },
+    {
       id: 'facility',
       label: 'Facility',
       required: true,

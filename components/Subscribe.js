@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/core';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { validateEmail } from '../util';
 
 const FaArrowAltCircleRight = dynamic(() =>
   import('react-icons/fa').then(i => i.FaArrowAltCircleRight),
@@ -51,14 +52,6 @@ const sendEmail = async (emailAddr, stateCallback, responseCallback) => {
       stateCallback(2);
   }
   return message;
-};
-
-const validateEmail = value => {
-  if (!value.match(/^\w+\@\w+\.\w+/m)) {
-    return `'${value}' is an invalid email address`;
-  } else {
-    return true;
-  }
 };
 
 const Form = props => <Flex as="form" {...props} />;
