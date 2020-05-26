@@ -7,12 +7,7 @@ const border = { dark: 'whiteAlpha.100', light: 'gray.100' };
 const Table = props => {
   const { colorMode } = useColorMode();
   return (
-    <Box
-      mt={4}
-      overflow="scroll"
-      borderWidth="1px"
-      borderRadius="md"
-      borderColor={border[colorMode]}>
+    <Box mt={4} overflow="auto" borderWidth="1px" borderRadius="md" borderColor={border[colorMode]}>
       <Box as="table" textAlign="left" width="full" overflowX="hidden" {...props} />
     </Box>
   );
