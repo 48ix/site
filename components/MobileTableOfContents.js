@@ -37,13 +37,13 @@ const Dots = ({
 );
 
 const drawerBg = { dark: 'dark.800', light: 'gray.50' };
-const btnColor = { dark: 'gray', light: 'blue' };
+const btnColor = { dark: 'dark', light: 'blue' };
 
 const MobileTableOfContents = ({ headings = [] }) => {
   const { colorMode } = useColorMode();
   const theme = useTheme();
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const dotColor = { dark: theme.colors.gray[200], light: theme.colors.blue[200] };
+  const dotColor = { dark: theme.colors.dark[700], light: theme.colors.blue[200] };
   return (
     <Box
       as="nav"
