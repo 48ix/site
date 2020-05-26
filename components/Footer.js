@@ -19,7 +19,7 @@ const Footer = props => {
         flex="1 0 100%">
         <Flex justifyItems="flex-start" my={{ sm: 6, md: 6, lg: 0, xl: 0 }}>
           <Stack>
-            <Stack justifyContent="flex-start" isInline>
+            <Stack justifyContent={['center', 'center', 'flex-start', 'flex-start']} isInline>
               {Object.keys(config.social).map(name => (
                 <SocialIcon name={name} key={name} />
               ))}

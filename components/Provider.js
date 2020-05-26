@@ -1,22 +1,21 @@
 import * as React from 'react';
 import { createContext, useContext, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { MDXProvider } from '@mdx-js/react';
 import { NextSeo, LocalBusinessJsonLd } from 'next-seo';
 import { CSSReset, ThemeProvider, useDisclosure } from '@chakra-ui/core';
 import { useMediaLayout } from 'use-media';
-import MDXComponents from '../components/MDXComponents';
 import { makeTheme } from '../util';
 import { initGA, logPageView } from '../analytics';
 import siteConfig from '../siteConfig';
-const MediaContext = createContext(null);
-const ProviderContext = createContext(null);
-const StateContext = createContext(null);
 
 const ColorModeProvider = dynamic(
   () => import('@chakra-ui/core').then(mod => mod.ColorModeProvider),
   { ssr: false },
 );
+
+const MediaContext = createContext(null);
+const ProviderContext = createContext(null);
+const StateContext = createContext(null);
 
 const MediaProvider = ({ theme, children }) => {
   const { sm, md, lg, xl } = theme.breakpoints;
@@ -119,9 +118,7 @@ const Provider = ({ page, children }) => {
           <ColorModeProvider>
             <CSSReset />
             <MediaProvider theme={theme}>
-              <MDXProvider components={MDXComponents}>
-                <StateProvider>{children}</StateProvider>
-              </MDXProvider>
+              <StateProvider>{children}</StateProvider>
             </MediaProvider>
           </ColorModeProvider>
         </ThemeProvider>

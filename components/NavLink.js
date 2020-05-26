@@ -51,8 +51,9 @@ const TopNavLink = forwardRef(({ href, isActive = false, ...props }, ref) => {
 const hoverColor = { dark: 'whiteAlpha.900', light: 'blackAlpha.900' };
 const activeColor = { dark: 'dark.200', light: 'blue.500' };
 const activeBg = { dark: 'whiteAlpha.100', light: 'blackAlpha.100' };
+const hoverTransform = { left: '2px', right: '-2px' };
 
-const ComponentLink = forwardRef(({ href, isActive = false, ...props }, ref) => {
+const ComponentLink = forwardRef(({ href, isActive = false, side = 'left', ...props }, ref) => {
   const { colorMode } = useColorMode();
   return (
     <NextLink href={href} passHref>
@@ -61,7 +62,7 @@ const ComponentLink = forwardRef(({ href, isActive = false, ...props }, ref) => 
         aria-current={isActive ? 'page' : undefined}
         _hover={{
           color: hoverColor[colorMode],
-          transform: 'translateX(2px)',
+          transform: `translateX(${hoverTransform[side]})`,
         }}
         {...(isActive && {
           bg: activeBg[colorMode],

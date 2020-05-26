@@ -64,7 +64,7 @@ export default () => {
             <Button size="lg" variantColor={accentVar[colorMode]} m={2} onClick={joinFormOnOpen}>
               Join the Exchange
             </Button>
-            <NextLink href="/network" passHref>
+            <NextLink href="/connection-policy" passHref>
               <Button
                 as="a"
                 size="lg"

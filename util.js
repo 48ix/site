@@ -1,5 +1,6 @@
 import chroma from 'chroma-js';
 import { theme as chakraTheme } from '@chakra-ui/core';
+import zeitTitle from 'title';
 
 const validateEmail = value => {
   if (!value.match(/^\w+\@\w+\.\w+/m)) {
@@ -181,4 +182,10 @@ const makeTheme = userTheme => ({
   },
 });
 
-export { isDark, isLight, opposingColor, googleFontUrl, makeTheme, uniqueId, validateEmail };
+const title = (text, ...rest) =>
+  zeitTitle(text, {
+    special: ['48 IX', 'IPv4', 'IPv6', 'ASN', 'RPKI', 'ROA', 'IRR', 'IOS', 'FRR', 'ARP', 'MTU'],
+    ...rest,
+  });
+
+export { isDark, isLight, opposingColor, googleFontUrl, makeTheme, uniqueId, validateEmail, title };

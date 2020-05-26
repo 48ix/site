@@ -1,0 +1,110 @@
+---
+title: Connection Policy
+description: 48 IX Connection Policy
+keywords: [legal, msa, agreement, connection, policy, peering, bilateral, multilateral]
+---
+
+## Agreement
+
+By accepting services from 48 IX, participants implicitly agree to the connection policy.
+
+### Definitions
+
+- **48 IX, Inc.** may be referred to as "48 IX". 48 IX and the Participant may each be referred to herein individually as a "Party" and collectively as the "Parties".
+- "Services" means physical reservation of a physical network switch port, and related services such as route servers.
+- "Fees" means the fees for Services, as set forth in the [fees](fees.mdx) section, as applicable.
+
+### Term & Termination
+
+There are no contractual term lengths associated with 48 IX participation. Each participant's annual or monthly [port fee](fees.mdx) is effective for the selected duration, beginning on the date of port activation.
+
+Either party may terminate services at any time during the selected duration. 48 IX does not refund or prorate port fees.
+
+### Liability
+
+In no event shall either party’s liability to the other exceed the aggregate amounts paid by Participant to 48 IX in the ninety (90) days preceding any claim, nor shall either party be liable for any special, indirect, incidental or consequential damages arising from breach of warranty, lost profits, breach of contract, negligence, strict liability, or any other legal theory, whether in tort or contract, even if such party is aware of the likelihood of such damages occurring.
+
+48 IX is being engaged only to provide the [Services](#definitions) set forth in this policy. 48 IX shall not be liable for any loss of data and shall not be responsible for restoring any lost data or software. 48 IX does not warrant any third party products or systems. 48 IX expressly disclaims all warranties of any kind relating to the Services, whether express or implied, including, without limitation, the implied warranties of merchantability, fitness for a particular use or purpose, title and non-infringement. 48 IX makes no warranty that the Services will meet Participant's requirements other than those set forth in this policy, that the results obtained from the use of the Services will be satisfactory, accurate or reliable, or that the Services will meet Participant's expectations. The representatives of 48 IX have no authority to give any warranties on behalf of 48 IX.
+
+### Fees & Payment
+
+Unless otherwise agreed in writing, Participant will pay all [Fees](#definitions) no later than thirty (30) days after the date of each applicable invoice. 48 IX may change the Fees effective at least thirty (30) days after written notice of such change. All payments shall be made in U.S. Dollars, unless otherwise converted through a third party payment processor. If timely payment is not received, 48 IX reserves the right to suspend the [Services](#definitions) until such payment is made in full.
+
+## Interconnection
+
+Participant traffic filters must allow standard neighbor discovery protocols. Failure to do so may result in excess flooded packets on the exchange fabric, which can negatively impact other participants and 48 IX resources.
+
+### IPv4 Traffic
+
+Participant routers must be configured to receive and respond to ARP packets from all 48 IX participants, even those that are not direct peers.
+
+### IPv6 Traffic
+
+Participant routers must be configured to receive and respond to ICMPv6 neighbor solicitation packets from both `fe80::/10` and all 48 IX participant addresses, including those that are not direct peers, directed toward `fe80::/10`, `ff02::1:ff00:0/104`, and the participant's unicast 48 IX assignment(s).
+
+### Bilateral Peering
+
+Participants must use BGP-4 and must set `NEXT_HOP_SELF` if advertising routes from other 48 IX participants.
+
+<Admonition
+  title="What is Bilateral Peering?"
+  message="Bilateral peering is a direct peering arrangement between two autonomous systems. While the two peers may use the 48 IX peering fabric to peer with one another, they do not utilize the 48 IX Route Servers to exchange routing information."
+  type="tip"
+/>
+
+### Multilateral Peering
+
+Participants must use BGP-4 and must set `NEXT_HOP_SELF` if advertising routes from other 48 IX participants.
+
+<Admonition
+  title="What is Multilateral Peering?"
+  message='Multilateral peering is a "one to many" exchange of routing information where participants peer with the 48 IX Route Servers, which exports the routing information of other participants. The 48 IX ASN will not appear in the AS_PATH of exported routes.'
+  type="tip"
+/>
+
+#### Authorized Routing Information
+
+48 IX Route Servers will only accept authorized routing information from participants. Authorized routes are determined in the following ways:
+
+##### 1. RPKI Route Origin Authorization
+
+48 IX leverages multiple sources of truth for RPKI route validation, and automatically drops invalid routes. Participants are strongly encouraged to create Route Origin Authorization objects with a valid [RPKI Repository](https://www.arin.net/resources/manage/rpki/).
+
+##### 2. Internet Routing Registry (IRR)
+
+48 IX also leverages the IRR database to dynamically create and update prefix lists for inbound route filtering. Participants are strongly encouraged to create IRR objects containing their prefixes and associated autonomous system numbers.
+
+##### 3. Manual Prefix Validation
+
+In lieu of RPKI ROAs or IRR as-set objects, 48 IX will manually validate a participant's authorized prefixes at time of provisioning.
+
+_Note: 48 IX will **not** periodically re-check a participant's authorized prefixes. If new prefixes need to be added to 48 IX route filters, please [contact the NOC](support.mdx)._
+
+### Routing
+
+Participants may not point a static route towards another participant's resources without their express permission. 48 IX reserves the right to shut down ports belonging to participants found to be in violation of this policy without prior notice to the participant.
+
+<Admonition
+  title="Please inform 48 IX of Unique Routing Arrangements"
+  message="If two or more participants have mutually agreed to exchange traffic outside the participant's respective autonomous system, please inform the 48 IX NOC so we don't inadvertently shut down a participant port upon detecting such traffic patterns."
+/>
+
+Participants may not point a static route towards the 48 IX Route Servers without express written permission from 48 IX. 48 IX reserves the right to shut down ports belonging to participants found to be in violation of this policy without prior notice to the participant.
+
+Participants must not allow 48 IX prefixes to propagate externally from their network and should minimize internal propagation as much as possible.
+
+## Communication
+
+48 IX was founded on the principle of open communication. Participants **must** be communicative with other participants and 48 IX operators in order to protect the exchange and all its participants. Unresponsive participants risk service suspension depending on the severity of a given issue. If a participant's time to respond to communication regarding an active issue impacting other participants or 48 IX resources exceeds the time-frames defined in the [Connection Policy](connection-policy.mdx), the participant's port(s) may be suspended until communication is re-established.
+
+### Required Contacts
+
+Prior to the activation of a participant port, the participant must provide the following contact information:
+
+- Support/NOC Email Address
+- Support/NOC Phone Number
+- Primary Contact Email Address
+  - _Note: this must be a person, and may **not** be the same as the Support/NOC phone number_
+- Primary Contact Phone Number
+  - _Note: this must be a person, and may **not** be the same as the Support/NOC phone number_
+  - This will only be used during [P1](support.mdx) events where the Support/NOC contact can not be reached.

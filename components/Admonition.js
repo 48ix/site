@@ -1,26 +1,33 @@
 import * as React from 'react';
+import dynamic from 'next/dynamic';
 import { Box, Heading, Icon, Stack, Text, useColorMode, useTheme } from '@chakra-ui/core';
-import { opposingColor } from '../util';
+import { opposingColor, title } from '../util';
+
+const IoIosThumbsUp = dynamic(() => import('react-icons/io').then(i => i.IoIosThumbsUp));
+const AiOutlineInfoCircle = dynamic(() =>
+  import('react-icons/ai').then(i => i.AiOutlineInfoCircle),
+);
+const GoNote = dynamic(() => import('react-icons/go').then(i => i.GoNote));
 
 const iconMap = {
-  important: 'info-outline',
-  note: 'check',
-  tip: 'star',
+  important: AiOutlineInfoCircle,
+  note: GoNote,
+  tip: IoIosThumbsUp,
   warning: 'warning-2',
   critical: 'not-allowed',
 };
 const bgMap = {
   dark: {
     important: 'blue.300',
-    note: 'gray.300',
+    note: 'gray.200',
     tip: 'green.300',
     warning: 'yellow.300',
     critical: 'red.300',
   },
   light: {
     important: 'blue.400',
-    note: 'gray.400',
-    tip: 'green.400',
+    note: 'gray.100',
+    tip: 'green.500',
     warning: 'yellow.400',
     critical: 'red.400',
   },
@@ -30,11 +37,20 @@ const AdmonitionContainer = ({ type, bg, ...props }) => (
   <Box borderRadius="md" p={6} m={8} backgroundColor={bg} maxW="75%" {...props} />
 );
 
-const AdmonitionHeader = props => (
-  <Heading as="h3" fontWeight="bold" fontSize="md" textTransform="capitalize" {...props} />
+const AdmonitionHeader = ({ children, ...props }) => (
+  <Heading as="h3" fontWeight="bold" fontSize="md" {...props}>
+    {title(children)}
+  </Heading>
 );
 
-const AdmonitionIcon = ({ type, ...props }) => <Icon size={5} name={iconMap[type]} {...props} />;
+const AdmonitionIcon = ({ type, ...props }) => {
+  const icon = iconMap[type];
+  let Component = props => <Icon size={5} name={icon} {...props} />;
+  if (typeof icon !== 'string') {
+    Component = props => <Box size={5} as={icon} {...props} />;
+  }
+  return <Component {...props} />;
+};
 
 const AdmonitionBody = ({ children, color, ...props }) => (
   <Box {...props}>

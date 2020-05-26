@@ -9,11 +9,11 @@ const Table = props => {
   return (
     <Box
       mt={4}
-      overflow="hidden"
+      overflow="scroll"
       borderWidth="1px"
       borderRadius="md"
       borderColor={border[colorMode]}>
-      <Box as="table" textAlign="left" width="full" overflowX="auto" {...props} />
+      <Box as="table" textAlign="left" width="full" overflowX="hidden" {...props} />
     </Box>
   );
 };

@@ -21,16 +21,22 @@ const Main = ({ children, ...props }) => (
     as="main"
     mx={{ sm: 2, md: 2, lg: 20, xl: 32 }}
     pt={8}
-    px={[null, null, 5]}
+    px={[2, 2, 5]}
     overflowX="hidden"
     {...props}>
     {children}
   </Box>
 );
 
+const layoutPaddingRight = {
+  true: { _: 2, lg: '18rem', xl: '18rem' },
+  false: { _: 2, lg: 0, xl: 0 },
+};
+
 const Layout = ({ children }) => {
   const { colorMode } = useColorMode();
   const { isLg, isXl } = useMedia();
+  const isMdx = children.type.isMDXComponent === true;
   return (
     <>
       <NextHead>
@@ -42,13 +48,17 @@ const Layout = ({ children }) => {
         {(isLg || isXl) && <Aside borderColor={borderColor[colorMode]} />}
         <Main>
           <Box
-            pr={{ _: 2, lg: 0, xl: 0 }}
+            pr={layoutPaddingRight[isMdx]}
             pl={{ _: 2, lg: '18rem', xl: '18rem' }}
             mt={[20, 20, 16, 16]}
             minH="70vh">
             {children}
           </Box>
-          <Footer pl={{ sm: 0, md: 0, lg: '18rem', xl: '18rem' }} mt={16} />
+          <Footer
+            pl={{ sm: 0, md: 0, lg: '18rem', xl: '18rem' }}
+            mt={16}
+            mb={isMdx ? [20, 20, null] : null}
+          />
         </Main>
       </SiteContainer>
     </>

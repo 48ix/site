@@ -43,6 +43,10 @@ const asideSections = [
     sections: [
       { id: 'about', title: 'About' },
       {
+        id: 'contact',
+        title: 'Contact',
+      },
+      {
         id: 'contributors',
         title: 'Contributors',
       },
@@ -57,21 +61,20 @@ const asideSections = [
     title: 'Exchange',
     sections: [
       {
-        id: 'network',
-        title: 'Network',
+        id: 'fees',
+        title: 'Fees',
       },
       {
         id: 'members',
         title: 'Members',
       },
       {
-        id: 'communication',
-        title: 'Communication',
+        id: 'network',
+        title: 'Network',
       },
       {
-        id: 'fees',
-        title: 'Fees',
-        keywords: ['fees', 'cost', 'fee', 'annual', 'monthly', 'free', ...keywordsGlobal],
+        id: 'support',
+        title: 'Support',
       },
     ],
   },
@@ -80,24 +83,28 @@ const asideSections = [
     title: 'Documentation',
     sections: [
       {
-        id: 'interfaces',
-        title: 'Interface Specifications',
+        id: 'bogons',
+        title: 'Bogon Addresses',
       },
       {
-        id: 'traffic',
-        title: 'Traffic',
+        id: 'communication',
+        title: 'Communication',
       },
       {
         id: 'config-guides',
         title: 'Configuration Guides',
       },
       {
+        id: 'interfaces',
+        title: 'Interface Specifications',
+      },
+      {
         id: 'route-servers',
         title: 'Route Servers',
       },
       {
-        id: 'bogons',
-        title: 'Bogon Addresses',
+        id: 'traffic',
+        title: 'Traffic',
       },
     ],
   },
@@ -106,12 +113,8 @@ const asideSections = [
     title: 'Policy & Procedure',
     sections: [
       {
-        id: 'connection-agreement',
-        title: 'Connection Agreement',
-      },
-      {
-        id: 'sla',
-        title: 'Service Level Agreement',
+        id: 'connection-policy',
+        title: 'Connection Policy',
       },
       {
         id: 'maintenance',

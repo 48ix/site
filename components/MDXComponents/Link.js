@@ -5,8 +5,9 @@ import { PseudoBox, useColorMode, Link as ChakraLink } from '@chakra-ui/core';
 
 const color = { dark: 'teal.500', light: 'blue.500' };
 
-const BaseLink = props => (
+const BaseLink = forwardRef((props, ref) => (
   <PseudoBox
+    ref={ref}
     as={ChakraLink}
     cursor="pointer"
     textDecoration="none"
@@ -15,27 +16,33 @@ const BaseLink = props => (
     _focus={{ boxShadow: 'outline' }}
     {...props}
   />
-);
+));
 
 const ExternalLink = props => <BaseLink isExternal {...props} />;
 
-const InternalLink = ({ href, ...props }) => (
+const InternalLink = forwardRef(({ href, ...props }, ref) => (
   <NextLink href={href}>
-    <BaseLink {...props} />
+    <BaseLink ref={ref} {...props} />
   </NextLink>
-);
+));
+
+const componentMap = { internal: InternalLink, external: ExternalLink };
 
 const Link = forwardRef(({ href, ...props }, ref) => {
+  const { colorMode } = useColorMode();
   let componentType = 'internal';
   if (href.match(/(http|https|mailto)\:\/\/.*/g)) {
     componentType = 'external';
   } else {
-    href = '/' + href.match(/^(.+)\.mdx$/m)[1];
+    let prefix = '/';
+    if (!href.includes('.mdx') && href.includes('#')) {
+      prefix = '';
+    }
+    let parts = href.split('.mdx');
+    href = [prefix, ...parts].join('');
   }
 
-  const componentMap = { internal: InternalLink, external: ExternalLink };
   const LinkComponent = componentMap[componentType];
-  const { colorMode } = useColorMode();
   return <LinkComponent ref={ref} color={color[colorMode]} href={href} {...props} />;
 });
 

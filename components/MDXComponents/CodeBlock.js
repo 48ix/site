@@ -5,7 +5,6 @@ const bg = { dark: 'whiteAlpha.50', light: 'blackAlpha.50' };
 const color = { dark: 'white', light: 'black' };
 
 const CodeBlock = props => {
-  console.log(props);
   const { colorMode } = useColorMode();
   return (
     <Box
