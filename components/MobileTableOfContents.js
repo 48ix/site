@@ -55,7 +55,11 @@ const MobileTableOfContents = ({ headings = [] }) => {
       width="full"
       height={[20, 20, 16]}>
       <Box mx="auto" mt={4} w="max-content">
-        <Button borderRadius="1rem" variantColor={btnColor[colorMode]} onClick={onToggle}>
+        <Button
+          borderRadius="1rem"
+          variantColor={btnColor[colorMode]}
+          onClick={onToggle}
+          aria-label="Open Table of Contents">
           <Dots width="64px" height="auto" color={dotColor[colorMode]} />
         </Button>
         <Drawer size="xs" isOpen={isOpen} placement="bottom" onClose={onClose}>
