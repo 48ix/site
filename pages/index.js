@@ -21,12 +21,20 @@ const Feature = ({ title, icon, children, ...props }) => {
   const { colorMode } = useColorMode();
   return (
     <Box {...props}>
-      <Flex rounded="full" size={12} bg={accent[colorMode]} align="center" justify="center">
-        <Box size={6} color="white" as={icon} />
+      <Flex mt={6} mb={4} direction="row" align="center">
+        <Flex
+          display="inline-flex"
+          rounded="full"
+          size={12}
+          bg={accent[colorMode]}
+          align="center"
+          justify="center">
+          <Box size={6} color="white" as={icon} />
+        </Flex>
+        <Heading as="h2" size="md" fontWeight="medium" ml={4} display="inline">
+          {title}
+        </Heading>
       </Flex>
-      <Heading as="h2" size="md" fontWeight="medium" mt={6} mb={4}>
-        {title}
-      </Heading>
 
       <Text fontSize="sm" opacity="0.7">
         {children}

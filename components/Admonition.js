@@ -34,7 +34,7 @@ const bgMap = {
 };
 
 const AdmonitionContainer = ({ type, bg, ...props }) => (
-  <Box borderRadius="md" p={6} m={8} backgroundColor={bg} maxW="75%" {...props} />
+  <Box borderRadius="md" p={6} m={8} backgroundColor={bg} {...props} />
 );
 
 const AdmonitionHeader = ({ children, ...props }) => (

@@ -50,10 +50,6 @@ const asideSections = [
         id: 'contributors',
         title: 'Contributors',
       },
-      {
-        id: 'governance',
-        title: 'Governance',
-      },
     ],
   },
   {
@@ -65,12 +61,12 @@ const asideSections = [
         title: 'Fees',
       },
       {
-        id: 'members',
-        title: 'Members',
-      },
-      {
         id: 'network',
         title: 'Network',
+      },
+      {
+        id: 'participants',
+        title: 'Participants',
       },
       {
         id: 'support',
@@ -87,20 +83,12 @@ const asideSections = [
         title: 'Bogon Addresses',
       },
       {
-        id: 'communication',
-        title: 'Communication',
-      },
-      {
         id: 'config-guides',
         title: 'Configuration Guides',
       },
       {
         id: 'interfaces',
         title: 'Interface Specifications',
-      },
-      {
-        id: 'route-servers',
-        title: 'Route Servers',
       },
       {
         id: 'traffic',

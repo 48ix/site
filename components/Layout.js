@@ -2,7 +2,7 @@ import * as React from 'react';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
 import { Box, useColorMode } from '@chakra-ui/core';
-import { useMedia } from './Provider';
+import { useMedia, useGlobalState } from './Provider';
 
 const Aside = dynamic(() => import('./Aside'));
 const Header = dynamic(() => import('./Header'));
@@ -28,15 +28,15 @@ const Main = ({ children, ...props }) => (
   </Box>
 );
 
-const layoutPaddingRight = {
-  true: { _: 2, lg: '18rem', xl: '18rem' },
-  false: { _: 2, lg: 0, xl: 0 },
-};
-
 const Layout = ({ children }) => {
   const { colorMode } = useColorMode();
   const { isLg, isXl } = useMedia();
+  const { hideToc } = useGlobalState();
   const isMdx = children.type.isMDXComponent === true;
+  let layoutPaddingRight = { _: 2, lg: 0, xl: 0 };
+  if (isMdx && !hideToc) {
+    layoutPaddingRight = { _: 2, lg: '18rem', xl: '18rem' };
+  }
   return (
     <>
       <NextHead>
@@ -48,7 +48,7 @@ const Layout = ({ children }) => {
         {(isLg || isXl) && <Aside borderColor={borderColor[colorMode]} />}
         <Main>
           <Box
-            pr={layoutPaddingRight[isMdx]}
+            pr={layoutPaddingRight}
             pl={{ _: 2, lg: '18rem', xl: '18rem' }}
             mt={[20, 20, 16, 16]}
             minH="70vh">

@@ -37,6 +37,7 @@ const IoIosRefresh = dynamic(() => import('react-icons/io').then(i => i.IoIosRef
 const asnColor = { dark: 'teal.300', light: 'red.500' };
 const copiedColor = { dark: 'green.300', light: 'green.600' };
 const modalBg = { dark: 'original.dark', light: 'white' };
+const idColor = { dark: 'white', light: 'black' };
 
 const PortGraph = ({ v, rowData, ...props }) => {
   const { colorMode } = useColorMode();
@@ -119,6 +120,7 @@ const Cell = ({ data }) => {
   const { colorMode } = useColorMode();
   const component = {
     name: <Text>{data.value}</Text>,
+    id: <MonoField v={data.value} color={idColor[colorMode]} />,
     asn: <MonoField v={data.value} color={asnColor[colorMode]} />,
     port_speed: <Text>{`${data.value} Gbps`}</Text>,
     ipv4: <MonoField v={data.value} />,
@@ -128,7 +130,7 @@ const Cell = ({ data }) => {
   return component[data.column.id];
 };
 
-const MemberTable = () => {
+const ParticipantTable = () => {
   const { endpoints } = useConfig();
 
   const [{ data, loading, error }, refetch] = useAxios(endpoints.members);
@@ -175,6 +177,6 @@ const MemberTable = () => {
   );
 };
 
-MemberTable.displayName = 'MemberTable';
+ParticipantTable.displayName = 'ParticipantTable';
 
-export default MemberTable;
+export default ParticipantTable;

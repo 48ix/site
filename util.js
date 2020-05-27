@@ -184,7 +184,21 @@ const makeTheme = userTheme => ({
 
 const title = (text, ...rest) =>
   zeitTitle(text, {
-    special: ['48 IX', 'IPv4', 'IPv6', 'ASN', 'RPKI', 'ROA', 'IRR', 'IOS', 'FRR', 'ARP', 'MTU'],
+    special: [
+      '48 IX',
+      'IPv4',
+      'IPv6',
+      'ASN',
+      'RPKI',
+      'ROA',
+      'IRR',
+      'IOS',
+      'FRR',
+      'ARP',
+      'MTU',
+      'MAC',
+      'ASNs',
+    ],
     ...rest,
   });
 

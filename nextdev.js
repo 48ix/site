@@ -18,7 +18,7 @@ const devProxy = {
 };
 
 const port = parseInt(process.env.PORT, 10) || 3000;
-const env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV || 'development';
 const dev = env !== 'production';
 const app = next({
   dir: '.', // base directory where everything is, could move to src later
@@ -48,10 +48,10 @@ app
       if (err) {
         throw err;
       }
-      console.log(`> Ready on port ${port} [${env}]`);
+      console.info(`> Listening at http://localhost:${port} [${env}]`);
     });
   })
   .catch(err => {
-    console.log('An error occurred, unable to start the server');
-    console.log(err);
+    console.error('An error occurred, unable to start the server');
+    console.error(err);
   });

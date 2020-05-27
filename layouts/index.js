@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import MDXComponents from '../components/MDXComponents';
 import { NextSeo } from 'next-seo';
 import { title } from '../util';
-import { useMedia } from '../components/Provider';
+import { useGlobalState, useMedia } from '../components/Provider';
 import { H1 } from '../components/MDXComponents/Headings';
 import TableOfContents from '../components/TableOfContents';
 import MobileTableOfContents from '../components/MobileTableOfContents';
@@ -14,6 +15,7 @@ const MDXDefaultLayout = ({
   description,
   keywords = [],
   defaultTitle = true,
+  hideToc = false,
   __resourcePath,
 }) => {
   let pageId = id;
@@ -23,6 +25,14 @@ const MDXDefaultLayout = ({
   const displayName = title(pageTitle);
   return ({ children: content, rightToc }) => {
     const { isLg, isXl } = useMedia();
+    const { hideToc: currentHideToc, setHideToc } = useGlobalState();
+    useEffect(() => {
+      if (hideToc === true && currentHideToc === false) {
+        setHideToc(true);
+      } else if (hideToc === false && currentHideToc === true) {
+        setHideToc(false);
+      }
+    });
     return (
       <MDXProvider components={MDXComponents}>
         <NextSeo
@@ -35,8 +45,8 @@ const MDXDefaultLayout = ({
             description: description,
           }}
         />
-        {(isLg || isXl) && <TableOfContents headings={rightToc} />}
-        {!(isLg || isXl) && <MobileTableOfContents headings={rightToc} />}
+        {(isLg || isXl || !currentHideToc) && <TableOfContents headings={rightToc} />}
+        {!(isLg || isXl || !currentHideToc) && <MobileTableOfContents headings={rightToc} />}
         {defaultTitle && <H1>{displayName}</H1>}
         {content}
       </MDXProvider>

@@ -11,6 +11,7 @@ const hoverColor = { dark: 'red.100', light: 'red.600' };
 
 const ColorModeButton = ({ ...props }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const label = `${colorMode === 'dark' ? 'Hurt' : 'Rest'} your eyes`;
   return (
     <IconButton
       mx={4}
@@ -19,7 +20,8 @@ const ColorModeButton = ({ ...props }) => {
       icon={icon[colorMode]}
       color={color[colorMode]}
       onClick={toggleColorMode}
-      aria-label={`Switch to ${colorMode} mode`}
+      aria-label={label}
+      alt={label}
       _hover={{ backgroundColor: 'unset', color: hoverColor[colorMode] }}
       {...props}
     />

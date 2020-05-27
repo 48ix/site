@@ -1,13 +1,93 @@
 ---
 title: Network
 description: 48 IX Network Locations & Architecture
-keywords: [network, architecture, topology, locations, design]
+keywords:
+  [network, architecture, topology, locations, design, bgp, communities, filtering, route servers]
 ---
 
 ## Locations
 
-The 48 IX network is currently available in the following locations:
+48 IX is currently available in the following locations:
 
-| Facility            |                            Address |
-| :------------------ | ---------------------------------: |
-| EdgeConneX ECDPHX01 | 3011 S. 52nd St., Tempe, AZ, 85282 |
+| Facility Name       | Facility ID | Metro ID |                            Address |
+| :------------------ | :---------- | :------- | ---------------------------------: |
+| EdgeConneX ECDPHX01 | `01`        | `01`     | 3011 S. 52nd St., Tempe, AZ, 85282 |
+
+The **Facility ID** is used throughout 48 IX for identification and locational purposes.
+
+## Routing
+
+48 IX utilizes <ASN /> for all multilateral BGP adjacencies. <ASN /> Should never appear in the `AS_PATH` of routes received from the route servers.
+
+### Route Servers
+
+| Route Server         | IPv4 Address        | IPv6 Address        |                            Platform |
+| :------------------- | :------------------ | :------------------ | ----------------------------------: |
+| **rs1.phx.48ix.net** | `<Waiting on ARIN>` | `<Waiting on ARIN>` | [FRRouting](https://frrouting.org/) |
+| **rs2.phx.48ix.net** | `<Waiting on ARIN>` | `<Waiting on ARIN>` | [FRRouting](https://frrouting.org/) |
+
+<Admonition
+  type="note"
+  title="Forwarding"
+  message="48 IX route servers are not in the forwarding path, and have IPv4 & IPv6 forward explicitly disabled."
+/>
+
+### Route Filtering
+
+The following BGP updates are automatically rejected:
+
+- Routes to a [bogon](bogons.mdx) network
+- Routes with a [bogon](bogons.mdx) ASN in the `AS_PATH`
+- RPKI-invalid routes
+
+The following actions are performed upon receiving a valid BGP update from a multilateral peer:
+
+- Strip all BGP communities in the <ASN /> namespace except those allowed for participant use
+- Set Local Preference to `200`
+- Set informational BGP communities
+
+### BGP Communities
+
+48 IX leverages BGP Communities to provide participants with the ability to control how their routes are announced to other multilateral participants.
+
+#### Well Known Communities
+
+The following well-known BGP communities are supported:
+
+| Community   | Name                                                    |                                                                             Action |
+| :---------- | :------------------------------------------------------ | ---------------------------------------------------------------------------------: |
+| `65535:1`   | [**NO_EXPORT**](https://tools.ietf.org/html/rfc1997)    |    Export the route to all participants, with the **NO_EXPORT** community attached |
+| `65535:2`   | [**NO_ADVERTISE**](https://tools.ietf.org/html/rfc1997) | Export the route to all participants, with the **NO_ADVERTISE** community attached |
+| `65535:666` | [**BLACKHOLE**](https://tools.ietf.org/html/rfc7999)    |    Export the route to all participants, with the **BLACKHOLE** community attached |
+
+#### Informational Communities
+
+The following communities will be appended to any route received on a 48-IX route server, and may be used for granular route filtering or other informational purposes:
+
+| Community    | Name                                                                                |
+| :----------- | :---------------------------------------------------------------------------------- |
+| `62484:0`    | **Any**: Any route that has traversed <ASN/>                                        |
+| `62484:1x`   | **Route Server ID**: [Route Server](#route-servers) on which the route was received |
+| `62484:1xx`  | **Location**: `xx` is equal to the [Facility ID](#locations)                        |
+| `62484:2xx`  | **Metro ID**: `xx` is equal to the [Metro ID](#locations)                           |
+| `62484:5xxx` | **Participant ID**: `xxx` is equal to the [Participant ID](participants.mdx)        |
+
+#### Announcement Control Communities
+
+| Community     | Name                    |                                                                               Action |
+| :------------ | :---------------------- | -----------------------------------------------------------------------------------: |
+| `62484:10000` | Prepend All 1           |                              Prepend advertising ASN **1** times to all participants |
+| `62484:20000` | Prepend All 2           |                              Prepend advertising ASN **2** times to all participants |
+| `62484:30000` | Prepend All 3           |                              Prepend advertising ASN **3** times to all participants |
+| `62484:10xxx` | Prepend Participant 1   | Prepend advertising ASN **1** times to participant with [ID](participants.mdx) `xxx` |
+| `62484:20xxx` | Prepend Participant 2   | Prepend advertising ASN **2** times to participant with [ID](participants.mdx) `xxx` |
+| `62484:30xxx` | Prepend Participant 3   | Prepend advertising ASN **3** times to participant with [ID](participants.mdx) `xxx` |
+| `62484:41000` | No Export All           |                                                      Don't export to any participant |
+| `62484:41xxx` | No Export Participant   |                        Don't export to participant with [ID](participants.mdx) `xxx` |
+| `62484:51xxx` | Export Only Participant |                       _Only_ export to participant with [ID](participants.mdx) `xxx` |
+
+#### Community Filtering
+
+To mitigate community "noise", all BGP communities not specified in this document are deleted from inbound BGP updates, and only communities in the [Informational Communities](#informational-communities) section are exported.
+
+The only exception to this are [Well Known Communities](#well-known-communities) — all supported well-known BGP communities are maintained on outbound updates.

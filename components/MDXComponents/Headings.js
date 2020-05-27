@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { Box, Heading, PseudoBox, useColorMode } from '@chakra-ui/core';
 import { title } from '../../util';
+import { useMedia } from '../Provider';
 
 const color = { dark: 'teal.300', light: 'blue.500' };
 
@@ -9,6 +10,7 @@ const borderColor = { dark: 'whiteAlpha.300', light: 'blackAlpha.300' };
 
 const BaseHeading = ({ withBorder = false, ...props }) => {
   const { colorMode } = useColorMode();
+  const { isLg, isXl } = useMedia();
   let borderProps = {};
   if (withBorder) {
     borderProps.borderBottomWidth = '1px';
@@ -35,7 +37,7 @@ const BaseHeading = ({ withBorder = false, ...props }) => {
       {...borderProps}
       {...props}>
       <Box pointerEvents="auto" position="relative">
-        {props.id && (
+        {props.id && (isLg || isXl) && (
           <PseudoBox
             aria-label="anchor"
             as="a"

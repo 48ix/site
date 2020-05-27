@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createContext, useContext, useMemo, useEffect } from 'react';
+import { createContext, useContext, useMemo, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { NextSeo, LocalBusinessJsonLd } from 'next-seo';
 import { CSSReset, ThemeProvider, useDisclosure } from '@chakra-ui/core';
@@ -57,10 +57,13 @@ const StateProvider = ({ children }) => {
     onOpen: joinFormOnOpen,
     onClose: joinFormOnClose,
   } = useDisclosure();
+  const [hideToc, setHideToc] = useState(false);
   const value = useMemo(() => ({
     joinFormOpen,
     joinFormOnOpen,
     joinFormOnClose,
+    hideToc,
+    setHideToc,
   }));
   return <StateContext.Provider value={value}>{children}</StateContext.Provider>;
 };
