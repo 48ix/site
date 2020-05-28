@@ -198,6 +198,7 @@ const title = (text, ...rest) =>
       'MTU',
       'MAC',
       'ASNs',
+      'BGP',
     ],
     ...rest,
   });
