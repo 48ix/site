@@ -129,7 +129,7 @@ const portSpeeds = [
 ];
 
 const endpoints = {
-  members: 'https://square-frost-ee00.48ix.workers.dev',
+  participants: 'https://participants-test.48ix.workers.dev',
 };
 
 const contributors = [

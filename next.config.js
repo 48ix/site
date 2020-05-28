@@ -7,12 +7,12 @@ const withMdxEnhanced = require('next-mdx-enhanced');
 module.exports = withBundleAnalyzer(
   withMdxEnhanced({
     fileExtensions: ['mdx'],
-    remarkPlugins: [require('remark-slug'), require('./remark-headings')],
+    remarkPlugins: [require('remark-slug'), require('./plugins/remark-headings')],
     defaultLayout: true,
   })({
     webpack: (config, { isServer }) => {
       if (isServer) {
-        require('./generateSitemap');
+        require('./plugins/generateSitemap');
       }
       return config;
     },

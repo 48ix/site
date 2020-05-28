@@ -20,11 +20,13 @@ import {
   Stack,
   PseudoBox,
   Tag,
+  Tooltip,
   useColorMode,
   useClipboard,
   useDisclosure,
 } from '@chakra-ui/core';
-import useAxios from 'axios-hooks';
+import axios from 'axios';
+import useSWR, { mutate } from 'swr';
 import { useConfig } from './Provider';
 
 const Table = dynamic(() => import('./Table'), { loading: Skeleton });
@@ -42,11 +44,14 @@ const idColor = { dark: 'white', light: 'black' };
 const PortGraph = ({ v, rowData, ...props }) => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const label = `View Port Statistics for ${rowData.name}`;
   return (
     <>
-      <Button onClick={onOpen} variant="link" textDecoration="none">
-        <LittleGraph circuitId={props.v} />
-      </Button>
+      <Tooltip hasArrow label={label} placement="top">
+        <Button onClick={onOpen} variant="link" textDecoration="none" aria-label={label}>
+          <LittleGraph circuitId={props.v} />
+        </Button>
+      </Tooltip>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent maxWidth={['100%', '100%', '75%', '75%']} bg={modalBg[colorMode]}>
@@ -83,13 +88,17 @@ const PortGraph = ({ v, rowData, ...props }) => {
   );
 };
 
-const MonoField = props => {
+const MonoField = ({ v, copyable = false, ...props }) => {
   const [value] = useState(props.v);
   const { onCopy, hasCopied } = useClipboard(value);
   const { colorMode } = useColorMode();
+  let copyProps = { _hover: { cursor: 'pointer' }, onClick: onCopy };
+  if (!copyable) {
+    copyProps = {};
+  }
   return (
     <>
-      <PseudoBox as={Text} _hover={{ cursor: 'pointer' }} onClick={onCopy} {...props}>
+      <PseudoBox as={Text} {...copyProps} {...props}>
         {hasCopied ? (
           <Box
             ml={2}
@@ -107,7 +116,7 @@ const MonoField = props => {
             opacity={hasCopied ? '0' : '1'}
             transition="opacity .25s ease-in-out"
             fontFamily="mono">
-            {props.v}
+            {v}
           </Text>
         )}
       </PseudoBox>
@@ -121,10 +130,10 @@ const Cell = ({ data }) => {
   const component = {
     name: <Text>{data.value}</Text>,
     id: <MonoField v={data.value} color={idColor[colorMode]} />,
-    asn: <MonoField v={data.value} color={asnColor[colorMode]} />,
+    asn: <MonoField v={data.value} color={asnColor[colorMode]} copyable />,
     port_speed: <Text>{`${data.value} Gbps`}</Text>,
-    ipv4: <MonoField v={data.value} />,
-    ipv6: <MonoField v={data.value} />,
+    ipv4: <MonoField v={data.value} copyable />,
+    ipv6: <MonoField v={data.value} copyable />,
     circuit_id: <PortGraph v={data.value} rowData={rowData} />,
   };
   return component[data.column.id];
@@ -132,17 +141,16 @@ const Cell = ({ data }) => {
 
 const ParticipantTable = () => {
   const { endpoints } = useConfig();
-
-  const [{ data, loading, error }, refetch] = useAxios(endpoints.members);
-  error && console.dir(error);
+  const { data: response, error } = useSWR(endpoints.participants, axios.get);
+  error && console.error(error);
   return (
     <Box>
-      <Skeleton isLoaded={!loading}>
-        {!error && !loading && data && (
+      <Skeleton isLoaded={response?.data}>
+        {!error && response?.data && (
           <Table
             bordersHorizontal
-            data={data?.rows ?? []}
-            columns={data?.columns ?? []}
+            data={response?.data?.rows ?? []}
+            columns={response?.data?.columns ?? []}
             cellRender={d => <Cell data={d} />}
           />
         )}
@@ -165,7 +173,7 @@ const ParticipantTable = () => {
             <Button
               mt={2}
               leftIcon={IoIosRefresh}
-              onClick={refetch}
+              onClick={() => mutate(endpoints.participants)}
               variantColor="yellow"
               variant="outline">
               Retry

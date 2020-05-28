@@ -1,4 +1,11 @@
-import chroma from 'chroma-js';
+import {
+  parseToHsla,
+  transparentize,
+  readableColorIsBlack,
+  hsla,
+  saturate,
+  desaturate,
+} from 'color2k';
 import { theme as chakraTheme } from '@chakra-ui/core';
 import zeitTitle from 'title';
 
@@ -25,14 +32,8 @@ const uniqueId = prefix => {
   return `${prefix}${id}`;
 };
 
-const isDark = color => {
-  // YIQ equation from http://24ways.org/2010/calculating-color-contrast
-  const rgb = chroma(color).rgb();
-  const yiq = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-  return yiq < 128;
-};
-
-const isLight = color => isDark(color);
+const isLight = color => readableColorIsBlack(color);
+const isDark = color => !readableColorIsBlack(color);
 
 const opposingColor = (theme, color) => {
   if (color.includes('.')) {
@@ -56,16 +57,16 @@ const googleFontUrl = (fontFamily, weights = [200, 400, 500, 700]) => {
 };
 
 const alphaColors = color => ({
-  900: chroma(color).alpha(0.92).css(),
-  800: chroma(color).alpha(0.8).css(),
-  700: chroma(color).alpha(0.6).css(),
-  600: chroma(color).alpha(0.48).css(),
-  500: chroma(color).alpha(0.38).css(),
-  400: chroma(color).alpha(0.24).css(),
-  300: chroma(color).alpha(0.16).css(),
-  200: chroma(color).alpha(0.12).css(),
-  100: chroma(color).alpha(0.08).css(),
-  50: chroma(color).alpha(0.04).css(),
+  50: transparentize(color, Number(1 - 0.04).toFixed(2)),
+  100: transparentize(color, Number(1 - 0.08).toFixed(2)),
+  200: transparentize(color, Number(1 - 0.12).toFixed(2)),
+  300: transparentize(color, Number(1 - 0.16).toFixed(2)),
+  400: transparentize(color, Number(1 - 0.24).toFixed(2)),
+  500: transparentize(color, Number(1 - 0.38).toFixed(2)),
+  600: transparentize(color, Number(1 - 0.48).toFixed(2)),
+  700: transparentize(color, Number(1 - 0.6).toFixed(2)),
+  800: transparentize(color, Number(1 - 0.8).toFixed(2)),
+  900: transparentize(color, Number(1 - 0.92).toFixed(2)),
 });
 
 const generateColors = colorInput => {
@@ -74,9 +75,9 @@ const generateColors = colorInput => {
   const lightnessMap = [0.95, 0.85, 0.75, 0.65, 0.55, 0.45, 0.35, 0.25, 0.15, 0.05];
   const saturationMap = [0.32, 0.16, 0.08, 0.04, 0, 0, 0.04, 0.08, 0.16, 0.32];
 
-  const validColor = chroma.valid(colorInput.trim()) ? chroma(colorInput.trim()) : chroma('#000');
+  const colorHsla = parseToHsla(colorInput);
+  const lightnessGoal = colorHsla[2];
 
-  const lightnessGoal = validColor.get('hsl.l');
   const closestLightness = lightnessMap.reduce((prev, curr) =>
     Math.abs(curr - lightnessGoal) < Math.abs(prev - lightnessGoal) ? curr : prev,
   );
@@ -84,20 +85,22 @@ const generateColors = colorInput => {
   const baseColorIndex = lightnessMap.findIndex(l => l === closestLightness);
 
   const colors = lightnessMap
-    .map(l => validColor.set('hsl.l', l))
-    .map(color => chroma(color))
+    .map(l => {
+      const [h, s, _, a] = colorHsla;
+      return hsla(h, s, l, a);
+    })
     .map((color, i) => {
       const saturationDelta = saturationMap[i] - saturationMap[baseColorIndex];
       return saturationDelta >= 0
-        ? color.saturate(saturationDelta)
-        : color.desaturate(saturationDelta * -1);
+        ? saturate(color, saturationDelta)
+        : desaturate(color, saturationDelta * -1);
     });
 
   const getColorNumber = index => (index === 0 ? 50 : index * 100);
 
   colors.map((color, i) => {
     const colorIndex = getColorNumber(i);
-    colorMap[colorIndex] = color.hex();
+    colorMap[colorIndex] = color;
   });
   return colorMap;
 };
