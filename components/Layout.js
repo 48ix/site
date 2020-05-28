@@ -1,19 +1,20 @@
 import * as React from 'react';
+import { Global } from '@emotion/core';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
-import { Box, useColorMode } from '@chakra-ui/core';
+import { Box, PseudoBox, useColorMode, useTheme } from '@chakra-ui/core';
 import { useMedia, useGlobalState } from './Provider';
 
 const Aside = dynamic(() => import('./Aside'));
 const Header = dynamic(() => import('./Header'));
 const Footer = dynamic(() => import('./Footer'));
 
-const bg = { dark: 'original.dark', light: 'white' };
 const borderColor = { dark: 'dark.300', light: 'blue.500' };
+const selectionBg = { dark: 'rgba(244, 220, 135, 0.99)', light: 'rgba(237, 43, 83, 0.99)' };
+const selectionColor = { dark: 'black', light: 'white' };
 
 const SiteContainer = props => {
-  const { colorMode } = useColorMode();
-  return <Box minH="100vh" h="100%" bg={bg[colorMode]} {...props} />;
+  return <PseudoBox className="site-container" minH="100vh" h="100%" {...props} />;
 };
 
 const Main = ({ children, ...props }) => (
@@ -30,6 +31,7 @@ const Main = ({ children, ...props }) => (
 
 const Layout = ({ children }) => {
   const { colorMode } = useColorMode();
+  const theme = useTheme();
   const { isLg, isXl } = useMedia();
   const { hideToc } = useGlobalState();
   const isMdx = children.type.isMDXComponent === true;
@@ -37,11 +39,14 @@ const Layout = ({ children }) => {
   if (isMdx && !hideToc) {
     layoutPaddingRight = { _: 2, lg: '18rem', xl: '18rem' };
   }
+  const bg = { dark: theme.colors.original.dark, light: 'white' };
+  const textColor = { dark: theme.colors.original.light, light: 'black' };
   return (
     <>
       <NextHead>
+        <link rel="icon" type="image/x-icon" href={`/favicon-${colorMode}.ico`} />
         <link rel="icon" type="image/png" sizes="32x32" href={`/favicon-${colorMode}-32x32.png`} />
-        <link rel="icon" type="image/png" sizes="32x32" href={`/favicon-${colorMode}-16x16.png`} />
+        <link rel="icon" type="image/png" sizes="16x16" href={`/favicon-${colorMode}-16x16.png`} />
       </NextHead>
       <SiteContainer>
         <Header borderColor={borderColor[colorMode]} />
@@ -57,9 +62,18 @@ const Layout = ({ children }) => {
           <Footer
             pl={{ sm: 0, md: 0, lg: '18rem', xl: '18rem' }}
             mt={16}
-            mb={isMdx ? [20, 20, null] : null}
+            mb={isMdx ? [20, 20, 10] : 10}
           />
         </Main>
+        <Global
+          styles={{
+            body: { backgroundColor: bg[colorMode], color: textColor[colorMode] },
+            '*::selection': {
+              backgroundColor: selectionBg[colorMode],
+              color: selectionColor[colorMode],
+            },
+          }}
+        />
       </SiteContainer>
     </>
   );

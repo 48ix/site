@@ -5,15 +5,18 @@ import { Box, Button, Divider, Flex, Heading, Grid, Text, useColorMode } from '@
 import { NextSeo } from 'next-seo';
 import { useGlobalState, useMedia, useConfig } from '../components/Provider';
 
-const FaDollarSign = dynamic(() => import('react-icons/fa').then(i => i.FaDollarSign));
-const IoMdBook = dynamic(() => import('react-icons/io').then(i => i.IoMdBook));
-const IoIosGitNetwork = dynamic(() => import('react-icons/io').then(i => i.IoIosGitNetwork));
-const LightningBolt = dynamic(() => import('../components/Icons/LightningBolt'));
+const FaEquals = dynamic(() => import('react-icons/fa').then(i => i.FaEquals));
+const IoMdHeart = dynamic(() => import('react-icons/io').then(i => i.IoMdHeart));
+const BsMap = dynamic(() => import('react-icons/bs').then(i => i.BsMap));
+const BsFillLightningFill = dynamic(() =>
+  import('react-icons/bs').then(i => i.BsFillLightningFill),
+);
 const JoinForm = dynamic(() => import('../components/JoinForm'));
 const StateOutline = dynamic(() => import('../components/Logo').then(i => i.StateOutline));
 
 const accent = { dark: 'teal.500', light: 'blue.500' };
 const accentVar = { dark: 'teal', light: 'blue' };
+const text = { dark: 'white', light: 'black' };
 
 const Container = props => <Box mx="auto" {...props} />;
 
@@ -31,7 +34,7 @@ const Feature = ({ title, icon, children, ...props }) => {
           justify="center">
           <Box size={6} color="white" as={icon} />
         </Flex>
-        <Heading as="h2" size="md" fontWeight="medium" ml={4} display="inline">
+        <Heading as="h3" size="md" fontSize="3xl" fontWeight="medium" ml={4} display="inline">
           {title}
         </Heading>
       </Flex>
@@ -50,35 +53,29 @@ export default () => {
   const config = useConfig();
   return (
     <>
-      <NextSeo title={`${config.title} ❯ ${config.siteSlogan}`} titleTemplate="%s" />
+      <NextSeo title={`${config.title} | ${config.siteSlogan}`} titleTemplate="%s" />
       <Box as="section" pt={18} pb={24}>
         <Container textAlign="center">
           <Box mt={[null, null, 8, 8]} mb={8} display="inline-block">
             <StateOutline size={256} />
           </Box>
-          <Heading as="h1" size="xl">
-            <Text as="span" fontWeight="normal">{`Arizona's `}</Text>
+          <Heading as="h1" fontSize="6xl" fontWeight="bold" color={accent[colorMode]}>
+            <Text as="span" fontWeight="normal" color={text[colorMode]}>{`Arizona's `}</Text>
             <br />
-            <Text as="span" fontWeight="bold" color={accent[colorMode]}>
-              Open Internet Exchange
-            </Text>
+            Open Internet Exchange
           </Heading>
 
           <Text as="h2" opacity="0.7" fontSize="xl" mt={6}>
-            {config.siteDescription}
+            The neutral interconnection fabric for a better internet.
           </Text>
 
           <Box mt={12}>
             <Button size="lg" variantColor={accentVar[colorMode]} m={2} onClick={joinFormOnOpen}>
               Join the Exchange
             </Button>
-            <NextLink href="/connection-policy" passHref>
-              <Button
-                as="a"
-                size="lg"
-                m={2}
-                leftIcon={props => <IoMdBook size="1.5em" {...props} />}>
-                Read the Docs
+            <NextLink href="/network" passHref>
+              <Button as="a" size="lg" m={2} rightIcon={props => <BsMap size="1.5em" {...props} />}>
+                Where to Connect
               </Button>
             </NextLink>
           </Box>
@@ -92,16 +89,16 @@ export default () => {
           templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
           gap={10}
           px={{ md: 8 }}>
-          <Feature icon={FaDollarSign} title="Cost Effective">
-            Routing through a well-connected internet exchange drastically reduces upstream transit
-            costs.
+          <Feature icon={FaEquals} title="Neutral">
+            48 IX is a neutral, nonprofit team dedicated to advancing Arizona's internet
+            connectivity.
           </Feature>
-          <Feature icon={LightningBolt} title="Fast">
-            Reduce hops, lower latency, increase bandwidth by using more direct paths between
-            networks.
+          <Feature icon={BsFillLightningFill} title="Fast">
+            Reduce hops, lower latency, and increase bandwidth through faster, more direct paths.
           </Feature>
-          <Feature icon={IoIosGitNetwork} title="Reliable">
-            Reduce reliance on upstream transit providers by peering directly.
+          <Feature icon={IoMdHeart} title="Direct">
+            Bring a better internet to Arizona through direct connectivity to ISPs, CDNs, & the
+            cloud.
           </Feature>
         </Grid>
       </Container>

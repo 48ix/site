@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Box, Heading, useColorMode } from '@chakra-ui/core';
+import { Box, Heading, Text, useColorMode } from '@chakra-ui/core';
 import { ComponentLink, TopNavLink } from './NavLink';
 import { useConfig, useMedia } from './Provider';
 
 const titleColor = { dark: 'whiteAlpha.900', light: 'blackAlpha.900' };
 
 const NavGroupHeading = props => (
-  <Heading
+  <Text
+    fontWeight="medium"
     fontSize="xs"
     color="gray.400"
     letterSpacing="wide"

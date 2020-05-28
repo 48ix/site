@@ -13,7 +13,7 @@ const Main = ({ Component, pageProps }) => {
 
   useEffect(() => {
     const WebFont = require('webfontloader');
-    WebFont.load({ google: { families: ['Inter:200,400,500,700', 'Fira Code&display=swap'] } });
+    WebFont.load({ google: { families: ['Inter:200,400,500,800', 'Fira Code&display=swap'] } });
   }, [pageName]);
   return (
     <>

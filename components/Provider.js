@@ -57,11 +57,14 @@ const StateProvider = ({ children }) => {
     onOpen: joinFormOnOpen,
     onClose: joinFormOnClose,
   } = useDisclosure();
+  const [joinFormInterval, setJoinFormInterval] = useState(null);
   const [hideToc, setHideToc] = useState(false);
   const value = useMemo(() => ({
     joinFormOpen,
     joinFormOnOpen,
     joinFormOnClose,
+    joinFormInterval,
+    setJoinFormInterval,
     hideToc,
     setHideToc,
   }));
@@ -101,7 +104,7 @@ const Provider = ({ page, children }) => {
             },
           ],
         }}
-        titleTemplate={`%s ❮ ${config.title}`}
+        titleTemplate={`%s | ${config.title}`}
       />
       <LocalBusinessJsonLd
         type="LocalBusiness"

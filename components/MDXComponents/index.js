@@ -9,6 +9,7 @@ import Link from './Link';
 import BlockQuote from './BlockQuote';
 import Admonition from '../Admonition';
 import ASN from '../ASN';
+import ExternalLinkIcon from '../ExternalLinkIcon';
 
 export default {
   h1: H1,
@@ -40,4 +41,5 @@ export default {
   blockquote: BlockQuote,
   Admonition: Admonition,
   ASN: ASN,
+  ExtLink: ExternalLinkIcon,
 };

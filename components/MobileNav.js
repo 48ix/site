@@ -50,7 +50,7 @@ const MobileNav = () => {
         toggled={isOpen}
         alt="Navigation"
         toggle={onToggle}
-        aria-label="Navigation"
+        label="Navigation Menu"
         color={burgerColor[colorMode]}
       />
       <Drawer size="xs" isOpen={isOpen} placement="left" onClose={onClose}>

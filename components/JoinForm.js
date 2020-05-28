@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import {
   Alert,
   AlertIcon,
   AlertTitle,
   AlertDescription,
   Box,
+  Button,
   FormControl,
   FormLabel,
   FormErrorMessage,
@@ -18,7 +19,8 @@ import {
   ModalBody,
   ModalCloseButton,
   Select,
-  Button,
+  Radio,
+  RadioGroup,
   useColorMode,
 } from '@chakra-ui/core';
 import { useForm } from 'react-hook-form';
@@ -51,12 +53,13 @@ const FormField = props => <Box my={2} p={2} {...props} />;
 const formElement = {
   input: Input,
   select: Select,
+  radio: forwardRef((props, ref) => <RadioGroup spaceing={5} isInline ref={ref} {...props} />),
 };
 
 const JoinForm = () => {
   const { colorMode } = useColorMode();
   const config = useConfig();
-  const { joinFormOpen, joinFormOnClose } = useGlobalState();
+  const { joinFormOpen, joinFormOnClose, joinFormInterval, setJoinFormInterval } = useGlobalState();
   const [submitSuccess, setSubmitSuccess] = useState(null);
   const { register, handleSubmit, errors, formState } = useForm();
   const onSubmit = async data => {
@@ -87,12 +90,24 @@ const JoinForm = () => {
                       id={field.id}
                       name={field.id}
                       ref={register({ required: field.required })}
-                      {...(field.elementProps ?? {})}>
+                      {...(field.elementProps ?? {})}
+                      {...((field.id === 'interval' &&
+                        joinFormInterval !== null && {
+                          value: joinFormInterval,
+                          onChange: e => setJoinFormInterval(e.target.value),
+                        }) ??
+                        {})}>
                       {field.element === 'select'
                         ? field.options.map(option => (
                             <option key={option.value} value={option.value}>
                               {option.label}
                             </option>
+                          ))
+                        : field.element === 'radio'
+                        ? field.options.map(option => (
+                            <Radio key={option.value} value={option.value}>
+                              {option.label}
+                            </Radio>
                           ))
                         : null}
                     </FormElement>

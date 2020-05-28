@@ -24,7 +24,7 @@ const MDXDefaultLayout = ({
   }
   const displayName = title(pageTitle);
   return ({ children: content, rightToc }) => {
-    const { isLg, isXl } = useMedia();
+    const { isSm, isMd, isLg, isXl } = useMedia();
     const { hideToc: currentHideToc, setHideToc } = useGlobalState();
     useEffect(() => {
       if (hideToc === true && currentHideToc === false) {
@@ -45,8 +45,8 @@ const MDXDefaultLayout = ({
             description: description,
           }}
         />
-        {(isLg || isXl || !currentHideToc) && <TableOfContents headings={rightToc} />}
-        {!(isLg || isXl || !currentHideToc) && <MobileTableOfContents headings={rightToc} />}
+        {(isLg || isXl) && !currentHideToc && <TableOfContents headings={rightToc} />}
+        {(isSm || isMd) && !currentHideToc && <MobileTableOfContents headings={rightToc} />}
         {defaultTitle && <H1>{displayName}</H1>}
         {content}
       </MDXProvider>
