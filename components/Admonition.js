@@ -34,7 +34,14 @@ const bgMap = {
 };
 
 const AdmonitionContainer = ({ type, bg, ...props }) => (
-  <Box borderRadius="md" p={6} m={8} backgroundColor={bg} {...props} />
+  <Box
+    borderRadius="md"
+    p={[4, 4, 6, 6]}
+    mx={[4, 4, 8, 8]}
+    my={8}
+    backgroundColor={bg}
+    {...props}
+  />
 );
 
 const AdmonitionHeader = ({ children, ...props }) => (
@@ -45,9 +52,10 @@ const AdmonitionHeader = ({ children, ...props }) => (
 
 const AdmonitionIcon = ({ type, ...props }) => {
   const icon = iconMap[type];
-  let Component = props => <Icon size={5} name={icon} {...props} />;
+  const iconProps = { size: [8, 8, 5, 5], display: 'inline' };
+  let Component = props => <Icon name={icon} {...iconProps} {...props} />;
   if (typeof icon !== 'string') {
-    Component = props => <Box size={5} as={icon} {...props} />;
+    Component = props => <Box as={icon} {...iconProps} {...props} />;
   }
   return <Component {...props} />;
 };
@@ -73,7 +81,7 @@ const Admonition = ({ title, message, children, type = 'note', hideIcon = false,
   return (
     <AdmonitionContainer type={type} bg={background} {...props}>
       <Stack isInline align="center" mb={4}>
-        {!hideIcon && <AdmonitionIcon type={type} color={color} />}
+        {!hideIcon && <AdmonitionIcon type={type} color={color} />} */}
         {title && <AdmonitionHeader color={color}>{title}</AdmonitionHeader>}
       </Stack>
       <AdmonitionBody color={color}>{children}</AdmonitionBody>

@@ -67,14 +67,12 @@ const FeatureList = () => {
  * @param {string} formId ID to set as the selected value when opening the join form
  * @param {Object[]} badges Array of badges, format: {text: '<text>', color: '<color>'}
  */
-const Fee = ({ price, interval, formId, badges = [], ...props }) => {
+const Fee = ({ price, interval, formId = 'annual', badges = [], ...props }) => {
   const { colorMode } = useColorMode();
-  const { joinFormOnOpen, setJoinFormInterval } = useGlobalState();
+  const { joinFormOnOpen, setJoinFormTerm } = useGlobalState();
 
-  const handleClick = interval => {
-    if (typeof interval !== 'undefined') {
-      setJoinFormInterval(interval);
-    }
+  const handleClick = () => {
+    setJoinFormTerm(formId);
     joinFormOnOpen();
   };
   return (
@@ -94,10 +92,10 @@ const Fee = ({ price, interval, formId, badges = [], ...props }) => {
         lineHeight="unset"
         p={6}
         my={[4, 4, 0]}
-        onClick={() => handleClick(formId)}
+        onClick={handleClick}
         {...props}>
         <Box h="100%" w="100%">
-          <Heading mt={1} as="h4" fontWeight="medium" fontSize="5xl" lineHeight="tight" isTruncated>
+          <Heading mt={1} as="h2" fontWeight="medium" fontSize="5xl" lineHeight="tight" isTruncated>
             <Text mr={1} as="span" fontWeight="light">
               {`$`}
             </Text>
@@ -141,7 +139,7 @@ const Fees = () => {
         />
       </Flex>
       <ProductJsonLd
-        productName="Port (Monthly)"
+        productName="Port"
         description="Internet Exchange Port, 1 Gbps or 10 Gbps"
         brand="48 IX"
         offers={[
@@ -150,13 +148,6 @@ const Fees = () => {
             priceCurrency: 'USD',
             url: `${config.url}/fees`,
           },
-        ]}
-      />
-      <ProductJsonLd
-        productName="Port (Annual)"
-        description="Internet Exchange Port, 1 Gbps or 10 Gbps"
-        brand="48 IX"
-        offers={[
           {
             price: 600,
             priceCurrency: 'USD',

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, useContext, useMemo, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { NextSeo, LocalBusinessJsonLd } from 'next-seo';
+import { NextSeo, LocalBusinessJsonLd, LogoJsonLd } from 'next-seo';
 import { CSSReset, ThemeProvider, useDisclosure } from '@chakra-ui/core';
 import { useMediaLayout } from 'use-media';
 import { makeTheme } from '../util';
@@ -57,14 +57,14 @@ const StateProvider = ({ children }) => {
     onOpen: joinFormOnOpen,
     onClose: joinFormOnClose,
   } = useDisclosure();
-  const [joinFormInterval, setJoinFormInterval] = useState(null);
+  const [joinFormTerm, setJoinFormTerm] = useState('annual');
   const [hideToc, setHideToc] = useState(false);
   const value = useMemo(() => ({
     joinFormOpen,
     joinFormOnOpen,
     joinFormOnClose,
-    joinFormInterval,
-    setJoinFormInterval,
+    joinFormTerm,
+    setJoinFormTerm,
     hideToc,
     setHideToc,
   }));
@@ -108,8 +108,8 @@ const Provider = ({ page, children }) => {
       />
       <LocalBusinessJsonLd
         type="LocalBusiness"
-        name={config.orgName}
-        description={config.siteDescription}
+        name={config.siteName}
+        description={config.siteSlogan}
         id={config.url}
         url={config.url}
         address={config.address}
@@ -119,6 +119,7 @@ const Provider = ({ page, children }) => {
           longitude: '-111.969949',
         }}
       />
+      <LogoJsonLd logo={`${config.url}/logo.jpg`} url={config.url} />
       <ProviderContext.Provider value={config}>
         <ThemeProvider theme={theme}>
           <ColorModeProvider>

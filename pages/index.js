@@ -11,7 +11,6 @@ const BsMap = dynamic(() => import('react-icons/bs').then(i => i.BsMap));
 const BsFillLightningFill = dynamic(() =>
   import('react-icons/bs').then(i => i.BsFillLightningFill),
 );
-const JoinForm = dynamic(() => import('../components/JoinForm'));
 const StateOutline = dynamic(() => import('../components/Logo').then(i => i.StateOutline));
 
 const accent = { dark: 'teal.500', light: 'blue.500' };
@@ -59,7 +58,12 @@ export default () => {
           <Box mt={[null, null, 8, 8]} mb={8} display="inline-block">
             <StateOutline size={256} />
           </Box>
-          <Heading as="h1" fontSize="6xl" fontWeight="bold" color={accent[colorMode]}>
+          <Heading
+            as="h1"
+            fontSize="6xl"
+            fontWeight="bold"
+            color={accent[colorMode]}
+            textAlign={['justify', 'justify', 'inherit']}>
             <Text as="span" fontWeight="normal" color={text[colorMode]}>{`Arizona's `}</Text>
             <br />
             Open Internet Exchange
@@ -104,7 +108,6 @@ export default () => {
       </Container>
 
       <Divider my={16} />
-      {(isSm || isMd) && <JoinForm />}
     </>
   );
 };

@@ -2,19 +2,20 @@ import * as React from 'react';
 import { Global } from '@emotion/core';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
-import { Box, PseudoBox, useColorMode, useTheme } from '@chakra-ui/core';
+import { Box, useColorMode, useTheme } from '@chakra-ui/core';
 import { useMedia, useGlobalState } from './Provider';
 
 const Aside = dynamic(() => import('./Aside'));
 const Header = dynamic(() => import('./Header'));
 const Footer = dynamic(() => import('./Footer'));
+const JoinForm = dynamic(() => import('./JoinForm'));
 
 const borderColor = { dark: 'dark.300', light: 'blue.500' };
 const selectionBg = { dark: 'rgba(244, 220, 135, 0.99)', light: 'rgba(237, 43, 83, 0.99)' };
 const selectionColor = { dark: 'black', light: 'white' };
 
 const SiteContainer = props => {
-  return <PseudoBox className="site-container" minH="100vh" h="100%" {...props} />;
+  return <Box className="site-container" minH="100vh" h="100%" {...props} />;
 };
 
 const Main = ({ children, ...props }) => (
@@ -59,6 +60,7 @@ const Layout = ({ children }) => {
             minH="70vh">
             {children}
           </Box>
+          <JoinForm />
           <Footer
             pl={{ sm: 0, md: 0, lg: '18rem', xl: '18rem' }}
             mt={16}

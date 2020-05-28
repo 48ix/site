@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import {
   Drawer,
   DrawerHeader,
@@ -16,23 +14,8 @@ import { Sling as Hamburger } from 'hamburger-react';
 import ColorModeButton from './ColorModeButton';
 import { AsideContent } from './Aside';
 import JoinButton from './JoinButton';
-import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
-
-const useRouteChanged = callback => {
-  const router = useRouter();
-  useEffect(() => {
-    const handleRouteChange = url => {
-      callback();
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events, callback]);
-};
+import useRouteChanged from '../hooks/useRouteChanged';
 
 const drawerBg = { dark: 'dark.800', light: 'gray.50' };
 
@@ -62,7 +45,6 @@ const MobileNav = () => {
               <Flex mt={10} justifyContent="space-between">
                 <ColorModeButton />
                 <JoinButton />
-                <JoinForm />
               </Flex>
             </DrawerHeader>
             <AsideContent contentHeight="60vh" />

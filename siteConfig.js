@@ -118,70 +118,15 @@ const asideSections = [
 ];
 
 const joinForm = {
-  fields: [
-    {
-      id: 'org',
-      label: 'Organization',
-      required: true,
-      error: 'This field is required.',
-      element: 'input',
-    },
-    {
-      id: 'asn',
-      label: 'Autonomous System Number',
-      required: true,
-      error: 'This field is required.',
-      element: 'input',
-    },
-    {
-      id: 'contact',
-      label: 'Contact Name',
-      required: true,
-      error: 'This field is required.',
-      element: 'input',
-    },
-    {
-      id: 'email',
-      label: 'Email Address',
-      required: true,
-      error: 'This field is required.',
-      element: 'input',
-    },
-    {
-      id: 'facility',
-      label: 'Facility',
-      required: true,
-      error: 'This field is required.',
-      element: 'select',
-      elementProps: { isReadOnly: true, defaultValue: 'ecdphx01' },
-      options: [{ value: 'ecdphx01', label: 'EdgeConneX ECDPHX01' }],
-    },
-    {
-      id: 'interval',
-      label: 'Term',
-      required: true,
-      error: 'This field is required.',
-      element: 'radio',
-      elementProps: { defaultValue: 'annual' },
-      options: [
-        { value: 'monthly', label: 'Monthly' },
-        { value: 'annual', label: 'Annual' },
-      ],
-    },
-    {
-      id: 'port_speed',
-      label: 'Desired Port Speed',
-      required: false,
-      error: '',
-      element: 'select',
-      options: [
-        { value: 1, label: '1 Gbps' },
-        { value: 10, label: '10 Gbps' },
-      ],
-    },
-  ],
+  fields: [],
   buttonText: 'Submit Request',
 };
+
+const facilities = [{ id: 'ecdphx01', label: 'EdgeConneX ECDPHX01', default: true }];
+const portSpeeds = [
+  { id: 1, label: '1 Gbps' },
+  { id: 10, label: '10 Gbps' },
+];
 
 const endpoints = {
   members: 'https://square-frost-ee00.48ix.workers.dev',
@@ -242,4 +187,6 @@ export default {
   endpoints: endpoints,
   contributors: contributors,
   social: social,
+  facilities: facilities,
+  portSpeeds: portSpeeds,
 };
