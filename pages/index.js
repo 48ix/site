@@ -71,12 +71,18 @@ export default () => {
           </Text>
 
           <Box mt={12}>
-            <Button size="lg" variantColor={accentVar[colorMode]} m={2} onClick={joinFormOnOpen}>
+            <Button
+              size="lg"
+              fontWeight="normal"
+              variantColor={accentVar[colorMode]}
+              m={2}
+              onClick={joinFormOnOpen}>
               Join the Exchange
             </Button>
             <NextLink href="/network" passHref>
               <Button
                 as="a"
+                fontWeight="normal"
                 size="lg"
                 m={2}
                 rightIcon={props => <FoldedMap size="1.5em" {...props} />}>

@@ -1,37 +1,26 @@
 import * as React from 'react';
+import { useCallback, useMemo, Profiler } from 'react';
 import { Flex, useTheme, useColorMode } from '@chakra-ui/core';
 import { AreaChart, Area, ResponsiveContainer, YAxis, ReferenceLine } from 'recharts';
 import { buildData } from './getData';
 
-const LittleGraph = ({
-  circuitId,
-  topColor = false,
-  bottomColor = false,
-  yRef = false,
-  refColor = false,
-  ...props
-}) => {
+const LittleGraph = ({ circuitId, yRef = false, ...props }) => {
   const { colorMode } = useColorMode();
   const { colors } = useTheme();
-  let dataColorTop = { dark: colors.red[300], light: colors.red[500] };
-  let dataColorBottom = { dark: colors.red[300], light: colors.red[500] };
-  let dataRefColor = { dark: colors.teal[300], light: colors.teal[500] };
-  if (topColor) {
-    dataColorTop = topColor;
-  }
-  if (bottomColor) {
-    dataColorBottom = bottomColor;
-  }
-  if (refColor) {
-    dataRefColor = refColor;
-  }
+  const refColor = { dark: colors.original.red, light: colors.original.red };
+  const topColor = { dark: colors.teal[300], light: colors.blue[500] };
+  const bottomColor = { dark: colors.teal[700], light: colors.blue[200] };
 
-  const { graphData: data, avgIn, avgOut } = buildData(circuitId, 'day');
+  const { graphData: data, avgIn, avgOut } = useCallback(buildData(circuitId, 'day'), [circuitId]);
+
+  const margin = useMemo(() => ({ top: 1, right: 0, left: 0, bottom: 5 }));
+
   let topRef, bottomRef;
   if (yRef) {
     topRef = avgIn;
     bottomRef = avgOut;
   }
+
   return (
     <Flex
       display="inline-flex"
@@ -41,45 +30,27 @@ const LittleGraph = ({
       height={50}
       {...props}>
       <ResponsiveContainer>
-        <AreaChart
-          data={data}
-          margin={{
-            top: 1,
-            right: 0,
-            left: 0,
-            bottom: 5,
-          }}>
-          {yRef && <ReferenceLine y={topRef} stroke={dataRefColor[colorMode]} strokeWidth={0.5} />}
+        <AreaChart data={data} margin={margin}>
+          {yRef && <ReferenceLine y={topRef} stroke={refColor[colorMode]} strokeWidth={0.5} />}
           <Area
             animationDuration={200}
             type="linear"
             dataKey="inBits"
-            stroke={dataColorTop[colorMode]}
-            fill={dataColorTop[colorMode]}
+            stroke={topColor[colorMode]}
+            fill={topColor[colorMode]}
           />
         </AreaChart>
       </ResponsiveContainer>
       <ResponsiveContainer>
-        <AreaChart
-          width={200}
-          height={60}
-          data={data}
-          margin={{
-            top: 1,
-            right: 0,
-            left: 0,
-            bottom: 5,
-          }}>
+        <AreaChart width={200} height={60} data={data} margin={margin}>
           <YAxis reversed hide />
-          {yRef && (
-            <ReferenceLine y={bottomRef} stroke={dataRefColor[colorMode]} strokeWidth={0.5} />
-          )}
+          {yRef && <ReferenceLine y={bottomRef} stroke={refColor[colorMode]} strokeWidth={0.5} />}
           <Area
             animationDuration={200}
             type="linear"
             dataKey="outBits"
-            stroke={dataColorBottom[colorMode]}
-            fill={dataColorBottom[colorMode]}
+            stroke={bottomColor[colorMode]}
+            fill={bottomColor[colorMode]}
           />
         </AreaChart>
       </ResponsiveContainer>

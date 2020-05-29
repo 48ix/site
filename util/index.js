@@ -180,7 +180,8 @@ const makeTheme = userTheme => ({
   fontWeights: {
     light: 200,
     normal: 400,
-    medium: 500,
+    semibold: 600,
+    medium: 600,
     bold: 800,
   },
 });

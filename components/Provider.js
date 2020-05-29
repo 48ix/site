@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { createContext, useContext, useMemo, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { NextSeo, LocalBusinessJsonLd, LogoJsonLd } from 'next-seo';
-import { CSSReset, ThemeProvider, useDisclosure } from '@chakra-ui/core';
+import { ThemeProvider as ChakraThemeProvider, useDisclosure, useTheme } from '@chakra-ui/core';
 import { useMediaLayout } from 'use-media';
 import { makeTheme } from '../util';
 import { initGA, logPageView } from '../analytics';
@@ -17,8 +16,19 @@ const MediaContext = createContext(null);
 const ProviderContext = createContext(null);
 const StateContext = createContext(null);
 
-const MediaProvider = ({ theme, children }) => {
-  const { sm, md, lg, xl } = theme.breakpoints;
+export const useConfig = () => useContext(ProviderContext);
+export const useMedia = () => useContext(MediaContext);
+export const useGlobalState = () => useContext(StateContext);
+
+const ThemeProvider = ({ children }) => {
+  const { theme: configTheme } = useConfig();
+  const theme = useMemo(() => makeTheme(configTheme), [configTheme]);
+  return <ChakraThemeProvider theme={theme}>{children}</ChakraThemeProvider>;
+};
+
+const MediaProvider = ({ children }) => {
+  const { breakpoints } = useTheme();
+  const { sm, md, lg, xl } = breakpoints;
   const isSm = useMediaLayout({ maxWidth: md });
   const isMd = useMediaLayout({ minWidth: md, maxWidth: lg });
   const isLg = useMediaLayout({ minWidth: lg, maxWidth: xl });
@@ -40,13 +50,13 @@ const MediaProvider = ({ theme, children }) => {
   }
   const value = useMemo(
     () => ({
-      isSm: isSm,
-      isMd: isMd,
-      isLg: isLg,
-      isXl: isXl,
-      mediaSize: mediaSize,
+      isSm,
+      isMd,
+      isLg,
+      isXl,
+      mediaSize,
     }),
-    [isSm, isMd, isLg, isXl, mediaSize],
+    [mediaSize],
   );
   return <MediaContext.Provider value={value}>{children}</MediaContext.Provider>;
 };
@@ -71,11 +81,8 @@ const StateProvider = ({ children }) => {
   return <StateContext.Provider value={value}>{children}</StateContext.Provider>;
 };
 
-export const useHyperglassState = () => useContext(StateContext);
-
-const Provider = ({ page, children }) => {
+const Provider = ({ children }) => {
   const config = useMemo(() => siteConfig, [siteConfig]);
-  const theme = useMemo(() => makeTheme(config.theme), [config]);
   useEffect(() => {
     if (!window.GA_INITIALIZED) {
       initGA(process.env.GOOGLE_ANALYTICS_ID || null);
@@ -84,58 +91,16 @@ const Provider = ({ page, children }) => {
     logPageView();
   });
   return (
-    <>
-      <NextSeo
-        title={config.siteSlogan}
-        description={config.siteDescription}
-        additionalMetaTags={[{ name: 'keywords', content: config.siteKeywords.join(',') }]}
-        openGraph={{
-          title: config.siteName,
-          url: `${config.url}/${page}`,
-          description: config.siteDescription,
-          site_name: config.siteName,
-          type: 'website',
-          images: [
-            {
-              url: `${config.url}/opengraph.jpg`,
-              width: 1200,
-              height: 630,
-              alt: config.siteName,
-            },
-          ],
-        }}
-        titleTemplate={`%s | ${config.title}`}
-      />
-      <LocalBusinessJsonLd
-        type="LocalBusiness"
-        name={config.siteName}
-        description={config.siteSlogan}
-        id={config.url}
-        url={config.url}
-        address={config.address}
-        images={[`${config.url}/opengraph.jpg`]}
-        geo={{
-          latitude: '33.395512',
-          longitude: '-111.969949',
-        }}
-      />
-      <LogoJsonLd logo={`${config.url}/logo.jpg`} url={config.url} />
-      <ProviderContext.Provider value={config}>
-        <ThemeProvider theme={theme}>
-          <ColorModeProvider>
-            <CSSReset />
-            <MediaProvider theme={theme}>
-              <StateProvider>{children}</StateProvider>
-            </MediaProvider>
-          </ColorModeProvider>
-        </ThemeProvider>
-      </ProviderContext.Provider>
-    </>
+    <ProviderContext.Provider value={config}>
+      <ThemeProvider>
+        <ColorModeProvider>
+          <MediaProvider>
+            <StateProvider>{children}</StateProvider>
+          </MediaProvider>
+        </ColorModeProvider>
+      </ThemeProvider>
+    </ProviderContext.Provider>
   );
 };
 
 export default Provider;
-
-export const useConfig = () => useContext(ProviderContext);
-export const useMedia = () => useContext(MediaContext);
-export const useGlobalState = () => useContext(StateContext);

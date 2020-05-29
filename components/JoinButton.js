@@ -13,6 +13,7 @@ const JoinButton = props => {
       ml={[null, null, 8, 8]}
       mr={[null, null, 4, 4]}
       variantColor={btnColor[colorMode]}
+      fontWeight="normal"
       variant="solid"
       aria-label="Join 48 IX"
       onClick={joinFormOnOpen}

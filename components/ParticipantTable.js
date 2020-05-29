@@ -29,9 +29,9 @@ import axios from 'axios';
 import useSWR, { mutate } from 'swr';
 import { useConfig } from './Provider';
 
-const Table = dynamic(() => import('./Table'), { loading: Skeleton });
+const Table = dynamic(() => import('./Table'));
 const Graph = dynamic(() => import('./Graphs/Graph'));
-const LittleGraph = dynamic(() => import('./Graphs/LittleGraph'), { loading: Skeleton });
+const LittleGraph = dynamic(() => import('./Graphs/LittleGraph'));
 const Refresh = dynamic(() => import('./Icons/Refresh'));
 
 const asnColor = { dark: 'teal.300', light: 'red.500' };
@@ -182,7 +182,5 @@ const ParticipantTable = () => {
     </Box>
   );
 };
-
-ParticipantTable.displayName = 'ParticipantTable';
 
 export default ParticipantTable;

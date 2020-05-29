@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 import { Global } from '@emotion/core';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
-import { Box, useColorMode, useTheme } from '@chakra-ui/core';
+import { Box, CSSReset, useColorMode, useTheme } from '@chakra-ui/core';
 import { useMedia, useGlobalState } from './Provider';
+import SEO from './SEO';
 
 const Aside = dynamic(() => import('./Aside'));
 const Header = dynamic(() => import('./Header'));
@@ -34,15 +36,21 @@ const Layout = ({ children }) => {
   const { colors } = useTheme();
   const { isLg, isXl } = useMedia();
   const { hideToc } = useGlobalState();
-  const isMdx = children.type.isMDXComponent === true;
+  const isMdx = useMemo(() => children.type.isMDXComponent === true);
+
   let layoutPaddingRight = { _: 2, lg: 0, xl: 0 };
+
   if (isMdx && !hideToc) {
     layoutPaddingRight = { _: 2, lg: '18rem', xl: '18rem' };
   }
+
   const bg = { dark: colors.original.dark, light: 'white' };
   const textColor = { dark: colors.original.light, light: 'black' };
+
   return (
     <>
+      <SEO />
+      <CSSReset />
       <NextHead>
         <link rel="icon" type="image/x-icon" href={`/favicon-${colorMode}.ico`} />
         <link rel="icon" type="image/png" sizes="32x32" href={`/favicon-${colorMode}-32x32.png`} />
