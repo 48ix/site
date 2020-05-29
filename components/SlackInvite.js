@@ -26,7 +26,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { validateEmail } from '../util';
 
-const FaSlack = dynamic(() => import('react-icons/fa').then(i => i.FaSlack));
+const Slack = dynamic(() => import('./Icons/Slack'));
 
 const constructData = data => {
   const now = new Date();
@@ -50,7 +50,7 @@ const FormField = props => <Box my={2} p={2} {...props} />;
 const SlackButton = ({ onClick, ...props }) => (
   <Button
     onClick={onClick}
-    leftIcon={FaSlack}
+    leftIcon={Slack}
     ml={4}
     my={6}
     variantColor="green"

@@ -32,9 +32,7 @@ import { useConfig } from './Provider';
 const Table = dynamic(() => import('./Table'), { loading: Skeleton });
 const Graph = dynamic(() => import('./Graphs/Graph'));
 const LittleGraph = dynamic(() => import('./Graphs/LittleGraph'), { loading: Skeleton });
-const IoIosRefresh = dynamic(() => import('react-icons/io').then(i => i.IoIosRefresh), {
-  loading: Skeleton,
-});
+const Refresh = dynamic(() => import('./Icons/Refresh'));
 
 const asnColor = { dark: 'teal.300', light: 'red.500' };
 const copiedColor = { dark: 'green.300', light: 'green.600' };
@@ -172,7 +170,7 @@ const ParticipantTable = () => {
             </AlertDescription>
             <Button
               mt={2}
-              leftIcon={IoIosRefresh}
+              leftIcon={Refresh}
               onClick={() => mutate(endpoints.participants)}
               variantColor="yellow"
               variant="outline">

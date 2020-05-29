@@ -12,7 +12,7 @@ const BaseLink = forwardRef((props, ref) => (
     cursor="pointer"
     textDecoration="none"
     outline="none"
-    _hover={{ opacity: '0.8' }}
+    _hover={{ opacity: 0.8 }}
     _focus={{ boxShadow: 'outline' }}
     {...props}
   />
@@ -45,7 +45,5 @@ const Link = forwardRef(({ href, ...props }, ref) => {
   const LinkComponent = componentMap[componentType];
   return <LinkComponent ref={ref} color={color[colorMode]} href={href} {...props} />;
 });
-
-Link.displayName = 'Link';
 
 export default Link;

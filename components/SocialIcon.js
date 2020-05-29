@@ -4,10 +4,10 @@ import { IconButton, useColorMode } from '@chakra-ui/core';
 import title from 'title';
 import { useConfig } from './Provider';
 
-const IoLogoGithub = dynamic(() => import('react-icons/io').then(i => i.IoLogoGithub));
-const IoLogoTwitter = dynamic(() => import('react-icons/io').then(i => i.IoLogoTwitter));
+const Github = dynamic(() => import('./Icons/Github'));
+const Twitter = dynamic(() => import('./Icons/Twitter'));
 
-const iconMap = { github: IoLogoGithub, twitter: IoLogoTwitter };
+const iconMap = { github: Github, twitter: Twitter };
 const color = { dark: 'whiteAlpha.400', light: 'blackAlpha.600' };
 const hoverColor = { dark: 'red.300', light: 'black' };
 

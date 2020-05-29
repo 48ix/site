@@ -12,10 +12,10 @@ const LittleGraph = ({
   ...props
 }) => {
   const { colorMode } = useColorMode();
-  const theme = useTheme();
-  let dataColorTop = { dark: theme.colors.red[300], light: theme.colors.red[500] };
-  let dataColorBottom = { dark: theme.colors.red[300], light: theme.colors.red[500] };
-  let dataRefColor = { dark: theme.colors.teal[300], light: theme.colors.teal[500] };
+  const { colors } = useTheme();
+  let dataColorTop = { dark: colors.red[300], light: colors.red[500] };
+  let dataColorBottom = { dark: colors.red[300], light: colors.red[500] };
+  let dataRefColor = { dark: colors.teal[300], light: colors.teal[500] };
   if (topColor) {
     dataColorTop = topColor;
   }
@@ -87,5 +87,4 @@ const LittleGraph = ({
   );
 };
 
-LittleGraph.displayName = 'LittleGraph';
 export default LittleGraph;

@@ -16,10 +16,8 @@ import {
 import { ProductJsonLd } from 'next-seo';
 import { useGlobalState, useConfig } from './Provider';
 
-const AiOutlineNumber = dynamic(() => import('react-icons/ai').then(i => i.AiOutlineNumber));
-const BsFillLightningFill = dynamic(() =>
-  import('react-icons/bs').then(i => i.BsFillLightningFill),
-);
+const LightningBolt = dynamic(() => import('./Icons/LightningBolt'));
+const Hashtag = dynamic(() => import('./Icons/Hashtag'));
 
 const listColor = { dark: 'light.300', light: 'gray.700' };
 const intervalColor = { dark: 'gray.300', light: 'gray.800' };
@@ -30,10 +28,7 @@ const FeatureList = () => {
     <Box color={listColor[colorMode]} fontWeight="semibold" fontSize="sm" ml={2} mt={4}>
       <List style={{ columnCount: 2 }} spacing={1}>
         <ListItem>
-          <ListIcon
-            icon={AiOutlineNumber}
-            color={{ dark: 'purple.300', light: 'purple.500' }[colorMode]}
-          />
+          <ListIcon icon={Hashtag} color={{ dark: 'purple.300', light: 'purple.500' }[colorMode]} />
           Per Port
         </ListItem>
         <ListItem>
@@ -49,10 +44,7 @@ const FeatureList = () => {
           No contracts
         </ListItem>
         <ListItem>
-          <ListIcon
-            icon={BsFillLightningFill}
-            color={{ dark: 'red.300', light: 'red.500' }[colorMode]}
-          />
+          <ListIcon icon={LightningBolt} color={{ dark: 'red.300', light: 'red.500' }[colorMode]} />
           1 or 10 Gbps
         </ListItem>
       </List>
@@ -158,9 +150,5 @@ const Fees = () => {
     </>
   );
 };
-
-FeatureList.displayName = 'FeatureList';
-Fee.displayName = 'Fee';
-Fees.displayName = 'Fees';
 
 export default Fees;

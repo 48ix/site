@@ -1,23 +1,19 @@
-import * as React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/core';
 import { Box } from '@chakra-ui/core';
-import css from '@styled-system/css';
 
-const TableBody = ({ children, ...props }) => {
-  return (
-    <Box
-      as="tbody"
-      overflowY="scroll"
-      css={css({
-        '&::-webkit-scrollbar': { display: 'none' },
-        '&': { '-ms-overflow-style': 'none' },
-      })}
-      overflowX="hidden"
-      {...props}>
-      {children}
-    </Box>
-  );
-};
-
-TableBody.displayName = 'TableBody';
+const TableBody = ({ children, ...props }) => (
+  <Box
+    as="tbody"
+    overflowY="scroll"
+    css={{
+      '&::-webkit-scrollbar': { display: 'none' },
+      '&': { msOverflowStyle: 'none' },
+    }}
+    overflowX="hidden"
+    {...props}>
+    {children}
+  </Box>
+);
 
 export default TableBody;

@@ -8,6 +8,4 @@ const InlineCode = props => {
   return <Code variantColor={color[colorMode]} fontSize="sm" {...props} />;
 };
 
-InlineCode.displayName = 'InlineCode';
-
 export default InlineCode;

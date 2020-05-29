@@ -3,16 +3,14 @@ import dynamic from 'next/dynamic';
 import { Box, Heading, Icon, Stack, Text, useColorMode, useTheme } from '@chakra-ui/core';
 import { opposingColor, title } from '../util';
 
-const IoIosThumbsUp = dynamic(() => import('react-icons/io').then(i => i.IoIosThumbsUp));
-const AiOutlineInfoCircle = dynamic(() =>
-  import('react-icons/ai').then(i => i.AiOutlineInfoCircle),
-);
-const GoNote = dynamic(() => import('react-icons/go').then(i => i.GoNote));
+const ThumbsUp = dynamic(() => import('./Icons/ThumbsUp'));
+const InfoCircle = dynamic(() => import('./Icons/InfoCircle'));
+const Note = dynamic(() => import('./Icons/Note'));
 
 const iconMap = {
-  important: AiOutlineInfoCircle,
-  note: GoNote,
-  tip: IoIosThumbsUp,
+  important: InfoCircle,
+  note: Note,
+  tip: ThumbsUp,
   warning: 'warning-2',
   critical: 'not-allowed',
 };
@@ -88,7 +86,5 @@ const Admonition = ({ title, message, children, type = 'note', hideIcon = false,
     </AdmonitionContainer>
   );
 };
-
-Admonition.displayName = 'Admonition';
 
 export default Admonition;

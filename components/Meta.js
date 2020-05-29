@@ -7,11 +7,11 @@ import { googleFontUrl } from '../util';
 
 const Meta = () => {
   const config = useConfig();
-  const theme = useTheme();
+  const { fonts } = useTheme();
   const [location, setLocation] = useState({});
   const currentYear = new Date().getFullYear();
-  const primaryFont = googleFontUrl(theme.fonts.body);
-  const monoFont = googleFontUrl(theme.fonts.mono);
+  const primaryFont = googleFontUrl(fonts.body);
+  const monoFont = googleFontUrl(fonts.mono);
   useEffect(() => {
     setLocation(window.location);
   });
@@ -40,7 +40,5 @@ const Meta = () => {
     </Head>
   );
 };
-
-Meta.displayName = 'Meta';
 
 export default Meta;

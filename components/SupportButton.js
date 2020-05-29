@@ -2,7 +2,7 @@ import * as React from 'react';
 import dynamic from 'next/dynamic';
 import { Box, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
 
-const MdEmail = dynamic(() => import('react-icons/md').then(i => i.MdEmail));
+const Mail = dynamic(() => import('./Icons/Mail'));
 
 const Sev = props => <Box as="strong" mr={2} {...props} />;
 
@@ -12,7 +12,7 @@ const SupportButton = ({ top = false, bottom = true, left = false, right = false
     <Menu>
       <MenuButton
         as={Button}
-        leftIcon={MdEmail}
+        leftIcon={Mail}
         ml={4}
         my={6}
         variantColor="yellow"
@@ -45,5 +45,4 @@ const SupportButton = ({ top = false, bottom = true, left = false, right = false
   );
 };
 
-SupportButton.displayName = 'SupportButton';
 export default SupportButton;

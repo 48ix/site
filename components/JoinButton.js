@@ -22,6 +22,4 @@ const JoinButton = props => {
   );
 };
 
-JoinButton.displayName = 'JoinButton';
-
 export default JoinButton;

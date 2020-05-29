@@ -24,6 +24,4 @@ const CodeBlock = props => {
   );
 };
 
-CodeBlock.displayName = 'CodeBlock';
-
 export default CodeBlock;

@@ -2,10 +2,10 @@ import * as React from 'react';
 import dynamic from 'next/dynamic';
 import { IconButton, useColorMode } from '@chakra-ui/core';
 
-const GiStripedSun = dynamic(() => import('react-icons/gi').then(i => i.GiStripedSun));
-const IoIosMoon = dynamic(() => import('react-icons/io').then(i => i.IoIosMoon));
+const StripedSun = dynamic(() => import('./Icons/StripedSun'));
+const Moon = dynamic(() => import('./Icons/Moon'));
 
-const icon = { dark: IoIosMoon, light: GiStripedSun };
+const icon = { dark: Moon, light: StripedSun };
 const color = { dark: 'yellow.200', light: 'red.300' };
 const hoverColor = { dark: 'red.100', light: 'red.600' };
 
@@ -28,5 +28,4 @@ const ColorModeButton = ({ ...props }) => {
   );
 };
 
-ColorModeButton.displayName = 'ColorModeButton';
 export default ColorModeButton;

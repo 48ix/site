@@ -26,6 +26,4 @@ const ASN = ({ as, prefix = true, ...props }) => {
   );
 };
 
-ASN.displayName = 'ASN';
-
 export default ASN;

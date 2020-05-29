@@ -5,7 +5,6 @@ import { title } from '../../util';
 import { useMedia } from '../Provider';
 
 const color = { dark: 'teal.300', light: 'blue.500' };
-
 const borderColor = { dark: 'whiteAlpha.300', light: 'blackAlpha.300' };
 
 const BaseHeading = ({ withBorder = false, ...props }) => {
@@ -58,18 +57,11 @@ const BaseHeading = ({ withBorder = false, ...props }) => {
   );
 };
 
-const H1 = props => <BaseHeading as="h1" my="1em" size="xl" withBorder {...props} />;
-
-const H2 = props => <BaseHeading as="h2" fontWeight="light" fontSize="2rem" {...props} />;
-
-const H3 = props => (
+export const H1 = props => <BaseHeading as="h1" my="1em" size="xl" withBorder {...props} />;
+export const H2 = props => <BaseHeading as="h2" fontWeight="light" fontSize="2rem" {...props} />;
+export const H3 = props => (
   <BaseHeading pl={1} as="h3" size="md" withBorder fontWeight="normal" {...props} />
 );
-
-const H4 = props => <BaseHeading as="h4" pl={1} size="md" fontWeight="medium" {...props} />;
-
-const H5 = props => <BaseHeading as="h5" pl={1} size="sm" fontWeight="medium" {...props} />;
-
-const H6 = props => <BaseHeading as="h6" pl={1} size="sm" fontWeight="bold" {...props} />;
-
-export { H1, H2, H3, H4, H5, H6 };
+export const H4 = props => <BaseHeading as="h4" pl={1} size="md" fontWeight="medium" {...props} />;
+export const H5 = props => <BaseHeading as="h5" pl={1} size="sm" fontWeight="medium" {...props} />;
+export const H6 = props => <BaseHeading as="h6" pl={1} size="sm" fontWeight="bold" {...props} />;

@@ -142,7 +142,4 @@ const Graph = ({ circuitId, ...props }) => {
   );
 };
 
-Graph.displayName = 'Graph';
-GraphTooltip.displayName = 'GraphTooltip';
-
 export default Graph;

@@ -36,6 +36,4 @@ const Footer = props => {
   );
 };
 
-Footer.displayName = 'Footer';
-
 export default Footer;

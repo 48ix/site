@@ -6,7 +6,7 @@ const scrollbar = { dark: 'whiteAlpha.300', light: 'blackAlpha.300' };
 const scrollbarHover = { dark: 'whiteAlpha.400', light: 'blackAlpha.400' };
 const scrollbarBg = { dark: 'whiteAlpha.50', light: 'blackAlpha.50' };
 
-const MainTable = ({ children, ...props }) => {
+const TableMain = props => {
   const theme = useTheme();
   const { colorMode } = useColorMode();
   return (
@@ -30,11 +30,9 @@ const MainTable = ({ children, ...props }) => {
       overflowX="auto"
       borderRadius="md"
       boxSizing="border-box"
-      {...props}>
-      {children}
-    </Box>
+      {...props}
+    />
   );
 };
 
-MainTable.displayName = 'MainTable';
-export default MainTable;
+export default TableMain;

@@ -16,11 +16,30 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { validateEmail } from '../util';
 
-const FaArrowAltCircleRight = dynamic(() =>
-  import('react-icons/fa').then(i => i.FaArrowAltCircleRight),
-);
-const FaCheckCircle = dynamic(() => import('react-icons/fa').then(i => i.FaCheckCircle));
-const MdDoNotDisturbAlt = dynamic(() => import('react-icons/md').then(i => i.MdDoNotDisturbAlt));
+const RightArrowCircle = dynamic(() => import('./Icons/RightArrowCircle'));
+const CheckCircle = dynamic(() => import('./Icons/CheckCircle'));
+
+const circleIcon = props => <CheckCircle size="1rem" {...props} />;
+const arrowIcon = props => <RightArrowCircle size="1rem" {...props} />;
+
+const border = [
+  { dark: 'yellow.200', light: 'purple.500' },
+  { dark: 'yellow.200', light: 'purple.500' },
+  { dark: 'red.300', light: 'red.500' },
+  { dark: 'green.300', light: 'green.500' },
+];
+
+const formColor = [
+  { dark: null, light: null },
+  { dark: null, light: null },
+  { dark: 'red.300', light: 'red.500' },
+  { dark: 'green.300', light: 'green.500' },
+];
+
+const btnLoading = [false, true, false, false];
+const btnColor = [null, null, 'red', 'green'];
+const statusDisplay = ['none', 'none', 'flex', 'flex'];
+const btnIcon = [arrowIcon, null, 'not-allowed', circleIcon];
 
 const sendEmail = async (emailAddr, stateCallback, responseCallback) => {
   let message = 'Something went wrong. Please contact noc@48ix.net';
@@ -55,38 +74,22 @@ const sendEmail = async (emailAddr, stateCallback, responseCallback) => {
 };
 
 const Form = props => <Flex as="form" {...props} />;
+
 const StatusMessage = ({ status, children, ...props }) => {
   const { colorMode } = useColorMode();
-  const color = [
-    { dark: null, light: null },
-    { dark: null, light: null },
-    { dark: 'red.300', light: 'red.500' },
-    { dark: 'green.300', light: 'green.500' },
-  ];
   return (
     <Flex alignItems="center" mt={2} fontSize="xs" {...props}>
-      <Text lineHeight="normal" color={color[status][colorMode]}>
+      <Text lineHeight="normal" color={formColor[status][colorMode]}>
         {children}
       </Text>
     </Flex>
   );
 };
 
-const btnLoading = [false, true, false, false];
-const btnColor = [null, null, 'red', 'green'];
-const statusDisplay = ['none', 'none', 'flex', 'flex'];
-const btnIcon = [FaArrowAltCircleRight, null, MdDoNotDisturbAlt, FaCheckCircle];
-const border = [
-  { dark: 'yellow.200', light: 'purple.500' },
-  { dark: 'yellow.200', light: 'purple.500' },
-  { dark: 'red.300', light: 'red.500' },
-  { dark: 'green.300', light: 'green.500' },
-];
-
 const Subscribe = props => {
   const { colorMode } = useColorMode();
 
-  const { handleSubmit, errors, register, reset, formState } = useForm();
+  const { handleSubmit, errors, register } = useForm();
   /**
    * 0: Not submitted
    * 1: Submitted, waiting
@@ -98,7 +101,7 @@ const Subscribe = props => {
 
   const onSubmit = async values => {
     setSubmission(1);
-    const { message } = await sendEmail(values.email, setSubmission, setResponse);
+    await sendEmail(values.email, setSubmission, setResponse);
   };
 
   return (
@@ -142,7 +145,5 @@ const Subscribe = props => {
     </Form>
   );
 };
-
-Subscribe.displayName = 'Subscribe';
 
 export default Subscribe;

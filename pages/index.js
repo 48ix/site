@@ -3,15 +3,13 @@ import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 import { Box, Button, Divider, Flex, Heading, Grid, Text, useColorMode } from '@chakra-ui/core';
 import { NextSeo } from 'next-seo';
-import { useGlobalState, useMedia, useConfig } from '../components/Provider';
+import { useGlobalState, useConfig } from '../components/Provider';
 
-const FaEquals = dynamic(() => import('react-icons/fa').then(i => i.FaEquals));
-const IoMdHeart = dynamic(() => import('react-icons/io').then(i => i.IoMdHeart));
-const BsMap = dynamic(() => import('react-icons/bs').then(i => i.BsMap));
-const BsFillLightningFill = dynamic(() =>
-  import('react-icons/bs').then(i => i.BsFillLightningFill),
-);
-const StateOutline = dynamic(() => import('../components/Logo').then(i => i.StateOutline));
+const Equals = dynamic(() => import('../components/Icons/Equals'));
+const Heart = dynamic(() => import('../components/Icons/Heart'));
+const LightningBolt = dynamic(() => import('../components/Icons/LightningBolt'));
+const FoldedMap = dynamic(() => import('../components/Icons/FoldedMap'));
+const Logo = dynamic(() => import('../components/Logo'));
 
 const accent = { dark: 'teal.500', light: 'blue.500' };
 const accentVar = { dark: 'teal', light: 'blue' };
@@ -48,7 +46,6 @@ const Feature = ({ title, icon, children, ...props }) => {
 export default () => {
   const { colorMode } = useColorMode();
   const { joinFormOnOpen } = useGlobalState();
-  const { isSm, isMd } = useMedia();
   const config = useConfig();
   return (
     <>
@@ -56,7 +53,7 @@ export default () => {
       <Box as="section" pt={18} pb={24}>
         <Container textAlign="center">
           <Box mt={[null, null, 8, 8]} mb={8} display="inline-block">
-            <StateOutline size={256} />
+            <Logo size={256} />
           </Box>
           <Heading
             as="h1"
@@ -78,7 +75,11 @@ export default () => {
               Join the Exchange
             </Button>
             <NextLink href="/network" passHref>
-              <Button as="a" size="lg" m={2} rightIcon={props => <BsMap size="1.5em" {...props} />}>
+              <Button
+                as="a"
+                size="lg"
+                m={2}
+                rightIcon={props => <FoldedMap size="1.5em" {...props} />}>
                 Where to Connect
               </Button>
             </NextLink>
@@ -93,14 +94,14 @@ export default () => {
           templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
           gap={10}
           px={{ md: 8 }}>
-          <Feature icon={FaEquals} title="Neutral">
+          <Feature icon={Equals} title="Neutral">
             48 IX is a neutral, nonprofit team dedicated to advancing Arizona's internet
             connectivity.
           </Feature>
-          <Feature icon={BsFillLightningFill} title="Fast">
+          <Feature icon={LightningBolt} title="Fast">
             Reduce hops, lower latency, and increase bandwidth through faster, more direct paths.
           </Feature>
-          <Feature icon={IoMdHeart} title="Direct">
+          <Feature icon={Heart} title="Direct">
             Bring a better internet to Arizona through direct connectivity to ISPs, CDNs, & the
             cloud.
           </Feature>

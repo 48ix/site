@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Box, Heading, Text, useColorMode } from '@chakra-ui/core';
+import { Box, Text, useColorMode } from '@chakra-ui/core';
 import { ComponentLink, TopNavLink } from './NavLink';
 import { useConfig, useMedia } from './Provider';
 

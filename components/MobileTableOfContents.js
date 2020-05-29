@@ -12,6 +12,9 @@ import {
 } from '@chakra-ui/core';
 import { TocContent } from './TableOfContents';
 
+const drawerBg = { dark: 'dark.800', light: 'gray.50' };
+const btnColor = { dark: 'dark', light: 'blue' };
+
 const Dots = ({
   stroke,
   color,
@@ -36,14 +39,11 @@ const Dots = ({
   </Box>
 );
 
-const drawerBg = { dark: 'dark.800', light: 'gray.50' };
-const btnColor = { dark: 'dark', light: 'blue' };
-
 const MobileTableOfContents = ({ headings = [] }) => {
   const { colorMode } = useColorMode();
-  const theme = useTheme();
+  const { colors } = useTheme();
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const dotColor = { dark: theme.colors.dark[700], light: theme.colors.blue[200] };
+  const dotColor = { dark: colors.dark[700], light: colors.blue[200] };
   return (
     <Box
       as="nav"
@@ -74,5 +74,5 @@ const MobileTableOfContents = ({ headings = [] }) => {
     </Box>
   );
 };
-MobileTableOfContents.displayName = 'MobileTableOfContents';
+
 export default MobileTableOfContents;

@@ -28,6 +28,4 @@ const BlockQuote = props => {
   );
 };
 
-BlockQuote.displayName = 'BlockQuote';
-
 export default BlockQuote;

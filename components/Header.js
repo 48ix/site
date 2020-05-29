@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { Box, Flex, Link, useColorMode } from '@chakra-ui/core';
+import { useMedia } from './Provider';
 import JoinButton from './JoinButton';
 import MobileNav from './MobileNav';
-import { useMedia } from './Provider';
 import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
-import { StateOutline } from './Logo';
+import Logo from './Logo';
 import ColorModeButton from './ColorModeButton';
 
 const bg = { light: 'white', dark: 'original.dark' };
@@ -53,7 +53,7 @@ const Header = props => {
             {showHeader && (
               <NextLink href="/" passHref>
                 <Link aria-label="Home">
-                  <StateOutline strokeWidth={30} size={48} noanimate />
+                  <Logo strokeWidth={30} size={48} noanimate />
                 </Link>
               </NextLink>
             )}

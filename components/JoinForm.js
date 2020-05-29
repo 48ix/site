@@ -248,9 +248,4 @@ const JoinForm = () => {
   );
 };
 
-Term.displayName = 'Term';
-SelectField.displayName = 'SelectField';
-TextField.displayName = 'TextField';
-JoinForm.displayName = 'JoinForm';
-
 export default JoinForm;

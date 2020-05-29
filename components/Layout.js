@@ -18,21 +18,20 @@ const SiteContainer = props => {
   return <Box className="site-container" minH="100vh" h="100%" {...props} />;
 };
 
-const Main = ({ children, ...props }) => (
+const Main = props => (
   <Box
     as="main"
     mx={{ sm: 2, md: 2, lg: 20, xl: 32 }}
     pt={8}
     px={[2, 2, 5]}
     overflowX="hidden"
-    {...props}>
-    {children}
-  </Box>
+    {...props}
+  />
 );
 
 const Layout = ({ children }) => {
   const { colorMode } = useColorMode();
-  const theme = useTheme();
+  const { colors } = useTheme();
   const { isLg, isXl } = useMedia();
   const { hideToc } = useGlobalState();
   const isMdx = children.type.isMDXComponent === true;
@@ -40,8 +39,8 @@ const Layout = ({ children }) => {
   if (isMdx && !hideToc) {
     layoutPaddingRight = { _: 2, lg: '18rem', xl: '18rem' };
   }
-  const bg = { dark: theme.colors.original.dark, light: 'white' };
-  const textColor = { dark: theme.colors.original.light, light: 'black' };
+  const bg = { dark: colors.original.dark, light: 'white' };
+  const textColor = { dark: colors.original.light, light: 'black' };
   return (
     <>
       <NextHead>
@@ -80,9 +79,5 @@ const Layout = ({ children }) => {
     </>
   );
 };
-
-Main.displayName = 'Main';
-SiteContainer.displayName = 'SiteContainer';
-Layout.displayName = 'Layout';
 
 export default Layout;

@@ -65,6 +65,4 @@ const HeaderGraph = ({ current = exampleCurrent, peak = examplePeak, ...props })
   );
 };
 
-HeaderGraph.displayName = 'HeaderGraph';
-
 export default HeaderGraph;

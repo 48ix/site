@@ -22,6 +22,4 @@ const Contributors = () => {
   );
 };
 
-Contributors.displayName = 'Contributors';
-
 export default Contributors;

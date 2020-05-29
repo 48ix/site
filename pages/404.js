@@ -10,6 +10,4 @@ const ErrorPage = () => {
   );
 };
 
-ErrorPage.displayName = 'ErrorPage';
-
 export default ErrorPage;

@@ -82,6 +82,4 @@ const Failure = () => {
   );
 };
 
-Failure.displayName = 'Failure';
-
 export default Failure;

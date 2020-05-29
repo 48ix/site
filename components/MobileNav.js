@@ -22,8 +22,8 @@ const drawerBg = { dark: 'dark.800', light: 'gray.50' };
 const MobileNav = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   const { colorMode } = useColorMode();
-  const theme = useTheme();
-  const burgerColor = { dark: theme.colors.dark[300], light: theme.colors.blue[500] };
+  const { colors } = useTheme();
+  const burgerColor = { dark: colors.dark[300], light: colors.blue[500] };
   useRouteChanged(onClose);
 
   return (
@@ -55,5 +55,4 @@ const MobileNav = () => {
   );
 };
 
-MobileNav.displayName = 'MobileNav';
 export default MobileNav;

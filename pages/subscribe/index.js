@@ -50,6 +50,4 @@ const Subscribe = () => {
   );
 };
 
-Subscribe.displayName = 'Subscribe';
-
 export default Subscribe;

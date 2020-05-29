@@ -54,6 +54,4 @@ const MDXDefaultLayout = ({
   };
 };
 
-MDXDefaultLayout.displayName = 'MDXDefaultLayout';
-
 export default MDXDefaultLayout;

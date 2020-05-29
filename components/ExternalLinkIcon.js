@@ -18,5 +18,4 @@ const ExternalLinkIcon = ({ to, ...props }) => {
   );
 };
 
-ExternalLinkIcon.displayName = 'ExternalLinkIcon';
 export default ExternalLinkIcon;

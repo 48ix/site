@@ -7,7 +7,7 @@ import Provider from '../components/Provider';
 
 const Layout = dynamic(() => import('../components/Layout'), { loading: () => <Loading /> });
 
-const Main = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
   const { pathname } = useRouter();
   const pageName = pathname.replace('/', '');
 
@@ -26,6 +26,4 @@ const Main = ({ Component, pageProps }) => {
   );
 };
 
-Main.displayName = 'Main';
-
-export default Main;
+export default App;
