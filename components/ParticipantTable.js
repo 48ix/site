@@ -9,7 +9,6 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  Skeleton,
   Text,
   Icon,
   Modal,
@@ -45,7 +44,7 @@ const PortGraph = ({ v, rowData, ...props }) => {
   const label = `View Port Statistics for ${rowData.name}`;
   return (
     <>
-      <Tooltip hasArrow label={label} placement="top">
+      <Tooltip hasArrow label={label} placement="top" fontWeight="normal">
         <Button onClick={onOpen} variant="link" textDecoration="none" aria-label={label}>
           <LittleGraph circuitId={props.v} />
         </Button>
@@ -143,42 +142,38 @@ const ParticipantTable = () => {
   error && console.error(error);
   return (
     <Box>
-      <Skeleton isLoaded={response?.data}>
-        {!error && response?.data && (
-          <Table
-            bordersHorizontal
-            data={response?.data?.rows ?? []}
-            columns={response?.data?.columns ?? []}
-            cellRender={d => <Cell data={d} />}
-          />
-        )}
-        {error && (
-          <Alert
-            status="error"
-            variant="subtle"
-            flexDirection="column"
-            justifyContent="center"
-            textAlign="center"
-            height="200px"
-            borderRadius="md">
-            <AlertIcon size="40px" mr={0} />
-            <AlertTitle mt={4} mb={1} fontSize="lg">
-              {error.name ?? 'Error Fetching Current Members'}
-            </AlertTitle>
-            <AlertDescription maxWidth="sm">
-              {error.message ?? 'An error occurred.'}
-            </AlertDescription>
-            <Button
-              mt={2}
-              leftIcon={Refresh}
-              onClick={() => mutate(endpoints.participants)}
-              variantColor="yellow"
-              variant="outline">
-              Retry
-            </Button>
-          </Alert>
-        )}
-      </Skeleton>
+      {!error && response?.data && (
+        <Table
+          bordersHorizontal
+          data={response?.data?.rows ?? []}
+          columns={response?.data?.columns ?? []}
+          cellRender={d => <Cell data={d} />}
+        />
+      )}
+      {error && (
+        <Alert
+          status="error"
+          variant="subtle"
+          flexDirection="column"
+          justifyContent="center"
+          textAlign="center"
+          height="200px"
+          borderRadius="md">
+          <AlertIcon size="40px" mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize="lg">
+            {error.name ?? 'Error Fetching Current Members'}
+          </AlertTitle>
+          <AlertDescription maxWidth="sm">{error.message ?? 'An error occurred.'}</AlertDescription>
+          <Button
+            mt={2}
+            leftIcon={Refresh}
+            onClick={() => mutate(endpoints.participants)}
+            variantColor="yellow"
+            variant="outline">
+            Retry
+          </Button>
+        </Alert>
+      )}
     </Box>
   );
 };
