@@ -9,7 +9,7 @@ const Equals = dynamic(() => import('../components/Icons/Equals'));
 const Heart = dynamic(() => import('../components/Icons/Heart'));
 const LightningBolt = dynamic(() => import('../components/Icons/LightningBolt'));
 const FoldedMap = dynamic(() => import('../components/Icons/FoldedMap'));
-const Logo = dynamic(() => import('../components/Logo'));
+const Logo = dynamic(() => import('../components/Logo').then(i => i.Logo));
 
 const accent = { dark: 'teal.500', light: 'blue.500' };
 const accentVar = { dark: 'teal', light: 'blue' };
