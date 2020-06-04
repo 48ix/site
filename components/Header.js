@@ -8,7 +8,7 @@ import JoinButton from './JoinButton';
 import MobileNav from './MobileNav';
 import JoinForm from './JoinForm';
 import HeaderGraph from './HeaderGraph';
-import Logo from './Logo';
+import { Logo } from './Logo';
 import ColorModeButton from './ColorModeButton';
 
 const bg = { light: 'white', dark: 'original.dark' };
