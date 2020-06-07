@@ -161,7 +161,7 @@ const social = {
     url: 'https://github.com/48ix',
   },
   twitter: {
-    url: 'https://twitter.com/checktheroads',
+    url: 'https://twitter.com/AS62484',
   },
 };
 
