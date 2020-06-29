@@ -22,6 +22,7 @@ const ColorModeButton = ({ ...props }) => {
       onClick={toggleColorMode}
       aria-label={label}
       alt={label}
+      title={label}
       _hover={{ backgroundColor: 'unset', color: hoverColor[colorMode] }}
       {...props}
     />
