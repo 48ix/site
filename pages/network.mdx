@@ -15,16 +15,25 @@ keywords:
 
 The **Facility ID** is used throughout 48 IX for identification and locational purposes.
 
+## Peering Network
+
+48 IX utilizes unique IPv4 and IPv6 addresses assigned by ARIN for the peering LAN:
+
+| Prefix             | Description        |
+| :----------------- | :----------------- |
+| `149.112.3.0/24`   | Peering LAN IPv4 1 |
+| `2001:504:14::/48` | Peering LAN IPv6 1 |
+
 ## Routing
 
 48 IX utilizes <ASN /> for all multilateral BGP adjacencies. <ASN /> Should never appear in the `AS_PATH` of routes received from the route servers.
 
 ### Route Servers
 
-| Route Server         | IPv4 Address        | IPv6 Address        |                            Platform |
-| :------------------- | :------------------ | :------------------ | ----------------------------------: |
-| **rs1.phx.48ix.net** | `<Waiting on ARIN>` | `<Waiting on ARIN>` | [FRRouting](https://frrouting.org/) |
-| **rs2.phx.48ix.net** | `<Waiting on ARIN>` | `<Waiting on ARIN>` | [FRRouting](https://frrouting.org/) |
+| Route Server         | IPv4 Address  | IPv6 Address     |                            Platform |
+| :------------------- | :------------ | :--------------- | ----------------------------------: |
+| **rs1.phx.48ix.net** | `149.112.3.1` | `2001:504:14::1` | [FRRouting](https://frrouting.org/) |
+| **rs2.phx.48ix.net** | `149.112.3.2` | `2001:504:14::2` | [FRRouting](https://frrouting.org/) |
 
 <Admonition
   type="note"

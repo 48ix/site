@@ -20,10 +20,10 @@ We recommend setting the ARP cache timeout to at least two hours, preferably fou
 
 ### Peering Network Prefix
 
-The 48 IX Peering Network Prefix ( NEED PREFIX ) is part of ( NEED ASN ), and should **not** be globally routable. As such, the following guidelines should be followed when configuring your equipment:
+The [48 IX Peering Network Prefixes](network.mdx) is part of <ASN/>, and should **not** be globally routable. As such, the following guidelines should be followed when configuring your equipment:
 
-- Do not configure `network < NEED PREFIX >` (or similar) in your router's BGP configuration.
-- Do not redistribute the route, a supernet, or a more specific prefix outside of your AS. We ( NEED PREFIX ) announce it with a `no-export` community — please honor it.
+- Do not announce [48 IX networks](network.mdx) in your router's BGP configuration.
+- Do not redistribute the route, a supernet, or a more specific prefix outside of your AS. We announce peering LAN prefixes with a `no-export` community — please honor it.
 
 ### MTU
 
