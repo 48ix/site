@@ -153,10 +153,7 @@ const Table = ({
         </Flex>
         <Flex justifyContent="center" alignItems="center">
           <Text fontSize="sm" mr={4} whiteSpace="nowrap">
-            Page{' '}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>{' '}
+            Page <strong>{pageIndex + 1}</strong> of <strong>{pageOptions.length}</strong>
           </Text>
           {!isTabletOrMobile && (
             <TableSelectShow

@@ -13,10 +13,16 @@ class MyDocument extends Document {
         <Head>
           <link rel="dns-prefetch" href="//fonts.googleapis.com" />
           <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
             href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&family=Inter:wght@200;400;600;800&display=swap"
             rel="stylesheet"
+          />
+          <link
+            rel="preload"
+            href={`${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/all`}
+            as="fetch"
+            crossOrigin="anonymous"
           />
           <link rel="preconnect" href="https://www.google-analytics.com" />
           <style>{`

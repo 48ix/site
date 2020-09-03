@@ -73,6 +73,10 @@ const asideSections = [
         id: 'support',
         title: 'Support',
       },
+      {
+        id: 'traffic',
+        title: 'Traffic',
+      },
     ],
   },
   {
@@ -92,8 +96,8 @@ const asideSections = [
         title: 'Interface Specifications',
       },
       {
-        id: 'traffic',
-        title: 'Traffic',
+        id: 'allowed-traffic',
+        title: 'Allowed Traffic',
       },
     ],
   },

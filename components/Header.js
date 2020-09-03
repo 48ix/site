@@ -7,7 +7,7 @@ import { useMedia } from './Provider';
 import JoinButton from './JoinButton';
 import MobileNav from './MobileNav';
 import JoinForm from './JoinForm';
-import HeaderGraph from './HeaderGraph';
+import HeaderStats from './HeaderStats';
 import { Logo } from './Logo';
 import ColorModeButton from './ColorModeButton';
 
@@ -66,7 +66,7 @@ const Header = props => {
           justify={['space-between', 'space-between', 'flex-end']}>
           {(isLg || isXl) && (
             <>
-              <HeaderGraph />
+              <HeaderStats />
               <JoinButton />
               <JoinForm />
               <ColorModeButton />

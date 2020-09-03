@@ -14,7 +14,7 @@ import { Sling as Hamburger } from 'hamburger-react';
 import ColorModeButton from './ColorModeButton';
 import { AsideContent } from './Aside';
 import JoinButton from './JoinButton';
-import HeaderGraph from './HeaderGraph';
+import HeaderStats from './HeaderStats';
 import useRouteChanged from '../hooks/useRouteChanged';
 
 const drawerBg = { dark: 'dark.800', light: 'gray.50' };
@@ -41,7 +41,7 @@ const MobileNav = () => {
         <DrawerContent bg={drawerBg[colorMode]}>
           <DrawerBody p={0}>
             <DrawerHeader>
-              <HeaderGraph />
+              <HeaderStats />
               <Flex mt={10} justifyContent="space-between">
                 <ColorModeButton />
                 <JoinButton />

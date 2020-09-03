@@ -207,4 +207,21 @@ const title = (text, ...rest) =>
     ...rest,
   });
 
-export { isDark, isLight, opposingColor, googleFontUrl, makeTheme, uniqueId, validateEmail, title };
+const insertAt = (arr, index, newItem) => [...arr.slice(0, index), newItem, ...arr.slice(index)];
+
+const round = (num, decimalPlaces = 2) => {
+  return +(Math.round(num + `e+${decimalPlaces}`) + `e-${decimalPlaces}`);
+};
+
+export {
+  isDark,
+  isLight,
+  opposingColor,
+  googleFontUrl,
+  makeTheme,
+  uniqueId,
+  validateEmail,
+  title,
+  insertAt,
+  round,
+};

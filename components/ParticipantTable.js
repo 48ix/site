@@ -24,19 +24,19 @@ import {
   useClipboard,
   useDisclosure,
 } from '@chakra-ui/core';
-import axios from 'axios';
-import useSWR, { mutate } from 'swr';
-import { useConfig } from './Provider';
 
 const Table = dynamic(() => import('./Table'));
 const Graph = dynamic(() => import('./Graphs/Graph'));
 const LittleGraph = dynamic(() => import('./Graphs/LittleGraph'));
-const Refresh = dynamic(() => import('./Icons/Refresh'));
 
 const asnColor = { dark: 'teal.300', light: 'red.500' };
 const copiedColor = { dark: 'green.300', light: 'green.600' };
 const modalBg = { dark: 'original.dark', light: 'white' };
 const idColor = { dark: 'white', light: 'black' };
+
+const InfoTag = props => (
+  <Tag size="sm" fontFamily="mono" fontWeight="normal" mx={[1, 2, 2, 2]} my={2} {...props} />
+);
 
 const PortGraph = ({ v, rowData, ...props }) => {
   const { colorMode } = useColorMode();
@@ -45,13 +45,18 @@ const PortGraph = ({ v, rowData, ...props }) => {
   return (
     <>
       <Tooltip hasArrow label={label} placement="top" fontWeight="normal">
-        <Button onClick={onOpen} variant="link" textDecoration="none" aria-label={label}>
-          <LittleGraph circuitId={props.v} />
+        <Button
+          isLoading={!rowData}
+          onClick={onOpen}
+          variant="link"
+          textDecoration="none"
+          aria-label={label}>
+          <LittleGraph data={rowData.utilization} />
         </Button>
       </Tooltip>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent maxWidth={['100%', '100%', '75%', '75%']} bg={modalBg[colorMode]}>
+        <ModalContent maxWidth={['100%', '100%', '75%', '75%']} bg={modalBg[colorMode]} {...props}>
           <ModalCloseButton />
           <ModalBody p={8}>
             <Box mb={6}>
@@ -60,7 +65,7 @@ const PortGraph = ({ v, rowData, ...props }) => {
               </Text>
               <Text fontSize="sm" opacity={0.6}>{`AS${rowData.asn}`}</Text>
             </Box>
-            <Graph circuitId={props.v} />
+            <Graph data={rowData.utilization} />
             <Flex p={0} my={4} justify={['center', 'center', 'flex-end', 'flex-end']}>
               <Stack
                 isInline
@@ -69,13 +74,10 @@ const PortGraph = ({ v, rowData, ...props }) => {
                 mt={4}
                 flexWrap="wrap"
                 justify={['center', 'center', null, null]}>
-                <Tag size="sm" fontFamily="mono" fontWeight="medium" mx={[1, 2, 2, 2]} my={2}>
-                  {rowData.ipv4}
-                </Tag>
-                <Tag size="sm" fontFamily="mono" fontWeight="medium" mx={[1, 2, 2, 2]} my={2}>
-                  {rowData.ipv6}
-                </Tag>
-                <Tag size="sm" mx={[1, 2, 2, 2]} my={2}>{`${rowData.port_speed} Gbps`}</Tag>
+                <InfoTag>{rowData.circuit_id}</InfoTag>
+                <InfoTag>{rowData.ipv4}</InfoTag>
+                <InfoTag>{rowData.ipv6}</InfoTag>
+                <InfoTag>{`${rowData.port_speed} Gbps`}</InfoTag>
               </Stack>
             </Flex>
           </ModalBody>
@@ -126,7 +128,7 @@ const Cell = ({ data }) => {
   const { colorMode } = useColorMode();
   const component = {
     name: <Text>{data.value}</Text>,
-    id: <MonoField v={data.value} color={idColor[colorMode]} />,
+    port_id: <MonoField v={data.value} color={idColor[colorMode]} />,
     asn: <MonoField v={data.value} color={asnColor[colorMode]} copyable />,
     port_speed: <Text>{`${data.value} Gbps`}</Text>,
     ipv4: <MonoField v={data.value} copyable />,
@@ -136,17 +138,15 @@ const Cell = ({ data }) => {
   return component[data.column.id];
 };
 
-const ParticipantTable = () => {
-  const { endpoints } = useConfig();
-  const { data: response, error } = useSWR(endpoints.participants, axios.get);
-  error && console.error(error);
+const ParticipantTable = ({ data, error }) => {
+  const { columns, rows } = data;
   return (
     <Box>
-      {!error && response?.data && (
+      {!error && data && (
         <Table
           bordersHorizontal
-          data={response?.data?.rows ?? []}
-          columns={response?.data?.columns ?? []}
+          data={rows}
+          columns={columns}
           cellRender={d => <Cell data={d} />}
         />
       )}
@@ -161,17 +161,9 @@ const ParticipantTable = () => {
           borderRadius="md">
           <AlertIcon size="40px" mr={0} />
           <AlertTitle mt={4} mb={1} fontSize="lg">
-            {error.name ?? 'Error Fetching Current Members'}
+            {error.name ?? 'Error Fetching Participants'}
           </AlertTitle>
           <AlertDescription maxWidth="sm">{error.message ?? 'An error occurred.'}</AlertDescription>
-          <Button
-            mt={2}
-            leftIcon={Refresh}
-            onClick={() => mutate(endpoints.participants)}
-            variantColor="yellow"
-            variant="outline">
-            Retry
-          </Button>
         </Alert>
       )}
     </Box>
