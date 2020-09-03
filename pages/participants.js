@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { H1 } from '../components/MDXComponents/Headings';
-import Admonition from '../components/Admonition';
 import ParticipantTable from '../components/ParticipantTable';
 import { insertAt } from '../util';
 
@@ -9,12 +8,6 @@ const Participants = ({ participants, error }) => {
     <>
       <H1>Participants</H1>
       <ParticipantTable data={participants} error={error} />
-
-      <Admonition
-        title="Port Graphs"
-        message="Because the exchange is not online yet, these statistics aren't real. However, once the exchange comes online, this is exactly how it will look (but with real data)."
-        type="important"
-      />
     </>
   );
 };
