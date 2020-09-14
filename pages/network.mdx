@@ -30,10 +30,10 @@ The **Facility ID** is used throughout 48 IX for identification and locational p
 
 ### Route Servers
 
-| Route Server         | IPv4 Address  | IPv6 Address     |                            Platform |
-| :------------------- | :------------ | :--------------- | ----------------------------------: |
-| **rs1.phx.48ix.net** | `149.112.3.1` | `2001:504:14::1` | [FRRouting](https://frrouting.org/) |
-| **rs2.phx.48ix.net** | `149.112.3.2` | `2001:504:14::2` | [FRRouting](https://frrouting.org/) |
+| Route Server     | IPv4 Address  | IPv6 Address     |                            Platform |
+| :--------------- | :------------ | :--------------- | ----------------------------------: |
+| **rs1.48ix.net** | `149.112.3.1` | `2001:504:14::1` | [FRRouting](https://frrouting.org/) |
+| **rs2.48ix.net** | `149.112.3.2` | `2001:504:14::2` | [FRRouting](https://frrouting.org/) |
 
 <Admonition
   type="note"
@@ -73,27 +73,46 @@ The following well-known BGP communities are supported:
 
 The following communities will be appended to any route received on a 48-IX route server, and may be used for granular route filtering or other informational purposes:
 
-| Community    | Name                                                                                |
-| :----------- | :---------------------------------------------------------------------------------- |
-| `62484:0`    | **Any**: Any route that has traversed <ASN/>                                        |
-| `62484:1x`   | **Route Server ID**: [Route Server](#route-servers) on which the route was received |
-| `62484:1xx`  | **Location**: `xx` is equal to the [Facility ID](#locations)                        |
-| `62484:2xx`  | **Metro ID**: `xx` is equal to the [Metro ID](#locations)                           |
-| `62484:5xxx` | **Participant ID**: `xxx` is equal to the [Participant ID](participants.mdx)        |
+| Community       | Name                                                                                                       |
+| :-------------- | :--------------------------------------------------------------------------------------------------------- |
+| `62484:0`       | **Any**: Any route that has traversed <ASN/>                                                               |
+| `62484:64810:x` | **Route Server ID**: `x` is equal to the [Route Server ID](#route-servers) on which the route was received |
+| `62484:64820:x` | **Location**: `x` is equal to the [Facility ID](#locations)                                                |
+| `62484:64830:x` | **Metro ID**: `x` is equal to the [Metro ID](#locations)                                                   |
+| `62484:64840:x` | **Participant ID**: `x` is equal to the [Participant ID](participants.mdx)                                 |
+| `62484:62484:x` | **Participant ASN**: `x` is equal to the [Participant ASN](participants.mdx)                               |
 
 #### Announcement Control Communities
 
-| Community     | Name                    |                                                                               Action |
-| :------------ | :---------------------- | -----------------------------------------------------------------------------------: |
-| `62484:10000` | Prepend All 1           |                              Prepend advertising ASN **1** times to all participants |
-| `62484:20000` | Prepend All 2           |                              Prepend advertising ASN **2** times to all participants |
-| `62484:30000` | Prepend All 3           |                              Prepend advertising ASN **3** times to all participants |
-| `62484:10xxx` | Prepend Participant 1   | Prepend advertising ASN **1** times to participant with [ID](participants.mdx) `xxx` |
-| `62484:20xxx` | Prepend Participant 2   | Prepend advertising ASN **2** times to participant with [ID](participants.mdx) `xxx` |
-| `62484:30xxx` | Prepend Participant 3   | Prepend advertising ASN **3** times to participant with [ID](participants.mdx) `xxx` |
-| `62484:41000` | No Export All           |                                                      Don't export to any participant |
-| `62484:41xxx` | No Export Participant   |                        Don't export to participant with [ID](participants.mdx) `xxx` |
-| `62484:51xxx` | Export Only Participant |                       _Only_ export to participant with [ID](participants.mdx) `xxx` |
+##### Standard Communities
+
+| Community     |                                                  Action |
+| :------------ | ------------------------------------------------------: |
+| `0:x`         |                Don't export to participant with ASN `x` |
+| `62484:x`     |               _Only_ export to participant with ASN `x` |
+| `62484:64801` | Prepend advertising ASN **1** times to all participants |
+| `62484:64802` | Prepend advertising ASN **2** times to all participants |
+| `62484:64803` | Prepend advertising ASN **3** times to all participants |
+
+##### Extended Communities
+
+| Ext. Community |                                                          Action |
+| :------------- | --------------------------------------------------------------: |
+| `rt:0:y`       |                        Don't export to participant with ASN `y` |
+| `rt:62484:y`   |                       _Only_ export to participant with ASN `y` |
+| `rt:64801:y`   | Prepend advertising ASN **1** times to participant with ASN `y` |
+| `rt:64802:y`   | Prepend advertising ASN **2** times to participant with ASN `y` |
+| `rt:64803:y`   | Prepend advertising ASN **3** times to participant with ASN `y` |
+
+##### Large Communities
+
+| Large Community |                                                          Action |
+| :-------------- | --------------------------------------------------------------: |
+| `62484:0:z`     |                        Don't export to participant with ASN `z` |
+| `62484:1:z`     |                       _Only_ export to participant with ASN `z` |
+| `62484:64801:z` | Prepend advertising ASN **1** times to participant with ASN `z` |
+| `62484:64802:z` | Prepend advertising ASN **2** times to participant with ASN `z` |
+| `62484:64803:z` | Prepend advertising ASN **3** times to participant with ASN `z` |
 
 #### Community Filtering
 
