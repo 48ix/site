@@ -5,6 +5,8 @@ keywords:
   [network, architecture, topology, locations, design, bgp, communities, filtering, route servers]
 ---
 
+import LGButton from '../components/LGButton';
+
 ## Locations
 
 48 IX is currently available in the following locations:
@@ -27,6 +29,8 @@ The **Facility ID** is used throughout 48 IX for identification and locational p
 ## Routing
 
 48 IX utilizes <ASN /> for all multilateral BGP adjacencies. <ASN /> Should never appear in the `AS_PATH` of routes received from the route servers.
+
+<LGButton />
 
 ### Route Servers
 
