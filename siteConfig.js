@@ -193,4 +193,6 @@ export default {
   social: social,
   facilities: facilities,
   portSpeeds: portSpeeds,
+  graphBase: 1e9, // Gbps
+  graphUnit: 'Gbps',
 };

@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useMemo } from 'react';
 import { Flex, useTheme, useColorMode } from '@chakra-ui/core';
 import { AreaChart, Area, ResponsiveContainer, YAxis, ReferenceLine } from 'recharts';
-import { buildData } from './data';
+import { useGraphData } from '../../hooks/useGraphData';
 
 const margin = { top: 1, right: 0, left: 0, bottom: 5 };
 
@@ -15,7 +14,7 @@ const LittleGraph = ({ data, yRef = false, ...props }) => {
 
   let utilizationData = { graphData: [] };
   if (data) {
-    utilizationData = useMemo(() => buildData(data), [data]);
+    utilizationData = useGraphData(data);
   }
 
   let topRef, bottomRef;

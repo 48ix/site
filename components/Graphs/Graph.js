@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import dayjs from 'dayjs';
-import { buildData } from './data';
+import { useGraphData } from '../../hooks/useGraphData';
 
 const bg = { dark: 'dark.700', light: 'gray.100' };
 const avgColor = { dark: 'yellow.200', light: 'red.500' };
@@ -69,9 +69,8 @@ const Graph = ({ data, ...props }) => {
   const gridColor = { dark: colors.whiteAlpha[400], light: colors.blackAlpha[400] };
   const labelColor = { dark: colors.whiteAlpha[600], light: colors.blackAlpha[600] };
   const refLineColor = { dark: colors.yellow[200], light: colors.red[500] };
-  const { inAvg, outAvg, portId, graphData, inUnit, outUnit } = useMemo(() => buildData(data), [
-    data,
-  ]);
+  const { inAvg, outAvg, portId, graphData, inUnit, outUnit } = useGraphData(data);
+
   const max = useMemo(
     () =>
       Math.ceil(

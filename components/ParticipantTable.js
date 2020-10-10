@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import {
   Box,
@@ -88,8 +87,7 @@ const PortGraph = ({ v, rowData, ...props }) => {
 };
 
 const MonoField = ({ v, copyable = false, ...props }) => {
-  const [value] = useState(props.v);
-  const { onCopy, hasCopied } = useClipboard(value);
+  const { onCopy, hasCopied } = useClipboard(v);
   const { colorMode } = useColorMode();
   let copyProps = { _hover: { cursor: 'pointer' }, onClick: onCopy };
   if (!copyable) {
@@ -97,7 +95,7 @@ const MonoField = ({ v, copyable = false, ...props }) => {
   }
   return (
     <>
-      <PseudoBox as={Text} {...copyProps} {...props}>
+      <PseudoBox {...copyProps} {...props}>
         {hasCopied ? (
           <Box
             ml={2}

@@ -210,7 +210,11 @@ const title = (text, ...rest) =>
 const insertAt = (arr, index, newItem) => [...arr.slice(0, index), newItem, ...arr.slice(index)];
 
 const round = (num, decimalPlaces = 2) => {
-  return +(Math.round(num + `e+${decimalPlaces}`) + `e-${decimalPlaces}`);
+  const rounded = +(Math.round(num + `e+${decimalPlaces}`) + `e-${decimalPlaces}`);
+  if (isNaN(rounded)) {
+    return 0;
+  }
+  return rounded;
 };
 
 export {

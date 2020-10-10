@@ -18,7 +18,7 @@ import filesize from 'filesize';
 const lineColor = { dark: 'white', light: 'black' };
 
 const humanData = data => {
-  const dataStr = filesize(data, { bits: true, base: 8 });
+  const dataStr = filesize(data / 8, { bits: true, base: 8 });
   return `${dataStr}ps`;
 };
 
