@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 import NextLink from 'next/link';
-import useSWR from 'swr';
 import {
   Button,
   Flex,
@@ -13,6 +12,7 @@ import {
   useColorMode,
 } from '@chakra-ui/core';
 import LittleGraph from './Graphs/LittleGraph';
+import { useUtilization, useParticipantStats } from '../hooks/useUtilization';
 import filesize from 'filesize';
 
 const lineColor = { dark: 'white', light: 'black' };
@@ -20,11 +20,6 @@ const lineColor = { dark: 'white', light: 'black' };
 const humanData = data => {
   const dataStr = filesize(data / 8, { bits: true, base: 8 });
   return `${dataStr}ps`;
-};
-
-const fetcher = async url => {
-  const res = await fetch(url);
-  return await res.json();
 };
 
 const Statistic = ({ label, value, ...props }) => {
@@ -55,25 +50,16 @@ const HeaderGraph = ({ data, ...props }) => (
 
 const HeaderStats = props => {
   const { colorMode } = useColorMode();
-  const { data: utilization, error: utilizationError } = useSWR(
-    `${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/all`,
-    fetcher,
-  );
-  utilizationError && console.error(utilizationError);
+  const { data, error, isError, isLoading } = useUtilization('all');
 
-  const { data: participants, error: participantsError } = useSWR(
-    process.env.NEXT_PUBLIC_PARTICIPANT_URL,
-    fetcher,
-    { revalidateOnFocus: false, revalidateOnReconnect: false },
-  );
-  participantsError && console.error(participantsError);
+  isError && console.error(error);
 
-  const dataCurrent = useMemo(() => humanData(utilization?.ingress?.slice(-1)[0]?.[1] ?? 0), [
-    utilization,
-  ]);
-  const dataPeak = useMemo(() => humanData(utilization?.ingress_peak ?? 0), [utilization]);
-  const asns = useMemo(() => participants?.rows.map(r => r.asn), [participants]);
-  const numAsns = useMemo(() => new Set(asns).size, [asns]);
+  const { asns } = useParticipantStats();
+
+  const dataCurrent = useMemo(() => humanData(data?.ingress?.slice(-1)[0]?.[1] ?? 0), [isLoading]);
+  const dataPeak = useMemo(() => humanData(data?.ingress_peak ?? 0), [isLoading]);
+  const numAsns = useMemo(() => new Set(asns).size, [asns.length]);
+
   return (
     <Stack isInline {...props} alignItems="center" justifyContent="space-around">
       <StatGroup
@@ -85,7 +71,7 @@ const HeaderStats = props => {
         <Statistic label="Peak" value={dataPeak} />
       </StatGroup>
       <Flex>
-        <HeaderGraph data={utilization} />
+        <HeaderGraph data={data} />
       </Flex>
     </Stack>
   );

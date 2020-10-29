@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useSWR from 'swr';
+import { useQuery, useQueryCache } from 'react-query';
 import Graph from '../components/Graphs/Graph';
 import { H1, H2 } from '../components/MDXComponents/Headings';
 
@@ -15,9 +15,17 @@ const getData = async url => {
 };
 
 const TrafficGraph = ({ title, period }) => {
-  const { NEXT_PUBLIC_UTILIZATION_URL: UTILIZATION_URL } = process.env;
-  const { data, error } = useSWR(`${UTILIZATION_URL}/utilization/all?period=${period}`, getData);
-  error && console.error(error);
+  const cache = useQueryCache();
+  const url = `${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/all?period=${period}`;
+  const { data, error, isError } = useQuery(url, getData, {
+    cacheTime: 900000,
+    staleTime: 900000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+  isError && console.error(error);
   return (
     <>
       <H2 mb={8}>{title}</H2>

@@ -35,11 +35,11 @@
     "react-dom": "16.13.1",
     "react-ga": "^2.7.0",
     "react-hook-form": "^5.7",
+    "react-query": "^2.25.2",
     "react-spring": "^8.0.27",
     "react-table": "^7.0.4",
     "recharts": "^1.8.5",
     "remark-slug": "^6.0.0",
-    "swr": "^0.2.2",
     "title": "^3.4.2",
     "use-media": "^1.4.0",
     "webfontloader": "^1.6.28"

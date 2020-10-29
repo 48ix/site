@@ -24,13 +24,6 @@ export const getStaticProps = async () => {
   try {
     const participantsRes = await fetch(PARTICIPANT_URL);
     participants = await participantsRes.json();
-    for (let [i, p] of participants.rows.entries()) {
-      if (p.circuit_id) {
-        const dataRes = await fetch(`${UTILIZATION_URL}/utilization/${p.circuit_id}?period=1`);
-        const data = await dataRes.json();
-        participants.rows[i].utilization = data;
-      }
-    }
   } catch (err) {
     error = err.message;
     console.error(err);

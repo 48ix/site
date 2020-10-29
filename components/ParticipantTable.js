@@ -23,6 +23,7 @@ import {
   useClipboard,
   useDisclosure,
 } from '@chakra-ui/core';
+import { useUtilization } from '../hooks/useUtilization';
 
 const Table = dynamic(() => import('./Table'));
 const Graph = dynamic(() => import('./Graphs/Graph'));
@@ -41,47 +42,71 @@ const PortGraph = ({ v, rowData, ...props }) => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const label = `View Port Statistics for ${rowData.name}`;
+  const { data: utilization, isError, error, isLoading } = useUtilization(rowData.circuit_id);
+  isError && console.error(error);
   return (
     <>
-      <Tooltip hasArrow label={label} placement="top" fontWeight="normal">
-        <Button
-          isLoading={!rowData}
-          onClick={onOpen}
-          variant="link"
-          textDecoration="none"
-          aria-label={label}>
-          <LittleGraph data={rowData.utilization} />
-        </Button>
-      </Tooltip>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent maxWidth={['100%', '100%', '75%', '75%']} bg={modalBg[colorMode]} {...props}>
-          <ModalCloseButton />
-          <ModalBody p={8}>
-            <Box mb={6}>
-              <Text as="h3" fontSize="xl" fontWeight="bold">
-                {rowData.name}
-              </Text>
-              <Text fontSize="sm" opacity={0.6}>{`AS${rowData.asn}`}</Text>
-            </Box>
-            <Graph data={rowData.utilization} />
-            <Flex p={0} my={4} justify={['center', 'center', 'flex-end', 'flex-end']}>
-              <Stack
-                isInline
-                flexWrap="wrap"
-                align="center"
-                mt={4}
-                flexWrap="wrap"
-                justify={['center', 'center', null, null]}>
-                <InfoTag>{rowData.circuit_id}</InfoTag>
-                <InfoTag>{rowData.ipv4}</InfoTag>
-                <InfoTag>{rowData.ipv6}</InfoTag>
-                <InfoTag>{`${rowData.port_speed} Gbps`}</InfoTag>
-              </Stack>
-            </Flex>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      {isError ? (
+        <Alert
+          status="error"
+          variant="subtle"
+          borderRadius="md"
+          textAlign="center"
+          flexDirection="column"
+          justifyContent="center">
+          <AlertTitle fontSize="sm">
+            {error?.name ?? `Error Fetching Data for ${rowData.name}`}
+          </AlertTitle>
+          <AlertDescription fontSize="xs">
+            {error?.message ?? 'An error occurred.'}
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <>
+          <Tooltip hasArrow label={label} placement="top" fontWeight="normal">
+            <Button
+              isLoading={isLoading}
+              onClick={onOpen}
+              variant="link"
+              textDecoration="none"
+              aria-label={label}>
+              <LittleGraph data={utilization} />
+            </Button>
+          </Tooltip>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent
+              maxWidth={['100%', '100%', '75%', '75%']}
+              bg={modalBg[colorMode]}
+              {...props}>
+              <ModalCloseButton />
+              <ModalBody p={8}>
+                <Box mb={6}>
+                  <Text as="h3" fontSize="xl" fontWeight="bold">
+                    {rowData.name}
+                  </Text>
+                  <Text fontSize="sm" opacity={0.6}>{`AS${rowData.asn}`}</Text>
+                </Box>
+                <Graph data={utilization} />
+                <Flex p={0} my={4} justify={['center', 'center', 'flex-end', 'flex-end']}>
+                  <Stack
+                    isInline
+                    flexWrap="wrap"
+                    align="center"
+                    mt={4}
+                    flexWrap="wrap"
+                    justify={['center', 'center', null, null]}>
+                    <InfoTag>{rowData.circuit_id}</InfoTag>
+                    <InfoTag>{rowData.ipv4}</InfoTag>
+                    <InfoTag>{rowData.ipv6}</InfoTag>
+                    <InfoTag>{`${rowData.port_speed} Gbps`}</InfoTag>
+                  </Stack>
+                </Flex>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+        </>
+      )}
     </>
   );
 };

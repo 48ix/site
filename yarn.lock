@@ -3795,11 +3795,6 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-fast-deep-equal@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
-  integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
-
 fast-deep-equal@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
@@ -6677,6 +6672,13 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-query@^2.25.2:
+  version "2.25.2"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.25.2.tgz#afefdf57a166bcbf08c93a26522a8c6cb1bdf849"
+  integrity sha512-GIz75WlRAzJ+wKos9VPw6PMAB3FqGmB2lHtRZlvKKByurlMNHa5rOFPz4WCYGWsPBSk7m6FHWrkK9aItDrP2mw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+
 react-refresh@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
@@ -7762,13 +7764,6 @@ svgo@^1.0.0:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
-
-swr@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-0.2.2.tgz#6e1b3e5c0e545c4fdb36ae3aa38cd94d0f9a88b7"
-  integrity sha512-D/z+PTUchZhoUA0tNC8TNJivf7Hc61WPxbUdXPi+VxRloddWYNP1ZicaEgyAph42ZnKl1L7twcZr4q6d0UMXcg==
-  dependencies:
-    fast-deep-equal "2.0.1"
 
 table@^5.2.3:
   version "5.4.6"

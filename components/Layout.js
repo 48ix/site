@@ -4,6 +4,7 @@ import { Global } from '@emotion/core';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
 import { Box, CSSReset, useColorMode, useTheme } from '@chakra-ui/core';
+import { QueryCache, ReactQueryCacheProvider } from 'react-query';
 import { useMedia, useGlobalState } from './Provider';
 import SEO from './SEO';
 
@@ -11,6 +12,8 @@ const Aside = dynamic(() => import('./Aside'));
 const Header = dynamic(() => import('./Header'));
 const Footer = dynamic(() => import('./Footer'));
 const JoinForm = dynamic(() => import('./JoinForm'));
+
+const queryCache = new QueryCache();
 
 const borderColor = { dark: 'dark.300', light: 'blue.500' };
 const selectionBg = { dark: 'rgba(244, 220, 135, 0.99)', light: 'rgba(237, 43, 83, 0.99)' };
@@ -48,7 +51,7 @@ const Layout = ({ children }) => {
   const textColor = { dark: colors.original.light, light: 'black' };
 
   return (
-    <>
+    <ReactQueryCacheProvider queryCache={queryCache}>
       <SEO />
       <CSSReset />
       <NextHead>
@@ -84,7 +87,7 @@ const Layout = ({ children }) => {
           }}
         />
       </SiteContainer>
-    </>
+    </ReactQueryCacheProvider>
   );
 };
 
