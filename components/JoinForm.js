@@ -1,29 +1,28 @@
-import * as React from 'react';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import {
   Alert,
+  AlertDescription,
   AlertIcon,
   AlertTitle,
-  AlertDescription,
   Box,
   Button,
   FormControl,
-  FormLabel,
   FormErrorMessage,
+  FormLabel,
   Input,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Select,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Radio,
   RadioGroup,
+  Select,
   useColorMode,
 } from '@chakra-ui/core';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { useConfig, useGlobalState } from '../components/Provider';
 
@@ -119,35 +118,33 @@ const SelectField = ({
   );
 };
 
-const Term = ({
-  reg,
-  formConfig,
-  hasError,
-  required = false,
-  selected,
-  error = 'This field is invalid or required.',
-  ...props
-}) => {
-  const registerObj = { ...formConfig };
-  if (required === true && registerObj.required !== true) {
-    registerObj.required = true;
-  }
+const TermField = forwardRef((props, ref) => {
+  const { joinFormTerm, setJoinFormTerm } = useGlobalState();
   return (
-    <RadioGroup spacing={5} isInline ref={reg(registerObj)} value={selected} {...props}>
-      <Radio value="monthly">Monthly</Radio>
-      <Radio value="annual">Annual</Radio>
-    </RadioGroup>
+    <FormField>
+      <RadioGroup
+        ref={ref}
+        spacing={5}
+        isInline
+        value={joinFormTerm}
+        onChange={e => setJoinFormTerm(e.target.value)}
+        {...props}>
+        <Radio value="monthly">Monthly</Radio>
+        <Radio value="annual">Annual</Radio>
+      </RadioGroup>
+    </FormField>
   );
-};
+});
 
 const JoinForm = () => {
   const { colorMode } = useColorMode();
   const config = useConfig();
-  const { joinFormOpen, joinFormOnClose, joinFormTerm, setJoinFormTerm } = useGlobalState();
+  const { joinFormOpen, joinFormOnClose } = useGlobalState();
   const [submitSuccess, setSubmitSuccess] = useState(null);
-  const { register, handleSubmit, errors, formState } = useForm();
+  const { register, handleSubmit, errors, control, formState } = useForm();
   const onSubmit = async data => {
     const message = constructData(data);
+    console.dir(message, { depth: null });
     const sendRes = await sendForm('/member-request', message);
     if (sendRes.status === 200) {
       joinFormOnClose();
@@ -203,13 +200,7 @@ const JoinForm = () => {
               hasError={errors.facility}
               required
             />
-            <Term
-              reg={register}
-              hasError={errors.term}
-              selected={joinFormTerm}
-              required
-              onChange={e => setJoinFormTerm(e.target.value)}
-            />
+            <Controller name="term" as={TermField} control={control} defaultValue="annual" />
             <SelectField
               id="port_speed"
               label="Port Speed"
