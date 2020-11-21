@@ -121,36 +121,31 @@ const MonoField = ({ v, copyable = false, ...props }) => {
   return (
     <>
       <PseudoBox {...copyProps} {...props}>
-        {hasCopied ? (
-          <Box
-            ml={2}
-            color={copiedColor[colorMode]}
-            opacity={hasCopied ? '1' : '0'}
-            transition="opacity .25s ease-in-out">
-            <Icon name="check" color="green" />
-            <Text ml={1} as="span" fontSize="sm" _hover={{ cursor: 'pointer' }}>
-              Copied
-            </Text>
-          </Box>
-        ) : (
+        <Box
+          pos="relative"
+          transition="opacity .25s ease-in-out"
+          color={hasCopied ? copiedColor[colorMode] : undefined}>
+          {hasCopied && <Icon name="check" color="green" mr={1} />}
           <Text
             as="span"
-            opacity={hasCopied ? '0' : '1'}
-            transition="opacity .25s ease-in-out"
-            fontFamily="mono">
-            {v}
+            fontSize="sm"
+            _hover={{ cursor: 'pointer' }}
+            fontFamily={hasCopied ? 'body' : 'mono'}>
+            {hasCopied ? 'Copied' : v}
           </Text>
-        )}
+        </Box>
       </PseudoBox>
     </>
   );
 };
 
+const TextField = props => <Text as="span" fontSize="sm" {...props} />;
+
 const Cell = ({ data }) => {
   const rowData = data.rowsById[data.row.id].original;
   const { colorMode } = useColorMode();
   const component = {
-    name: <Text>{data.value}</Text>,
+    name: <TextField>{data.value}</TextField>,
     port_id: <MonoField v={data.value} color={idColor[colorMode]} />,
     asn: <MonoField v={data.value} color={asnColor[colorMode]} copyable />,
     port_speed: <Text>{`${data.value} Gbps`}</Text>,
