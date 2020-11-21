@@ -1,5 +1,3 @@
-/**@jsx jsx */
-import { jsx } from '@emotion/core';
 import { Box } from '@chakra-ui/core';
 
 const TableBody = ({ children, ...props }) => (

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useMemo } from 'react';
 import { Flex, Icon, Text } from '@chakra-ui/core';
 import { usePagination, useSortBy, useTable } from 'react-table';
@@ -84,6 +83,7 @@ const Table = ({
               {headerGroup.headers.map(column => (
                 <TableCell
                   as="th"
+                  py={2}
                   align={column.align}
                   key={column.id}
                   {...column.getHeaderProps()}

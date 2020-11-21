@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { Box, css, useTheme, useColorMode } from '@chakra-ui/core';
 
 const scrollbar = { dark: 'whiteAlpha.300', light: 'blackAlpha.300' };

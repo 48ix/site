@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { PseudoBox, useColorMode } from '@chakra-ui/core';
 
 const bg = { dark: 'whiteAlpha.100', light: 'blackAlpha.100' };

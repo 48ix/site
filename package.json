@@ -8,31 +8,33 @@
     "build": "next build",
     "start": "next start",
     "export": "next build && next export",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8",
     "@color2k/compat": "^1.0.0-rc.5",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
-    "@mdx-js/loader": "^1.6",
-    "@mdx-js/mdx": "^1.6",
-    "@mdx-js/react": "^1.6",
+    "@mdx-js/loader": "^1.6.21",
+    "@mdx-js/mdx": "^1.6.21",
+    "@mdx-js/react": "^1.6.21",
     "@next/bundle-analyzer": "^9.4",
     "@next/mdx": "^9.4",
     "axios": "^0.19.2",
     "color2k": "^1.0.0-rc.5",
+    "contentful": "^7.14.14",
     "dayjs": "^1.8.26",
     "emotion-theming": "^10.0.27",
     "filesize": "^6.1.0",
     "globby": "^11.0.0",
     "hamburger-react": "^2.0.0",
-    "next": "^9.4",
-    "next-mdx-enhanced": "^3.0.0",
+    "next": "^10.0.2",
+    "next-mdx-enhanced": "^5.0.0",
     "next-seo": "^4.5",
     "query-string": "^6.12.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-ga": "^2.7.0",
     "react-hook-form": "^5.7",
     "react-query": "^2.25.2",
@@ -45,6 +47,7 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
+    "@types/react-table": "^7.0.25",
     "@upstatement/eslint-config": "^0.4.3",
     "@upstatement/prettier-config": "^0.3.0",
     "babel-eslint": "^10.1.0",
@@ -54,6 +57,7 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "http-proxy-middleware": "^1.0.4",
     "prettier": "^2.0.5",
-    "react-icons": "^3.10.0"
+    "react-icons": "^3.10.0",
+    "typescript": "^4.1.2"
   }
 }

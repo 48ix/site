@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { Box, Heading, PseudoBox, useColorMode } from '@chakra-ui/core';
 import { title } from '../../util';
 import { useMedia } from '../Provider';

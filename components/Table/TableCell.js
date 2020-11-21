@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { PseudoBox, useColorMode } from '@chakra-ui/core';
 
 const cellBorder = {
@@ -17,7 +16,6 @@ const TableCell = ({ bordersVertical = [false, 0, 0], align, cell, children, ...
   return (
     <PseudoBox
       as="td"
-      py={2}
       px={3}
       m={0}
       w="1%"
