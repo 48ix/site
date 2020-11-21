@@ -7,19 +7,10 @@ import {
   desaturate,
 } from 'color2k';
 import { theme as chakraTheme } from '@chakra-ui/core';
-import zeitTitle from 'title';
-
-const validateEmail = value => {
-  if (!value.match(/^\w+\@\w+\.\w+/m)) {
-    return `'${value}' is an invalid email address`;
-  } else {
-    return true;
-  }
-};
 
 const idCounter = {};
 
-const uniqueId = prefix => {
+export function uniqueId(prefix) {
   if (!idCounter[prefix]) {
     idCounter[prefix] = 0;
   }
@@ -30,12 +21,12 @@ const uniqueId = prefix => {
   }
 
   return `${prefix}${id}`;
-};
+}
 
-const isLight = color => readableColorIsBlack(color);
-const isDark = color => !readableColorIsBlack(color);
+export const isLight = color => readableColorIsBlack(color);
+export const isDark = color => !readableColorIsBlack(color);
 
-const opposingColor = (theme, color) => {
+export function opposingColor(theme, color) {
   if (color.includes('.')) {
     const colorParts = color.split('.');
     if (colorParts.length !== 2) {
@@ -46,30 +37,32 @@ const opposingColor = (theme, color) => {
   }
   const opposing = isDark(color) ? theme.colors.white : theme.colors.black;
   return opposing;
-};
+}
 
-const googleFontUrl = (fontFamily, weights = [200, 400, 500, 700]) => {
+export function googleFontUrl(fontFamily, weights = [200, 400, 500, 700]) {
   const urlWeights = weights.join(',');
   const fontName = fontFamily.split(/, /)[0].trim().replace(/'|"/g, '');
   const urlFont = fontName.split(/ /).join('+');
   const urlBase = `https://fonts.googleapis.com/css?family=${urlFont}:${urlWeights}&display=swap`;
   return urlBase;
-};
+}
 
-const alphaColors = color => ({
-  50: transparentize(color, Number(1 - 0.04).toFixed(2)),
-  100: transparentize(color, Number(1 - 0.08).toFixed(2)),
-  200: transparentize(color, Number(1 - 0.12).toFixed(2)),
-  300: transparentize(color, Number(1 - 0.16).toFixed(2)),
-  400: transparentize(color, Number(1 - 0.24).toFixed(2)),
-  500: transparentize(color, Number(1 - 0.38).toFixed(2)),
-  600: transparentize(color, Number(1 - 0.48).toFixed(2)),
-  700: transparentize(color, Number(1 - 0.6).toFixed(2)),
-  800: transparentize(color, Number(1 - 0.8).toFixed(2)),
-  900: transparentize(color, Number(1 - 0.92).toFixed(2)),
-});
+function alphaColors(color) {
+  return {
+    50: transparentize(color, Number(1 - 0.04).toFixed(2)),
+    100: transparentize(color, Number(1 - 0.08).toFixed(2)),
+    200: transparentize(color, Number(1 - 0.12).toFixed(2)),
+    300: transparentize(color, Number(1 - 0.16).toFixed(2)),
+    400: transparentize(color, Number(1 - 0.24).toFixed(2)),
+    500: transparentize(color, Number(1 - 0.38).toFixed(2)),
+    600: transparentize(color, Number(1 - 0.48).toFixed(2)),
+    700: transparentize(color, Number(1 - 0.6).toFixed(2)),
+    800: transparentize(color, Number(1 - 0.8).toFixed(2)),
+    900: transparentize(color, Number(1 - 0.92).toFixed(2)),
+  };
+}
 
-const generateColors = colorInput => {
+function generateColors(colorInput) {
   const colorMap = {};
 
   const lightnessMap = [0.95, 0.85, 0.75, 0.65, 0.55, 0.45, 0.35, 0.25, 0.15, 0.05];
@@ -103,7 +96,7 @@ const generateColors = colorInput => {
     colorMap[colorIndex] = color;
   });
   return colorMap;
-};
+}
 
 const defaultBodyFonts = [
   '-apple-system',
@@ -127,7 +120,7 @@ const defaultMonoFonts = [
   'monospace',
 ];
 
-const generatePalette = palette => {
+function generatePalette(palette) {
   const generatedPalette = {};
   Object.keys(palette).map(color => {
     if (!['black', 'white'].includes(color)) {
@@ -138,15 +131,15 @@ const generatePalette = palette => {
     }
   });
   return generatedPalette;
-};
+}
 
-const formatFont = font => {
+function formatFont(font) {
   const fontList = font.split(' ');
   const fontFmt = fontList.length >= 2 ? `'${fontList.join(' ')}'` : fontList.join(' ');
   return fontFmt;
-};
+}
 
-const importFonts = userFonts => {
+function importFonts(userFonts) {
   const [body, mono] = [defaultBodyFonts, defaultMonoFonts];
   const bodyFmt = formatFont(userFonts.body);
   const monoFmt = formatFont(userFonts.mono);
@@ -161,9 +154,9 @@ const importFonts = userFonts => {
     heading: body.join(', '),
     mono: mono.join(', '),
   };
-};
+}
 
-const importColors = (userColors = {}) => {
+function importColors(userColors = {}) {
   const generatedColors = generatePalette(userColors);
   return {
     transparent: 'transparent',
@@ -171,61 +164,19 @@ const importColors = (userColors = {}) => {
     original: userColors,
     ...generatedColors,
   };
-};
+}
 
-const makeTheme = userTheme => ({
-  ...chakraTheme,
-  colors: importColors(userTheme.colors),
-  fonts: importFonts(userTheme.fonts),
-  fontWeights: {
-    light: 200,
-    normal: 400,
-    semibold: 600,
-    medium: 600,
-    bold: 800,
-  },
-});
-
-const title = (text, ...rest) =>
-  zeitTitle(text, {
-    special: [
-      '48 IX',
-      'IPv4',
-      'IPv6',
-      'ASN',
-      'RPKI',
-      'ROA',
-      'IRR',
-      'IOS',
-      'FRR',
-      'ARP',
-      'MTU',
-      'MAC',
-      'ASNs',
-      'BGP',
-    ],
-    ...rest,
-  });
-
-const insertAt = (arr, index, newItem) => [...arr.slice(0, index), newItem, ...arr.slice(index)];
-
-const round = (num, decimalPlaces = 2) => {
-  const rounded = +(Math.round(num + `e+${decimalPlaces}`) + `e-${decimalPlaces}`);
-  if (isNaN(rounded)) {
-    return 0;
-  }
-  return rounded;
-};
-
-export {
-  isDark,
-  isLight,
-  opposingColor,
-  googleFontUrl,
-  makeTheme,
-  uniqueId,
-  validateEmail,
-  title,
-  insertAt,
-  round,
-};
+export function makeTheme(userTheme) {
+  return {
+    ...chakraTheme,
+    colors: importColors(userTheme.colors),
+    fonts: importFonts(userTheme.fonts),
+    fontWeights: {
+      light: 200,
+      normal: 400,
+      semibold: 600,
+      medium: 600,
+      bold: 800,
+    },
+  };
+}

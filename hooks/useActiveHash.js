@@ -45,7 +45,10 @@ const useActiveHash = (itemIds, rootMargin = undefined) => {
 
     return () => {
       itemIds.forEach(id => {
-        observer.unobserve(document.getElementById(id));
+        const element = document.getElementById(id);
+        if (element !== null) {
+          observer.unobserve(element);
+        }
       });
     };
   }, []);
