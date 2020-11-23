@@ -26,7 +26,7 @@ const readQuery = query => {
   return parsed;
 };
 
-export const Failure = () => {
+const Failure = () => {
   const router = useRouter();
   const textColor = useColorValue('red.400', 'red.300');
   const highlightColor = useColorValue('blackAlpha.800', 'whiteAlpha.800');
@@ -81,3 +81,5 @@ export const Failure = () => {
     </>
   );
 };
+
+export default Failure;

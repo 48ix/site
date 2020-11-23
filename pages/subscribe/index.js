@@ -17,7 +17,7 @@ const readQuery = query => {
   return parsed;
 };
 
-export const Subscribe = () => {
+const Subscribe = () => {
   const router = useRouter();
   const highlightColor = useColorValue('blue.500', 'teal.300');
   const textColor = useColorValue('blackAlpha.700', 'whiteAlpha.600');
@@ -51,3 +51,5 @@ export const Subscribe = () => {
     </>
   );
 };
+
+export default Subscribe;
