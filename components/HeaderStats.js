@@ -1,21 +1,10 @@
-import * as React from 'react';
 import { useMemo } from 'react';
 import NextLink from 'next/link';
-import {
-  Button,
-  Flex,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatGroup,
-  Stack,
-  useColorMode,
-} from '@chakra-ui/core';
-import LittleGraph from './Graphs/LittleGraph';
-import { useUtilization, useParticipantStats } from '../hooks/useUtilization';
+import { Button, Flex, Stat, StatLabel, StatNumber, StatGroup, Stack } from '@chakra-ui/react';
+import { LittleGraph } from '~components';
+import { useColorValue } from '~context';
+import { useUtilization, useParticipantStats } from '~hooks';
 import filesize from 'filesize';
-
-const lineColor = { dark: 'white', light: 'black' };
 
 const humanData = data => {
   const dataStr = filesize(data / 8, { bits: true, base: 8 });
@@ -48,9 +37,9 @@ const HeaderGraph = ({ data, ...props }) => (
   </NextLink>
 );
 
-const HeaderStats = props => {
-  const { colorMode } = useColorMode();
+export const HeaderStats = props => {
   const { data, error, isError, isLoading } = useUtilization('all');
+  const lineColor = useColorValue('black', 'white');
 
   isError && console.error(error);
 
@@ -65,7 +54,7 @@ const HeaderStats = props => {
       <StatGroup
         flexDir={['column', 'column', 'row']}
         alignItems={['flex-end', 'flex-end', null]}
-        color={lineColor[colorMode]}>
+        color={lineColor}>
         <Statistic label="ASNs" value={numAsns} />
         <Statistic label="Current" value={dataCurrent} />
         <Statistic label="Peak" value={dataPeak} />
@@ -76,5 +65,3 @@ const HeaderStats = props => {
     </Stack>
   );
 };
-
-export default HeaderStats;

@@ -1,46 +1,35 @@
-import * as React from 'react';
-import dynamic from 'next/dynamic';
 import {
   Box,
-  Button,
-  Flex,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Text,
-  Icon,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
-  Stack,
-  PseudoBox,
   Tag,
+  Flex,
+  Icon,
+  Text,
+  Alert,
+  Modal,
+  Stack,
+  Button,
   Tooltip,
-  useColorMode,
+  AlertIcon,
+  ModalBody,
+  AlertTitle,
+  ModalContent,
+  ModalOverlay,
   useClipboard,
   useDisclosure,
-} from '@chakra-ui/core';
-import { useUtilization } from '../hooks/useUtilization';
-
-const Table = dynamic(() => import('./Table'));
-const Graph = dynamic(() => import('./Graphs/Graph'));
-const LittleGraph = dynamic(() => import('./Graphs/LittleGraph'));
-
-const asnColor = { dark: 'teal.300', light: 'red.500' };
-const copiedColor = { dark: 'green.300', light: 'green.600' };
-const modalBg = { dark: 'original.dark', light: 'white' };
-const idColor = { dark: 'white', light: 'black' };
+  AlertDescription,
+  ModalCloseButton,
+} from '@chakra-ui/react';
+import { DataTable, Graph, LittleGraph } from '~components';
+import { useColorValue } from '~context';
+import { useUtilization } from '~hooks';
 
 const InfoTag = props => (
   <Tag size="sm" fontFamily="mono" fontWeight="normal" mx={[1, 2, 2, 2]} my={2} {...props} />
 );
 
 const PortGraph = ({ v, rowData, ...props }) => {
-  const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const modalBg = useColorValue('white', 'original.dark');
   const label = `View Port Statistics for ${rowData.name}`;
   const { data: utilization, isError, error, isLoading } = useUtilization(rowData.circuit_id);
   isError && console.error(error);
@@ -75,10 +64,7 @@ const PortGraph = ({ v, rowData, ...props }) => {
           </Tooltip>
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent
-              maxWidth={['100%', '100%', '75%', '75%']}
-              bg={modalBg[colorMode]}
-              {...props}>
+            <ModalContent maxWidth={['100%', '100%', '75%', '75%']} bg={modalBg} {...props}>
               <ModalCloseButton />
               <ModalBody p={8}>
                 <Box mb={6}>
@@ -113,18 +99,20 @@ const PortGraph = ({ v, rowData, ...props }) => {
 
 const MonoField = ({ v, copyable = false, ...props }) => {
   const { onCopy, hasCopied } = useClipboard(v);
-  const { colorMode } = useColorMode();
+  const copiedColor = useColorValue('green.600', 'green.300');
+
   let copyProps = { _hover: { cursor: 'pointer' }, onClick: onCopy };
   if (!copyable) {
     copyProps = {};
   }
+
   return (
     <>
-      <PseudoBox {...copyProps} {...props}>
+      <Box {...copyProps} {...props}>
         <Box
           pos="relative"
           transition="opacity .25s ease-in-out"
-          color={hasCopied ? copiedColor[colorMode] : undefined}>
+          color={hasCopied ? copiedColor : undefined}>
           {hasCopied && <Icon name="check" color="green" mr={1} />}
           <Text
             as="span"
@@ -134,7 +122,7 @@ const MonoField = ({ v, copyable = false, ...props }) => {
             {hasCopied ? 'Copied' : v}
           </Text>
         </Box>
-      </PseudoBox>
+      </Box>
     </>
   );
 };
@@ -143,11 +131,12 @@ const TextField = props => <Text as="span" fontSize="sm" {...props} />;
 
 const Cell = ({ data }) => {
   const rowData = data.rowsById[data.row.id].original;
-  const { colorMode } = useColorMode();
+  const asnColor = useColorValue('red.500', 'teal.300');
+  const idColor = useColorValue('black', 'white');
   const component = {
     name: <TextField>{data.value}</TextField>,
-    port_id: <MonoField v={data.value} color={idColor[colorMode]} />,
-    asn: <MonoField v={data.value} color={asnColor[colorMode]} copyable />,
+    port_id: <MonoField v={data.value} color={idColor} />,
+    asn: <MonoField v={data.value} color={asnColor} copyable />,
     port_speed: <Text>{`${data.value} Gbps`}</Text>,
     ipv4: <MonoField v={data.value} copyable />,
     ipv6: <MonoField v={data.value} copyable />,
@@ -156,12 +145,12 @@ const Cell = ({ data }) => {
   return component[data.column.id];
 };
 
-const ParticipantTable = ({ data, error }) => {
+export const ParticipantTable = ({ data, error }) => {
   const { columns, rows } = data;
   return (
     <Box>
       {!error && data && (
-        <Table
+        <DataTable
           bordersHorizontal
           data={rows}
           columns={columns}
@@ -187,5 +176,3 @@ const ParticipantTable = ({ data, error }) => {
     </Box>
   );
 };
-
-export default ParticipantTable;

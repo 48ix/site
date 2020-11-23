@@ -1,26 +1,21 @@
-import * as React from 'react';
-import { Button, useColorMode } from '@chakra-ui/core';
-import { useGlobalState } from './Provider';
+import { Button } from '@chakra-ui/react';
+import { useColorValue, useJoinForm } from '~context';
 
-const btnColor = { dark: 'teal', light: 'blue' };
-
-const JoinButton = props => {
-  const { colorMode } = useColorMode();
-  const { joinFormOnOpen } = useGlobalState();
+export const JoinButton = props => {
+  const color = useColorValue('blue', 'teal');
+  const { onOpen } = useJoinForm();
   return (
     <Button
+      variant="solid"
+      fontWeight="normal"
+      colorScheme={color}
       mx={[6, 6, null, null]}
       ml={[null, null, 8, 8]}
       mr={[null, null, 4, 4]}
-      variantColor={btnColor[colorMode]}
-      fontWeight="normal"
-      variant="solid"
       aria-label="Join 48 IX"
-      onClick={joinFormOnOpen}
+      onClick={onOpen}
       {...props}>
       Join 48 IX
     </Button>
   );
 };
-
-export default JoinButton;

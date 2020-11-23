@@ -1,29 +1,24 @@
-import * as React from 'react';
 import {
   Drawer,
-  DrawerHeader,
   DrawerBody,
-  useDisclosure,
-  DrawerOverlay,
   DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
-  useColorMode,
-  useTheme,
-} from '@chakra-ui/core';
+  useDisclosure,
+  useToken,
+} from '@chakra-ui/react';
 import { Sling as Hamburger } from 'hamburger-react';
-import ColorModeButton from './ColorModeButton';
-import { AsideContent } from './Aside';
-import JoinButton from './JoinButton';
-import HeaderStats from './HeaderStats';
-import useRouteChanged from '../hooks/useRouteChanged';
+import { useColorValue } from '~context';
+import { AsideContent, ColorModeButton, JoinButton, HeaderStats } from '~components';
+import { useRouteChanged } from '~hooks';
 
-const drawerBg = { dark: 'dark.800', light: 'gray.50' };
-
-const MobileNav = () => {
+export const MobileNav = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const { colorMode } = useColorMode();
-  const { colors } = useTheme();
-  const burgerColor = { dark: colors.dark[300], light: colors.blue[500] };
+
+  const drawerBg = useColorValue('gray.50', 'dark.800');
+  const burgerColor = useColorValue(useToken('colors', 'blue.500'), useToken('colors', 'dark.300'));
+
   useRouteChanged(onClose);
 
   return (
@@ -33,12 +28,12 @@ const MobileNav = () => {
         toggled={isOpen}
         alt="Navigation"
         toggle={onToggle}
+        color={burgerColor}
         label="Navigation Menu"
-        color={burgerColor[colorMode]}
       />
       <Drawer size="xs" isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent bg={drawerBg[colorMode]}>
+        <DrawerContent bg={drawerBg}>
           <DrawerBody p={0}>
             <DrawerHeader>
               <HeaderStats />
@@ -54,5 +49,3 @@ const MobileNav = () => {
     </>
   );
 };
-
-export default MobileNav;

@@ -1,20 +1,20 @@
-import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { useTheme } from '@chakra-ui/core';
-import { useConfig } from './Provider';
-import { googleFontUrl } from '../util';
+import { useConfig, useTheme } from '~context';
+import { googleFontUrl } from '~util';
 
-const Meta = () => {
+export const Meta = () => {
   const config = useConfig();
   const { fonts } = useTheme();
   const [location, setLocation] = useState({});
   const currentYear = new Date().getFullYear();
   const primaryFont = googleFontUrl(fonts.body);
   const monoFont = googleFontUrl(fonts.mono);
+
   useEffect(() => {
     setLocation(window.location);
   });
+
   return (
     <Head>
       <title>{config.title}</title>
@@ -40,5 +40,3 @@ const Meta = () => {
     </Head>
   );
 };
-
-export default Meta;

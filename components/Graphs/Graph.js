@@ -1,44 +1,39 @@
-import * as React from 'react';
 import { useMemo } from 'react';
-import { Box, Flex, Icon, Skeleton, Text, useColorMode, useTheme } from '@chakra-ui/core';
+import dynamic from 'next/dynamic';
+import { Box, Flex, Skeleton, Text } from '@chakra-ui/react';
 import {
-  AreaChart,
   Area,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
+  AreaChart,
+  CartesianGrid,
   ReferenceLine,
   ResponsiveContainer,
 } from 'recharts';
 import dayjs from 'dayjs';
-import { useGraphData } from '../../hooks/useGraphData';
+import { useColorValue, useColorToken } from '~context';
+import { useGraphData } from '~hooks';
 
-const bg = { dark: 'dark.700', light: 'gray.100' };
-const avgColor = { dark: 'yellow.200', light: 'red.500' };
-const color = { dark: 'white', light: 'black' };
+const DownCaret = dynamic(() => import('@meronex/icons/bs').then(i => i.BsCaretDownFill));
+const UpCaret = dynamic(() => import('@meronex/icons/bs').then(i => i.BsCaretUpFill));
 
 const GraphTooltip = ({ payload, label, avg, unit, ...props }) => {
-  const { colorMode } = useColorMode();
+  const bg = useColorValue('gray.100', 'dark.700');
+  const avgColor = useColorValue('red.500', 'yellow.200');
+  const color = useColorValue('black', 'white');
   const time = dayjs(label).toString();
+
   let data = {};
   if (payload) {
     [data] = payload;
   }
 
   return (
-    <Box bg={bg[colorMode]} px={4} py={2} borderRadius="md">
+    <Box bg={bg} px={4} py={2} borderRadius="md">
       <Flex justifyContent="space-between">
-        <Flex
-          alignItems="center"
-          color={color[colorMode]}
-          justifyContent="space-between"
-          {...props}>
-          <Icon
-            name={data?.name === 'inBits' ? 'triangle-down' : 'triangle-up'}
-            size="10px"
-            mr={1}
-          />
+        <Flex alignItems="center" color={color} justifyContent="space-between" {...props}>
+          <Box as={data?.name === 'inBits' ? UpCaret : DownCaret} boxSize="10px" mr={1} />
           <Text as="span" fontWeight={500} fontSize="sm">
             {data?.value}
           </Text>
@@ -48,7 +43,7 @@ const GraphTooltip = ({ payload, label, avg, unit, ...props }) => {
         </Flex>
       </Flex>
       <Flex>
-        <Text fontSize="xs" color={avgColor[colorMode]}>
+        <Text fontSize="xs" color={avgColor}>
           {`${avg} ${unit} Average`}
         </Text>
       </Flex>
@@ -61,14 +56,13 @@ const GraphTooltip = ({ payload, label, avg, unit, ...props }) => {
   );
 };
 
-const Graph = ({ data, ...props }) => {
-  const { colorMode } = useColorMode();
-  const { colors } = useTheme();
-  const topColor = { dark: colors.blue[400], light: colors.blue[500] };
-  const bottomColor = { dark: colors.teal[300], light: colors.teal[400] };
-  const gridColor = { dark: colors.whiteAlpha[400], light: colors.blackAlpha[400] };
-  const labelColor = { dark: colors.whiteAlpha[600], light: colors.blackAlpha[600] };
-  const refLineColor = { dark: colors.yellow[200], light: colors.red[500] };
+const BaseGraph = ({ data, ...props }) => {
+  const topColor = useColorToken('blue.500', 'blue.400');
+  const bottomColor = useColorToken('teal.500', 'teal.400');
+  const gridColor = useColorToken('blackAlpha.400', 'whiteAlpha.400');
+  const labelColor = useColorToken('blackAlpha.600', 'whiteAlpha.600');
+  const refLineColor = useColorToken('red.500', 'yellow.200');
+
   const { inAvg, outAvg, portId, graphData, inUnit, outUnit } = useGraphData(data);
 
   const max = useMemo(
@@ -90,32 +84,32 @@ const Graph = ({ data, ...props }) => {
             left: 0,
             bottom: 0,
           }}>
-          <CartesianGrid strokeWidth={0.5} stroke={gridColor[colorMode]} />
+          <CartesianGrid strokeWidth={0.5} stroke={gridColor} />
           <XAxis dataKey="time" hide />
           <YAxis
             domain={[0, max]}
             tick={{
-              stroke: gridColor[colorMode],
+              stroke: gridColor,
               strokeWidth: 0.1,
               fontSize: '12',
-              fill: gridColor[colorMode],
+              fill: gridColor,
             }}
             label={{
               value: `Ingress ${inUnit}`,
               angle: -90,
               position: 'insideLeft',
               style: { textAnchor: 'middle', fontSize: '80%' },
-              fill: labelColor[colorMode],
+              fill: labelColor,
             }}
           />
           <Tooltip content={<GraphTooltip avg={inAvg} unit={inUnit} />} />
-          <ReferenceLine y={inAvg} stroke={refLineColor[colorMode]} strokeWidth={0.5} />
+          <ReferenceLine y={inAvg} stroke={refLineColor} strokeWidth={0.5} />
           <Area
             animationDuration={750}
             type="linear"
             dataKey="inBits"
-            stroke={topColor[colorMode]}
-            fill={topColor[colorMode]}
+            stroke={topColor}
+            fill={topColor}
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -129,33 +123,33 @@ const Graph = ({ data, ...props }) => {
             left: 0,
             bottom: 0,
           }}>
-          <CartesianGrid strokeWidth={0.5} stroke={gridColor[colorMode]} />
+          <CartesianGrid strokeWidth={0.5} stroke={gridColor} />
           <XAxis dataKey="time" hide />
           <YAxis
             domain={[0, max]}
             reversed
             tick={{
-              stroke: gridColor[colorMode],
+              stroke: gridColor,
               strokeWidth: 0.1,
               fontSize: '12',
-              fill: gridColor[colorMode],
+              fill: gridColor,
             }}
             label={{
               value: `Egress ${outUnit}`,
               angle: -90,
               position: 'insideLeft',
               style: { textAnchor: 'middle', fontSize: '80%' },
-              fill: labelColor[colorMode],
+              fill: labelColor,
             }}
           />
           <Tooltip content={<GraphTooltip avg={outAvg} unit={outUnit} />} />
-          <ReferenceLine y={outAvg} stroke={refLineColor[colorMode]} strokeWidth={0.5} />
+          <ReferenceLine y={outAvg} stroke={refLineColor} strokeWidth={0.5} />
           <Area
             animationDuration={750}
             type="linear"
             dataKey="outBits"
-            stroke={bottomColor[colorMode]}
-            fill={bottomColor[colorMode]}
+            stroke={bottomColor}
+            fill={bottomColor}
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -163,10 +157,8 @@ const Graph = ({ data, ...props }) => {
   );
 };
 
-const GraphWrapper = props => (
+export const Graph = props => (
   <Skeleton height={400} width="100%" isLoaded={props.data}>
-    {props.data && <Graph {...props} />}
+    {props.data && <BaseGraph {...props} />}
   </Skeleton>
 );
-
-export default GraphWrapper;

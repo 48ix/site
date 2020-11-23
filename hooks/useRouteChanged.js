@@ -24,7 +24,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const useRouteChanged = callback => {
+export const useRouteChanged = callback => {
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = url => {
@@ -38,5 +38,3 @@ const useRouteChanged = callback => {
     };
   }, [router.events, callback]);
 };
-
-export default useRouteChanged;

@@ -1,29 +1,25 @@
-import * as React from 'react';
-import { Text, useColorMode } from '@chakra-ui/core';
+import { Text } from '@chakra-ui/react';
+import { useColorValue } from '~context';
 
-const asnColor = { dark: 'red.300', light: 'blue.500' };
-const prefixColor = { dark: 'whiteAlpha.900', light: 'blackAlpha.900' };
-
-const ASN = ({ as, prefix = true, ...props }) => {
-  const { colorMode } = useColorMode();
+export const ASN = ({ as, prefix = true, ...props }) => {
+  const asnColor = useColorValue('blue.500', 'red.300');
+  const prefixColor = useColorValue('blackAlpha.900', 'whiteAlpha.900');
   return (
     <>
       {prefix && (
         <Text
           mr="0.15rem"
           as="span"
-          color={prefixColor[colorMode]}
+          color={prefixColor}
           fontWeight={600}
           fontFamily="mono"
           {...props}>
           AS
         </Text>
       )}
-      <Text as="span" color={asnColor[colorMode]} fontWeight={600} fontFamily="mono" {...props}>
+      <Text as="span" color={asnColor} fontWeight={600} fontFamily="mono" {...props}>
         {as || '62484'}
       </Text>
     </>
   );
 };
-
-export default ASN;

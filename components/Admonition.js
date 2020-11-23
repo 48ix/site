@@ -1,43 +1,30 @@
-import * as React from 'react';
 import dynamic from 'next/dynamic';
-import { Box, Heading, Icon, Stack, Text, useColorMode, useTheme } from '@chakra-ui/core';
-import { opposingColor, title } from '../util';
+import { Box, Heading, HStack, Icon, Text } from '@chakra-ui/react';
+import { useColorValue } from '~context';
+import { useOpposingColor } from '~hooks';
+import { title } from '~util';
 
-const ThumbsUp = dynamic(() => import('./Icons/ThumbsUp'));
-const InfoCircle = dynamic(() => import('./Icons/InfoCircle'));
-const Note = dynamic(() => import('./Icons/Note'));
+const Note = dynamic(() => import('@meronex/icons/go').then(i => i.GoNote));
+const Tip = dynamic(() => import('@meronex/icons/go').then(i => i.GoLightBulb));
+const Warning = dynamic(() => import('@meronex/icons/vsc').then(i => i.VscWarning));
+const Critical = dynamic(() => import('@meronex/icons/im').then(i => i.ImFire));
+const Information = dynamic(() => import('@meronex/icons/bi').then(i => i.BiInfoCircle));
 
 const iconMap = {
-  important: InfoCircle,
+  information: Information,
+  critical: Critical,
+  warning: Warning,
   note: Note,
-  tip: ThumbsUp,
-  warning: 'warning-2',
-  critical: 'not-allowed',
-};
-const bgMap = {
-  dark: {
-    important: 'blue.300',
-    note: 'gray.200',
-    tip: 'green.300',
-    warning: 'yellow.300',
-    critical: 'red.300',
-  },
-  light: {
-    important: 'blue.400',
-    note: 'gray.100',
-    tip: 'green.500',
-    warning: 'yellow.400',
-    critical: 'red.400',
-  },
+  tip: Tip,
 };
 
-const AdmonitionContainer = ({ type, bg, ...props }) => (
+const AdmonitionContainer = props => (
   <Box
-    borderRadius="md"
-    p={[4, 4, 6, 6]}
-    mx={[4, 4, 8, 8]}
-    my={8}
-    backgroundColor={bg}
+    borderRadius="lg"
+    width="fit-content"
+    p={{ base: 4, lg: 6 }}
+    mx={{ base: 4, lg: 8 }}
+    my={{ base: 4, lg: 12 }}
     {...props}
   />
 );
@@ -50,41 +37,54 @@ const AdmonitionHeader = ({ children, ...props }) => (
 
 const AdmonitionIcon = ({ type, ...props }) => {
   const icon = iconMap[type];
-  const iconProps = { size: [8, 8, 5, 5], display: 'inline' };
-  let Component = props => <Icon name={icon} {...iconProps} {...props} />;
-  if (typeof icon !== 'string') {
-    Component = props => <Box as={icon} {...iconProps} {...props} />;
-  }
-  return <Component {...props} />;
+  return <Icon as={icon} boxSize={[8, 8, 5, 5]} {...props} />;
 };
 
 const AdmonitionBody = ({ children, color, ...props }) => (
-  <Box {...props}>
-    <Text fontSize="sm" fontWeight="normal" color={color}>
-      {children}
-    </Text>
+  <Box color={color} fontSize="sm" fontWeight="normal" {...props}>
+    <Text>{children}</Text>
   </Box>
 );
 
-const Admonition = ({ title, message, children, type = 'note', hideIcon = false, ...props }) => {
+export const Admonition = ({
+  title,
+  message,
+  children,
+  type = 'note',
+  hideIcon = false,
+  ...props
+}) => {
   if (message && !children) {
     children = message;
   }
-  const theme = useTheme();
-  const { colorMode } = useColorMode();
+  const bg = useColorValue(
+    {
+      important: 'blue.400',
+      note: 'gray.100',
+      tip: 'green.500',
+      warning: 'yellow.400',
+      critical: 'red.400',
+    },
+    {
+      important: 'blue.300',
+      note: 'gray.200',
+      tip: 'green.300',
+      warning: 'yellow.300',
+      critical: 'red.300',
+    },
+  )[type];
 
-  const background = bgMap[colorMode][type];
-  const color = opposingColor(theme, background);
+  const color = useOpposingColor(bg);
 
   return (
-    <AdmonitionContainer type={type} bg={background} {...props}>
-      <Stack isInline align="center" mb={4}>
-        {!hideIcon && <AdmonitionIcon type={type} color={color} />} */}
-        {title && <AdmonitionHeader color={color}>{title}</AdmonitionHeader>}
-      </Stack>
-      <AdmonitionBody color={color}>{children}</AdmonitionBody>
+    <AdmonitionContainer bg={bg} color={color} {...props}>
+      <HStack isInline align="center" mb={4}>
+        {!hideIcon && <AdmonitionIcon type={type} />}
+        {title && <AdmonitionHeader>{title}</AdmonitionHeader>}
+      </HStack>
+      <Box fontSize="sm" fontWeight="normal">
+        {children}
+      </Box>
     </AdmonitionContainer>
   );
 };
-
-export default Admonition;

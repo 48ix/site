@@ -1,19 +1,18 @@
-import * as React from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import {
+  Box,
+  Link,
+  Text,
   Alert,
+  Heading,
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  Box,
-  Heading,
-  Link,
-  Text,
-  useColorMode,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import NotFound from '../404';
 import queryString from 'query-string';
+import { useColorValue } from '~context';
 
 const readQuery = query => {
   let parsed = {};
@@ -27,30 +26,31 @@ const readQuery = query => {
   return parsed;
 };
 
-const textColor = { dark: 'red.300', light: 'red.400' };
-const highlightColor = { dark: 'whiteAlpha.800', light: 'blackAlpha.800' };
-
-const Failure = () => {
+export const Failure = () => {
   const router = useRouter();
-  const { colorMode } = useColorMode();
+  const textColor = useColorValue('red.400', 'red.300');
+  const highlightColor = useColorValue('blackAlpha.800', 'whiteAlpha.800');
+
   if (Object.keys(router.query).length === 0) {
     return <NotFound />;
   }
   const { emailAddr, listName, error } = readQuery(router.query);
+
   if (typeof emailAddr === 'undefined' || typeof listName === 'undefined') {
     return <NotFound />;
   }
+
   return (
     <>
       <NextSeo noindex nofollow />
       <Box mt={32} px={16} textAlign="center">
-        <Heading color={textColor[colorMode]}>
+        <Heading color={textColor}>
           Something went wrong while attempting to subscribe
-          <Text as="span" color={highlightColor[colorMode]}>
+          <Text as="span" color={highlightColor}>
             {` ${emailAddr} `}
           </Text>
           to the
-          <Text as="span" color={highlightColor[colorMode]}>{` ${listName} `}</Text>
+          <Text as="span" color={highlightColor}>{` ${listName} `}</Text>
           mailing list.
         </Heading>
         <Box mt={8}>
@@ -62,13 +62,13 @@ const Failure = () => {
         </Box>
         {typeof error !== 'undefined' && (
           <Alert
+            mt={8}
+            mx="auto"
             status="error"
+            borderRadius="md"
+            textAlign="center"
             flexDirection="column"
             justifyContent="center"
-            textAlign="center"
-            mx="auto"
-            borderRadius="md"
-            mt={8}
             maxW={[null, null, '50%', '50%']}>
             <AlertIcon size="32px" mr={0} />
             <AlertTitle mt={4} mb={1} fontSize="lg">
@@ -81,5 +81,3 @@ const Failure = () => {
     </>
   );
 };
-
-export default Failure;

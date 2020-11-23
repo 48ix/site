@@ -36,6 +36,21 @@ export function round(num: number, decimalPlaces: number = 2) {
   return rounded;
 }
 
+const idCounter = {} as any;
+
+export function uniqueId(prefix: string) {
+  if (!idCounter[prefix]) {
+    idCounter[prefix] = 0;
+  }
+
+  const id = ++idCounter[prefix];
+  if (prefix === undefined) {
+    return `${id}`;
+  }
+
+  return `${prefix}${id}`;
+}
+
 export const participantColumns = [
   {
     Header: 'Participant Name',
@@ -75,5 +90,5 @@ export const participantColumns = [
 ] as ParticipantColumn[];
 
 export * from './contentful';
-export * from './theme';
 export * from './validators';
+export * from './theme';

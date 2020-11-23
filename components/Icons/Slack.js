@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-const Slack = ({ color, size = '1.5rem', ...props }) => (
+export const Slack = ({ color, size = '1.5rem', ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 448 512"
@@ -18,5 +16,3 @@ const Slack = ({ color, size = '1.5rem', ...props }) => (
     />
   </svg>
 );
-
-export default Slack;

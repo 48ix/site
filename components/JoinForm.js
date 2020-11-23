@@ -1,33 +1,30 @@
 import { forwardRef, useState } from 'react';
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
   Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
+  Alert,
   Input,
   Modal,
+  Radio,
+  Button,
+  Select,
+  AlertIcon,
+  FormLabel,
   ModalBody,
-  ModalCloseButton,
-  ModalContent,
+  AlertTitle,
+  RadioGroup,
+  FormControl,
+  HStack,
   ModalFooter,
   ModalHeader,
+  ModalContent,
   ModalOverlay,
-  Radio,
-  RadioGroup,
-  Select,
-  useColorMode,
-} from '@chakra-ui/core';
+  AlertDescription,
+  FormErrorMessage,
+  ModalCloseButton,
+} from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
-import { useConfig, useGlobalState } from '../components/Provider';
-
-const btnColor = { dark: 'green', light: 'blue' };
-const modalBg = { dark: 'original.dark', light: 'white' };
+import { useColorValue, useConfig, useJoinForm, useJoinTerm } from '~context';
 
 const constructData = data => {
   const now = new Date();
@@ -119,44 +116,46 @@ const SelectField = ({
 };
 
 const TermField = forwardRef((props, ref) => {
-  const { joinFormTerm, setJoinFormTerm } = useGlobalState();
+  const { setTerm } = useJoinTerm();
   return (
     <FormField>
-      <RadioGroup
-        ref={ref}
-        spacing={5}
-        isInline
-        value={joinFormTerm}
-        onChange={e => setJoinFormTerm(e.target.value)}
-        {...props}>
-        <Radio value="monthly">Monthly</Radio>
-        <Radio value="annual">Annual</Radio>
+      <RadioGroup ref={ref} name="term" onChange={setTerm} {...props}>
+        <HStack spacing={8}>
+          <Radio value="monthly">Monthly</Radio>
+          <Radio value="annual">Annual</Radio>
+        </HStack>
       </RadioGroup>
     </FormField>
   );
 });
 
-const JoinForm = () => {
-  const { colorMode } = useColorMode();
+export const JoinForm = () => {
   const config = useConfig();
-  const { joinFormOpen, joinFormOnClose } = useGlobalState();
+  const { term } = useJoinTerm();
+  const { isOpen, onClose } = useJoinForm();
   const [submitSuccess, setSubmitSuccess] = useState(null);
+
   const { register, handleSubmit, errors, control, formState } = useForm();
+
   const onSubmit = async data => {
     const message = constructData(data);
-    console.dir(message, { depth: null });
     const sendRes = await sendForm('/member-request', message);
     if (sendRes.status === 200) {
-      joinFormOnClose();
+      onClose();
     } else {
       setSubmitSuccess(sendRes.statusText);
     }
     return sendRes;
   };
+  const btnColor = useColorValue('blue', 'green');
+  const modalBg = useColorValue('white', 'original.dark');
+
+  console.log(term);
+
   return (
-    <Modal isOpen={joinFormOpen} onClose={joinFormOnClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent borderRadius="md" bg={modalBg[colorMode]}>
+      <ModalContent borderRadius="md" bg={modalBg}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalHeader>Join {config.title}</ModalHeader>
           <ModalCloseButton />
@@ -200,7 +199,13 @@ const JoinForm = () => {
               hasError={errors.facility}
               required
             />
-            <Controller name="term" as={TermField} control={control} defaultValue="annual" />
+            <Controller
+              name="term"
+              as={TermField}
+              control={control}
+              value={term}
+              defaultValue={term}
+            />
             <SelectField
               id="port_speed"
               label="Port Speed"
@@ -228,7 +233,7 @@ const JoinForm = () => {
             <Button
               type="submit"
               aria-label="Submit Request"
-              variantColor={btnColor[colorMode]}
+              colorScheme={btnColor}
               isLoading={formState.isSubmitting}>
               Submit Request
             </Button>
@@ -238,5 +243,3 @@ const JoinForm = () => {
     </Modal>
   );
 };
-
-export default JoinForm;

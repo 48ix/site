@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { IconButton, Link } from '@chakra-ui/core';
+import dynamic from 'next/dynamic';
+import { IconButton, Link } from '@chakra-ui/react';
 
-const ExternalLinkIcon = ({ to, ...props }) => {
+const External = dynamic(() => import('@meronex/icons/fi').then(i => i.FiExternalLink));
+
+export const ExternalLinkIcon = ({ to, ...props }) => {
   const label = `Go to ${to.match(/https?:\/\/(www)?([A-Za-z0-9-\.]+).*/m)[2].replace(/^\./, '')}`;
   return (
     <IconButton
       href={to}
       as={Link}
+      title={label}
       variant="ghost"
       target="_blank"
-      icon="external-link"
-      rel="noopener noreferrer"
       aria-label={label}
-      title={label}
+      icon={<External />}
+      rel="noopener noreferrer"
       {...props}
     />
   );
 };
-
-export default ExternalLinkIcon;

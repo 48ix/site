@@ -1,11 +1,10 @@
-import * as React from 'react';
 import { useState } from 'react';
-import { Image, Link, Skeleton, Stack, useColorMode } from '@chakra-ui/core';
-import { useConfig } from './Provider';
+import { Image, Link, Skeleton, Stack } from '@chakra-ui/react';
+import { useColorValue, useConfig } from '~context';
 
-const Contributors = () => {
+export const Contributors = () => {
   const { contributors } = useConfig();
-  const { colorMode } = useColorMode();
+  const imageStyle = useColorValue({}, { filter: 'grayscale(1) brightness(100)' });
   return (
     <Stack my={8} isInline justify="space-between">
       {contributors.map(org => {
@@ -21,7 +20,7 @@ const Contributors = () => {
                 height="100px"
                 src={`/contributor-logos/${org.id}.${org.imageFormat}`}
                 alt={org.name}
-                style={{ filter: colorMode === 'dark' ? 'grayscale(1) brightness(100)' : null }}
+                style={imageStyle}
               />
             </Link>
           </Skeleton>
@@ -30,5 +29,3 @@ const Contributors = () => {
     </Stack>
   );
 };
-
-export default Contributors;

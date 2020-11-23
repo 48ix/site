@@ -1,7 +1,5 @@
-import { H1 } from '../components/MDXComponents/Headings';
-import ParticipantTable from '../components/ParticipantTable';
-import { insertAt } from '../util';
-import { getContent, participantColumns } from '~util';
+import { H1, ParticipantTable } from '~components';
+import { insertAt, getContent, participantColumns } from '~util';
 
 import type { GetStaticProps } from 'next';
 import type { ParticipantsEntry, ParticipantTableProps } from '~types';

@@ -1,35 +1,30 @@
-import * as React from 'react';
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
-import { Box, Button, Divider, Flex, Heading, Grid, Text, useColorMode } from '@chakra-ui/core';
+import { Box, Button, Divider, Flex, Heading, Grid, Text } from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
-import { useGlobalState, useConfig } from '../components/Provider';
+import { Logo } from '~components';
+import { useConfig, useColorValue, useJoinForm } from '~context';
 
-const Equals = dynamic(() => import('../components/Icons/Equals'));
-const Heart = dynamic(() => import('../components/Icons/Heart'));
-const LightningBolt = dynamic(() => import('../components/Icons/LightningBolt'));
-const FoldedMap = dynamic(() => import('../components/Icons/FoldedMap'));
-const Logo = dynamic(() => import('../components/Logo').then(i => i.Logo));
-
-const accent = { dark: 'teal.500', light: 'blue.500' };
-const accentVar = { dark: 'teal', light: 'blue' };
-const text = { dark: 'white', light: 'black' };
+const Equals = dynamic(() => import('@meronex/icons/fa').then(i => i.FaEquals));
+const Heart = dynamic(() => import('@meronex/icons/bs').then(i => i.BsHeartFill));
+const LightningBolt = dynamic(() => import('@meronex/icons/bs').then(i => i.BsLightningFill));
+const FoldedMap = dynamic(() => import('@meronex/icons/ri').then(i => i.RiTreasureMapLine));
 
 const Container = props => <Box mx="auto" {...props} />;
 
 const Feature = ({ title, icon, children, ...props }) => {
-  const { colorMode } = useColorMode();
+  const accent = useColorValue('blue.500', 'teal.500');
   return (
     <Box {...props}>
       <Flex mt={6} mb={4} direction="row" align="center">
         <Flex
-          display="inline-flex"
+          boxSize={12}
+          bg={accent}
           rounded="full"
-          size={12}
-          bg={accent[colorMode]}
           align="center"
-          justify="center">
-          <Box size={6} color="white" as={icon} />
+          justify="center"
+          display="inline-flex">
+          <Box boxSize={6} color="white" as={icon} />
         </Flex>
         <Heading as="h3" size="md" fontSize="3xl" fontWeight="medium" ml={4} display="inline">
           {title}
@@ -43,10 +38,12 @@ const Feature = ({ title, icon, children, ...props }) => {
   );
 };
 
-export default () => {
-  const { colorMode } = useColorMode();
-  const { joinFormOnOpen } = useGlobalState();
+const Home = () => {
   const config = useConfig();
+  const accent = useColorValue('blue.500', 'teal.500');
+  const accentScheme = useColorValue('blue', 'teal');
+  const text = useColorValue('black', 'white');
+  const { onOpen } = useJoinForm();
   return (
     <>
       <NextSeo title={`${config.title} | ${config.siteSlogan}`} titleTemplate="%s" />
@@ -58,10 +55,10 @@ export default () => {
           <Heading
             as="h1"
             fontSize="6xl"
+            color={accent}
             fontWeight="bold"
-            color={accent[colorMode]}
             textAlign={['justify', 'justify', 'inherit']}>
-            <Text as="span" fontWeight="normal" color={text[colorMode]}>{`Arizona's `}</Text>
+            <Text as="span" fontWeight="normal" color={text}>{`Arizona's `}</Text>
             <br />
             Open Internet Exchange
           </Heading>
@@ -71,21 +68,16 @@ export default () => {
           </Text>
 
           <Box mt={12}>
-            <Button
-              size="lg"
-              fontWeight="normal"
-              variantColor={accentVar[colorMode]}
-              m={2}
-              onClick={joinFormOnOpen}>
+            <Button m={2} size="lg" fontWeight="normal" onClick={onOpen} colorScheme={accentScheme}>
               Join the Exchange
             </Button>
             <NextLink href="/network" passHref>
               <Button
-                as="a"
-                fontWeight="normal"
-                size="lg"
                 m={2}
-                rightIcon={props => <FoldedMap size="1.5em" {...props} />}>
+                as="a"
+                size="lg"
+                fontWeight="normal"
+                rightIcon={<FoldedMap size="1.5em" />}>
                 Where to Connect
               </Button>
             </NextLink>
@@ -97,7 +89,7 @@ export default () => {
 
       <Container px={4}>
         <Grid
-          templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
+          templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
           gap={10}
           px={{ md: 8 }}>
           <Feature icon={Equals} title="Neutral">
@@ -118,3 +110,5 @@ export default () => {
     </>
   );
 };
+
+export default Home;

@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-const LightningBolt = ({ color, size = '1.5rem', ...props }) => {
+export const LightningBolt = ({ color, size = '1.5rem', ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,5 +20,3 @@ const LightningBolt = ({ color, size = '1.5rem', ...props }) => {
     </svg>
   );
 };
-
-export default LightningBolt;

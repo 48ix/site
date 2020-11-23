@@ -1,52 +1,46 @@
-import * as React from 'react';
 import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Box, Flex, Link, useColorMode } from '@chakra-ui/core';
-import { useMedia } from './Provider';
-import JoinButton from './JoinButton';
-import MobileNav from './MobileNav';
-import JoinForm from './JoinForm';
-import HeaderStats from './HeaderStats';
-import { Logo } from './Logo';
-import ColorModeButton from './ColorModeButton';
-
-const bg = { light: 'white', dark: 'original.dark' };
+import { Box, Flex, Link } from '@chakra-ui/react';
+import { useColorValue, useMobile } from '~context';
+import { JoinButton, MobileNav, JoinForm, HeaderStats, Logo, ColorModeButton } from '~components';
 
 export const BaseHeader = ({ showBorder, ...props }) => {
-  const { colorMode } = useColorMode();
+  const bg = useColorValue('white', 'original.dark');
   return (
     <Box
       top={0}
+      bg={bg}
       left={0}
       right={0}
       zIndex={4}
       pos="fixed"
       as="header"
-      width="full"
-      height={[20, 20, 16]}
-      bg={bg[colorMode]}
+      width="100%"
+      height={{ base: 20, lg: 16 }}
       borderBottomWidth={showBorder ? '1px' : null}
       {...props}
     />
   );
 };
 
-const Header = props => {
-  const { isSm, isMd, isLg, isXl } = useMedia();
+export const Header = props => {
   const { pathname } = useRouter();
   const [showHeader, setShowHeader] = useState(true);
+  const isMobile = useMobile();
+
   useEffect(() => {
-    if (isSm || isMd) {
+    if (isMobile) {
       if (pathname === '/' && showHeader === true) {
         setShowHeader(false);
       } else if (pathname !== '/' && showHeader === false) {
         setShowHeader(true);
       }
     }
-  }, [isSm, isMd, pathname]);
+  }, [isMobile, pathname]);
+
   return (
-    <BaseHeader showBorder={showHeader} {...props}>
+    <BaseHeader showBorder={showHeader} py={{ base: showHeader ? 2 : 6, lg: 0 }} {...props}>
       <Flex size="100%" px={6} align="center" justify="space-between">
         <Flex justify="flex-start" justify="space-between">
           <Flex align="center">
@@ -58,13 +52,10 @@ const Header = props => {
               </NextLink>
             )}
           </Flex>
-          <Flex align="center" ml={5}></Flex>
+          <Flex align="center" ml={5} />
         </Flex>
-        <Flex
-          align="center"
-          color="gray.500"
-          justify={['space-between', 'space-between', 'flex-end']}>
-          {(isLg || isXl) && (
+        <Flex align="center" color="gray.500" justify={{ base: 'space-between', lg: 'flex-end' }}>
+          {!isMobile && (
             <>
               <HeaderStats />
               <JoinButton />
@@ -73,10 +64,8 @@ const Header = props => {
             </>
           )}
         </Flex>
-        {(isSm || isMd) && <MobileNav />}
+        {isMobile && <MobileNav />}
       </Flex>
     </BaseHeader>
   );
 };
-
-export default Header;

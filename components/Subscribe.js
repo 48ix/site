@@ -1,7 +1,7 @@
-import * as React from 'react';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import {
+  Box,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -10,36 +10,19 @@ import {
   InputGroup,
   InputRightElement,
   Text,
-  useColorMode,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { validateEmail } from '../util';
+import { useColorValue } from '~context';
+import { validateEmail } from '~util';
 
-const RightArrowCircle = dynamic(() => import('./Icons/RightArrowCircle'));
-const CheckCircle = dynamic(() => import('./Icons/CheckCircle'));
-
-const circleIcon = props => <CheckCircle size="1rem" {...props} />;
-const arrowIcon = props => <RightArrowCircle size="1rem" {...props} />;
-
-const border = [
-  { dark: 'yellow.200', light: 'purple.500' },
-  { dark: 'yellow.200', light: 'purple.500' },
-  { dark: 'red.300', light: 'red.500' },
-  { dark: 'green.300', light: 'green.500' },
-];
-
-const formColor = [
-  { dark: null, light: null },
-  { dark: null, light: null },
-  { dark: 'red.300', light: 'red.500' },
-  { dark: 'green.300', light: 'green.500' },
-];
+const Check = dynamic(() => import('@meronex/icons/fa').then(i => i.FaCheckCircle));
+const Prohibit = dynamic(() => import('@meronex/icons/mdc').then(i => i.MdcCancel));
+const RightArrow = dynamic(() => import('@meronex/icons/fa').then(i => i.FaArrowCircleRight));
 
 const btnLoading = [false, true, false, false];
 const btnColor = [null, null, 'red', 'green'];
 const statusDisplay = ['none', 'none', 'flex', 'flex'];
-const btnIcon = [arrowIcon, null, 'not-allowed', circleIcon];
 
 const sendEmail = async (emailAddr, stateCallback, responseCallback) => {
   let message = 'Something went wrong. Please contact noc@48ix.net';
@@ -76,18 +59,35 @@ const sendEmail = async (emailAddr, stateCallback, responseCallback) => {
 const Form = props => <Flex as="form" {...props} />;
 
 const StatusMessage = ({ status, children, ...props }) => {
-  const { colorMode } = useColorMode();
+  const formColor = [
+    null,
+    null,
+    useColorValue('red.500', 'red.300'),
+    useColorValue('green.500', 'green.300'),
+  ];
   return (
     <Flex alignItems="center" mt={2} fontSize="xs" {...props}>
-      <Text lineHeight="normal" color={formColor[status][colorMode]}>
+      <Text lineHeight="normal" color={formColor[status]}>
         {children}
       </Text>
     </Flex>
   );
 };
 
-const Subscribe = props => {
-  const { colorMode } = useColorMode();
+export const Subscribe = props => {
+  const border = [
+    useColorValue('purple.500', 'yellow.200'),
+    useColorValue('purple.500', 'yellow.200'),
+    useColorValue('red.500', 'red.300'),
+    useColorValue('green.500', 'green.300'),
+  ];
+
+  const btnIcon = [
+    <Box as={RightArrow} boxSize="1rem" />,
+    null,
+    <Box as={Prohibit} boxSize="1rem" />,
+    <Box as={Check} boxSize="1rem" />,
+  ];
 
   const { handleSubmit, errors, register } = useForm();
   /**
@@ -106,26 +106,28 @@ const Subscribe = props => {
 
   return (
     <Form
-      onSubmit={handleSubmit(onSubmit)}
-      maxW={['80%', '80%', '50%']}
       w="100%"
       display="flex"
-      flex="1 0 auto">
+      flex="1 0 auto"
+      maxW={{ base: '80%', lg: '50%' }}
+      onSubmit={handleSubmit(onSubmit)}>
       <FormControl isInvalid={errors.email} w="100%">
         <InputGroup>
           <Input
-            _focus={{ borderColor: border[submission][colorMode] }}
-            _placeholder={{ fontWeight: 300, fontSize: 'sm' }}
-            isFullWidth
             size="sm"
-            variant="flushed"
+            isFullWidth
             name="email"
+            variant="flushed"
+            aria-label="Subscribe"
+            borderRadius={errors.email && 'md'}
+            borderColor={errors.email && 'unset'}
             ref={register({ validate: validateEmail })}
             placeholder="Subscribe to our mailing list"
-            aria-label="Subscribe"
+            _focus={{ borderColor: border[submission] }}
+            _placeholder={{ fontWeight: 400, fontSize: 'sm' }}
             {...props}
           />
-          <InputRightElement>
+          <InputRightElement p={4} top="-0.5rem">
             <IconButton
               type="submit"
               variant="link"
@@ -133,7 +135,7 @@ const Subscribe = props => {
               aria-label="Subscribe"
               icon={btnIcon[submission]}
               isLoading={btnLoading[submission]}
-              variantColor={btnColor[submission]}
+              colorScheme={btnColor[submission]}
             />
           </InputRightElement>
         </InputGroup>
@@ -145,5 +147,3 @@ const Subscribe = props => {
     </Form>
   );
 };
-
-export default Subscribe;

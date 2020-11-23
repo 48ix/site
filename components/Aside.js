@@ -1,18 +1,15 @@
-import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Box, Text, useColorMode } from '@chakra-ui/core';
+import { Box, Text } from '@chakra-ui/react';
+import { useColorValue, useConfig, useBreakpointValue } from '~context';
 import { ComponentLink, TopNavLink } from './NavLink';
-import { useConfig, useMedia } from './Provider';
-
-const titleColor = { dark: 'whiteAlpha.900', light: 'blackAlpha.900' };
 
 const NavGroupHeading = props => (
   <Text
-    fontWeight="medium"
+    mb={2}
     fontSize="xs"
     color="gray.400"
+    fontWeight="medium"
     letterSpacing="wide"
-    mb={2}
     textTransform="uppercase"
     {...props}
   />
@@ -20,9 +17,11 @@ const NavGroupHeading = props => (
 
 export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props }) => {
   const { pathname } = useRouter();
-  const { colorMode } = useColorMode();
-  const { isSm, isMd } = useMedia();
   const config = useConfig();
+
+  const titleColor = useColorValue('blackAlpha.900', 'whiteAlpha.900');
+  const isMobile = useBreakpointValue({ base: true, md: true, lg: false }) ?? true;
+
   return (
     <Box
       as="aside"
@@ -33,7 +32,7 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
       {...props}>
       <Box as="nav" height={contentHeight} aria-label="Main Navigation" fontSize="sm" p={6}>
         <Box mb={8}>
-          {(isSm || isMd) && (
+          {isMobile && (
             <TopNavLink href="/" fontWeight="bold">
               Home
             </TopNavLink>
@@ -46,7 +45,7 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
         </Box>
         {config.sections.map(section => (
           <Box key={section.id} as="section" mb={10}>
-            <NavGroupHeading color={titleColor[colorMode]}>{section.title}</NavGroupHeading>
+            <NavGroupHeading color={titleColor}>{section.title}</NavGroupHeading>
             {section.sections.map(link => (
               <ComponentLink
                 key={link.id}
@@ -64,24 +63,22 @@ export const AsideContent = ({ contentHeight = 'calc(100vh - 4rem)', ...props })
 
 const AsideContainer = props => (
   <Box
-    pos="fixed"
     top="0"
     left="0"
     right="0"
+    pos="fixed"
     width="100%"
-    height="100%"
     maxW="18rem"
+    height="100%"
     display={['none', null, 'block']}
     {...props}
   />
 );
 
-const Aside = ({ borderColor, ...props }) => {
+export const Aside = ({ borderColor, ...props }) => {
   return (
     <AsideContainer {...props}>
       <AsideContent borderColor={borderColor} />
     </AsideContainer>
   );
 };
-
-export default Aside;

@@ -1,9 +1,8 @@
-import * as React from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo, LocalBusinessJsonLd, LogoJsonLd } from 'next-seo';
-import { useConfig } from './Provider';
+import { useConfig } from '~context';
 
-const SEO = ({ page }) => {
+export const SEO = () => {
   const { pathname } = useRouter();
   const pageName = pathname.replace('/', '');
   const config = useConfig();
@@ -47,5 +46,3 @@ const SEO = ({ page }) => {
     </>
   );
 };
-
-export default SEO;

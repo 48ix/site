@@ -7,8 +7,11 @@
     "baseUrl": ".",
     "paths": {
       "~components": ["components/index"],
+      "~components/*": ["components/*"],
+      "~context": ["context/index"],
       "~hooks": ["hooks/index"],
       "~layouts": ["layouts/index"],
+      "~layouts/*": ["layouts/*"],
       "~types": ["types/index"],
       "~util": ["util/index"]
     },

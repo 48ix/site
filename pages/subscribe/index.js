@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Box, Heading, Text, useColorMode } from '@chakra-ui/core';
+import { Box, Heading, Text } from '@chakra-ui/react';
 import NotFound from '../404';
 import queryString from 'query-string';
+import { useColorValue } from '~context';
 
 const readQuery = query => {
   let parsed = {};
@@ -17,19 +17,21 @@ const readQuery = query => {
   return parsed;
 };
 
-const highlightColor = { dark: 'teal.300', light: 'blue.500' };
-const textColor = { dark: 'whiteAlpha.600', light: 'blackAlpha.700' };
-
-const Subscribe = () => {
+export const Subscribe = () => {
   const router = useRouter();
-  const { colorMode } = useColorMode();
+  const highlightColor = useColorValue('blue.500', 'teal.300');
+  const textColor = useColorValue('blackAlpha.700', 'whiteAlpha.600');
+
   if (Object.keys(router.query).length === 0) {
     return <NotFound />;
   }
+
   const { emailAddr, listName } = readQuery(router.query);
+
   if (typeof emailAddr === 'undefined' || typeof listName === 'undefined') {
     return <NotFound />;
   }
+
   return (
     <>
       <NextSeo noindex nofollow />
@@ -37,11 +39,11 @@ const Subscribe = () => {
         <Heading>Thank you for subscribing!</Heading>
         <Box mt={4}>
           <Text color={textColor[colorMode]}>
-            <Text as="span" color={highlightColor[colorMode]}>
+            <Text as="span" color={highlightColor}>
               {`${emailAddr} `}
             </Text>
             has been added to the
-            <Text as="span" color={highlightColor[colorMode]}>{` ${listName} `}</Text>
+            <Text as="span" color={highlightColor}>{` ${listName} `}</Text>
             mailing list.
           </Text>
         </Box>
@@ -49,5 +51,3 @@ const Subscribe = () => {
     </>
   );
 };
-
-export default Subscribe;

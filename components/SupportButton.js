@@ -1,21 +1,22 @@
-import * as React from 'react';
 import dynamic from 'next/dynamic';
-import { Box, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
+import { Box, Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { useColorValue } from '~context';
 
-const Mail = dynamic(() => import('./Icons/Mail'));
+const Mail = dynamic(() => import('@meronex/icons/bi').then(i => i.BisEnvelope));
 
 const Sev = props => <Box as="strong" mr={2} {...props} />;
 
-const SupportButton = ({ top = false, bottom = true, left = false, right = false, ...props }) => {
+export const SupportButton = ({ top = false, bottom = true, left = false, right = false }) => {
   const placement = right ? 'right' : left ? 'left' : bottom ? 'bottom' : top ? 'top' : 'top';
+  const colorScheme = useColorValue('red', 'yellow');
   return (
     <Menu>
       <MenuButton
-        as={Button}
-        leftIcon={Mail}
         ml={4}
         my={6}
-        variantColor="yellow"
+        as={Button}
+        leftIcon={<Mail />}
+        colorScheme={colorScheme}
         aria-label="Request Support">
         Request Support
       </MenuButton>
@@ -44,5 +45,3 @@ const SupportButton = ({ top = false, bottom = true, left = false, right = false
     </Menu>
   );
 };
-
-export default SupportButton;

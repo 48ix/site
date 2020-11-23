@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useConfig } from '../components/Provider';
-import { round } from '../util';
+import { useConfig } from '~context';
+import { round } from '~util';
 
 export function useGraphData(utilization) {
   const {

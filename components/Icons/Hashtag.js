@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-const Hashtag = ({ color, size = '1.5rem', ...props }) => (
+export const Hashtag = ({ color, size = '1.5rem', ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1024 1024"
@@ -18,5 +16,3 @@ const Hashtag = ({ color, size = '1.5rem', ...props }) => (
     />
   </svg>
 );
-
-export default Hashtag;

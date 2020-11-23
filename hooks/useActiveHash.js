@@ -24,7 +24,7 @@
 
 import { useEffect, useState } from 'react';
 
-const useActiveHash = (itemIds, rootMargin = undefined) => {
+export const useActiveHash = (itemIds, rootMargin = undefined) => {
   const [activeHash, setActiveHash] = useState(``);
 
   useEffect(() => {
@@ -55,5 +55,3 @@ const useActiveHash = (itemIds, rootMargin = undefined) => {
 
   return activeHash;
 };
-
-export default useActiveHash;

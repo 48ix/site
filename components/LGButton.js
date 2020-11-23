@@ -1,28 +1,27 @@
-import * as React from 'react';
-import { Button, useColorMode } from '@chakra-ui/core';
+import dynamic from 'next/dynamic';
+import { Button } from '@chakra-ui/react';
+import { useColorValue } from '~context';
 
-const btnColor = { dark: 'teal', light: 'blue' };
+const Search = dynamic(() => import('@meronex/icons/bi').then(i => i.BiSearch));
 
-const LGButton = props => {
-  const { colorMode } = useColorMode();
+export const LGButton = props => {
+  const color = useColorValue('blue', 'teal');
   return (
     <Button
       as="a"
-      mx={[6, 6, 4, 4]}
       mt={8}
-      mr={[null, null, 4, 4]}
-      leftIcon="search"
-      variantColor={btnColor[colorMode]}
-      fontWeight="normal"
+      target="_blank"
       variant="solid"
+      leftIcon={<Search />}
+      mx={[6, 6, 4, 4]}
+      fontWeight="normal"
+      colorScheme={color}
+      mr={[null, null, 4, 4]}
+      rel="noopener noreferrer"
       aria-label="Looking Glass"
       href="https://lg.48ix.net"
-      target="_blank"
-      rel="noopener noreferrer"
       {...props}>
       Looking Glass
     </Button>
   );
 };
-
-export default LGButton;

@@ -1,7 +1,5 @@
-import * as React from 'react';
-import { useQuery, useQueryCache } from 'react-query';
-import Graph from '../components/Graphs/Graph';
-import { H1, H2 } from '../components/MDXComponents/Headings';
+import { useQuery } from 'react-query';
+import { H1, H2, Graph } from '~components';
 
 const graphPeriods = [
   { title: 'Last Hour', period: 1 },
@@ -15,7 +13,6 @@ const getData = async url => {
 };
 
 const TrafficGraph = ({ title, period }) => {
-  const cache = useQueryCache();
   const url = `${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/all?period=${period}`;
   const { data, error, isError } = useQuery(url, getData, {
     cacheTime: 900000,
