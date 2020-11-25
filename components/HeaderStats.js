@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import { Button, Flex, Stat, StatLabel, StatNumber, StatGroup, Stack } from '@chakra-ui/react';
 import { LittleGraph } from '~components';
 import { useColorValue } from '~context';
-import { useUtilization, useParticipantStats } from '~hooks';
+import { useUtilization, useIXF } from '~hooks';
 import filesize from 'filesize';
 
 const humanData = data => {
@@ -40,14 +40,18 @@ const HeaderGraph = ({ data, ...props }) => (
 export const HeaderStats = props => {
   const { data, error, isError, isLoading } = useUtilization('all');
   const lineColor = useColorValue('black', 'white');
+  const ixf = useIXF();
 
   isError && console.error(error);
 
-  const { asns } = useParticipantStats();
-
   const dataCurrent = useMemo(() => humanData(data?.ingress?.slice(-1)[0]?.[1] ?? 0), [isLoading]);
   const dataPeak = useMemo(() => humanData(data?.ingress_peak ?? 0), [isLoading]);
-  const numAsns = useMemo(() => new Set(asns).size, [asns.length]);
+
+  let numAsns = 0;
+
+  if (typeof ixf !== 'undefined') {
+    numAsns = new Set(ixf.member_list).size;
+  }
 
   return (
     <Stack isInline {...props} alignItems="center" justifyContent="space-around">
