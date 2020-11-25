@@ -1,6 +1,15 @@
 import { useMemo } from 'react';
 import NextLink from 'next/link';
-import { Button, Flex, Stat, StatLabel, StatNumber, StatGroup, Stack } from '@chakra-ui/react';
+import {
+  Flex,
+  Stat,
+  Stack,
+  Button,
+  Spinner,
+  StatLabel,
+  StatGroup,
+  StatNumber,
+} from '@chakra-ui/react';
 import { LittleGraph } from '~components';
 import { useColorValue } from '~context';
 import { useUtilization, useIXF } from '~hooks';
@@ -40,6 +49,7 @@ const HeaderGraph = ({ data, ...props }) => (
 export const HeaderStats = props => {
   const { data, error, isError, isLoading } = useUtilization('all');
   const lineColor = useColorValue('black', 'white');
+  const spinnerColor = useColorValue('original.red', 'yellow.200');
   const ixf = useIXF();
 
   isError && console.error(error);
@@ -59,7 +69,11 @@ export const HeaderStats = props => {
         flexDir={['column', 'column', 'row']}
         alignItems={['flex-end', 'flex-end', null]}
         color={lineColor}>
-        <Statistic label="ASNs" value={numAsns} />
+        {numAsns === 0 ? (
+          <Statistic label="ASNs" value={<Spinner size="xs" color={spinnerColor} />} />
+        ) : (
+          <Statistic label="ASNs" value={numAsns} />
+        )}
         <Statistic label="Current" value={dataCurrent} />
         <Statistic label="Peak" value={dataPeak} />
       </StatGroup>
