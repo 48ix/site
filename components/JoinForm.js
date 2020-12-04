@@ -150,8 +150,6 @@ export const JoinForm = () => {
   const btnColor = useColorValue('blue', 'green');
   const modalBg = useColorValue('white', 'original.dark');
 
-  console.log(term);
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
