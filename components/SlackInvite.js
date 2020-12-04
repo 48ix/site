@@ -23,7 +23,7 @@ import {
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useColorValue } from '~context';
-import { validateEmail } from '~util';
+import { useValidEmail } from '~hooks';
 
 const Slack = dynamic(() => import('@meronex/icons/fa').then(i => i.FaSlack));
 
@@ -59,6 +59,8 @@ export const SlackInvite = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [submitSuccess, setSubmitSuccess] = useState(null);
   const { register, handleSubmit, errors, formState } = useForm();
+
+  const validateEmail = useValidEmail(formState.dirty);
 
   const onSubmit = async data => {
     const message = constructData(data);

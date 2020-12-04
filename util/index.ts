@@ -90,5 +90,4 @@ export const participantColumns = [
 ] as ParticipantColumn[];
 
 export * from './contentful';
-export * from './validators';
 export * from './theme';

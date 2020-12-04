@@ -27,6 +27,7 @@
     "color2k": "^1.0.0-rc.5",
     "contentful": "^7.14.14",
     "dayjs": "^1.8.26",
+    "email-validator": "^2.0.4",
     "emotion-theming": "^10.0.27",
     "filesize": "^6.1.0",
     "framer-motion": "^2.9.4",

@@ -14,7 +14,7 @@ import {
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useColorValue } from '~context';
-import { validateEmail } from '~util';
+import { useValidEmail } from '~hooks';
 
 const Check = dynamic(() => import('@meronex/icons/fa').then(i => i.FaCheckCircle));
 const Prohibit = dynamic(() => import('@meronex/icons/mdc').then(i => i.MdcCancel));
@@ -89,7 +89,7 @@ export const Subscribe = props => {
     <Box as={Check} boxSize="1rem" />,
   ];
 
-  const { handleSubmit, errors, register } = useForm();
+  const { handleSubmit, errors, register, formState } = useForm();
   /**
    * 0: Not submitted
    * 1: Submitted, waiting
@@ -98,6 +98,7 @@ export const Subscribe = props => {
    */
   const [submission, setSubmission] = useState(0);
   const [response, setResponse] = useState(null);
+  const validateEmail = useValidEmail(formState.dirty);
 
   const onSubmit = async values => {
     setSubmission(1);
