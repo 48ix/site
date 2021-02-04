@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-const ErrorPage = () => {
+const ErrorPage: React.FC = () => {
   const { asPath } = useRouter();
   return (
     <div style={{ fontSize: '2rem', marginTop: '5vh' }}>

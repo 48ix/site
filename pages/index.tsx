@@ -1,47 +1,25 @@
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
-import { Box, Button, Divider, Flex, Heading, Grid, Text } from '@chakra-ui/react';
+import { Box, chakra, Button, Divider, Flex, Heading, Grid, Text } from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
-import { Logo } from '~components';
+import { Logo, Feature } from '~components';
 import { useConfig, useColorValue, useJoinForm } from '~context';
 
-const Equals = dynamic(() => import('@meronex/icons/fa').then(i => i.FaEquals));
-const Heart = dynamic(() => import('@meronex/icons/bs').then(i => i.BsHeartFill));
-const LightningBolt = dynamic(() => import('@meronex/icons/bs').then(i => i.BsLightningFill));
-const FoldedMap = dynamic(() => import('@meronex/icons/ri').then(i => i.RiTreasureMapLine));
+const Equals = dynamic<MeronexIcon>(() => import('@meronex/icons/fa').then(i => i.FaEquals));
+const Heart = dynamic<MeronexIcon>(() => import('@meronex/icons/bs').then(i => i.BsHeartFill));
+const LightningBolt = dynamic<MeronexIcon>(() =>
+  import('@meronex/icons/bs').then(i => i.BsLightningFill),
+);
+const FoldedMap = dynamic<MeronexIcon>(() =>
+  import('@meronex/icons/ri').then(i => i.RiTreasureMapLine),
+);
 
-const Container = props => <Box mx="auto" {...props} />;
-
-const Feature = ({ title, icon, children, ...props }) => {
-  const accent = useColorValue('blue.500', 'teal.500');
-  return (
-    <Box {...props}>
-      <Flex mt={6} mb={4} direction="row" align="center">
-        <Flex
-          boxSize={12}
-          bg={accent}
-          rounded="full"
-          align="center"
-          justify="center"
-          display="inline-flex">
-          <Box boxSize={6} color="white" as={icon} />
-        </Flex>
-        <Heading as="h3" size="md" fontSize="3xl" fontWeight="medium" ml={4} display="inline">
-          {title}
-        </Heading>
-      </Flex>
-
-      <Text fontSize="sm" opacity="0.7">
-        {children}
-      </Text>
-    </Box>
-  );
-};
+const Container = chakra('div', { baseStyle: { mx: 'auto' } });
 
 const Home = () => {
   const config = useConfig();
   const accent = useColorValue('blue.500', 'teal.500');
-  const accentScheme = useColorValue('blue', 'teal');
+  const colorScheme = useColorValue('blue', 'teal');
   const text = useColorValue('black', 'white');
   const { onOpen } = useJoinForm();
   return (
@@ -57,7 +35,7 @@ const Home = () => {
             fontSize="6xl"
             color={accent}
             fontWeight="bold"
-            textAlign={['justify', 'justify', 'inherit']}>
+            textAlign={{ base: 'justify', lg: 'inherit' }}>
             <Text as="span" fontWeight="normal" color={text}>{`Arizona's `}</Text>
             <br />
             Open Internet Exchange
@@ -68,7 +46,7 @@ const Home = () => {
           </Text>
 
           <Box mt={12}>
-            <Button m={2} size="lg" fontWeight="normal" onClick={onOpen} colorScheme={accentScheme}>
+            <Button m={2} size="lg" fontWeight="normal" onClick={onOpen} colorScheme={colorScheme}>
               Join the Exchange
             </Button>
             <NextLink href="/network" passHref>

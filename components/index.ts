@@ -8,6 +8,7 @@ export * from './ColorModeButton';
 export * from './Contributors';
 export * from './DataTable';
 export * from './ExternalLinkIcon';
+export * from './feature';
 export * from './Fees';
 export * from './Footer';
 export * from './Graphs';

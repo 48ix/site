@@ -1,26 +1,32 @@
 import { useQuery } from 'react-query';
 import { H1, H2, Graph } from '~components';
 
+interface GraphPeriod {
+  title: string;
+  period: number;
+}
+
 const graphPeriods = [
   { title: 'Last Hour', period: 1 },
   { title: 'Last Day', period: 24 },
-  { title: 'Last Week', period: 168 },
-];
+  // { title: 'Last Week', period: 168 },
+] as GraphPeriod[];
 
-const getData = async url => {
+async function getData(url: string) {
   const res = await fetch(url);
   return await res.json();
-};
+}
 
-const TrafficGraph = ({ title, period }) => {
+const TrafficGraph: React.FC<GraphPeriod> = (props: GraphPeriod) => {
+  const { title, period } = props;
   const url = `${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/all?period=${period}`;
   const { data, error, isError } = useQuery(url, getData, {
+    retry: false,
     cacheTime: 900000,
     staleTime: 900000,
     refetchOnMount: false,
-    refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-    retry: false,
+    refetchOnWindowFocus: false,
   });
   isError && console.error(error);
   return (
