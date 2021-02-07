@@ -1,28 +1,4 @@
-import zeitTitle from 'title';
-
 import type { ParticipantColumn } from '~types';
-
-export function title(text: string, rest: string[] = []) {
-  return zeitTitle(text, {
-    special: [
-      '48 IX',
-      'IPv4',
-      'IPv6',
-      'ASN',
-      'RPKI',
-      'ROA',
-      'IRR',
-      'IOS',
-      'FRR',
-      'ARP',
-      'MTU',
-      'MAC',
-      'ASNs',
-      'BGP',
-      ...rest,
-    ],
-  });
-}
 
 export function insertAt(arr: any[], index: number, newItem: any) {
   return [...arr.slice(0, index), newItem, ...arr.slice(index)];

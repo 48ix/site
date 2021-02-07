@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import { NextSeo } from 'next-seo';
 import { useMobile, useToc } from '~context';
-import { title } from '~util';
+import { useTitleCase } from 'use-title-case';
 import {
   P,
   Br,
@@ -66,6 +66,7 @@ const components = {
 
 export const MDXDefaultLayout = props => {
   const { frontMatter, children, rightToc } = props;
+  const title = useTitleCase();
 
   const {
     id,

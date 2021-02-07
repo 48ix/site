@@ -60,4 +60,5 @@ export interface Config {
   portSpeeds: PortSpeed[];
   graphBase: number;
   graphUnit: string;
+  titleOverrides: string[];
 }

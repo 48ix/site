@@ -44,6 +44,23 @@ const keywordsGlobal = [
   'az',
 ];
 
+const titleOverrides = [
+  '48 IX',
+  'IPv4',
+  'IPv6',
+  'ASN',
+  'RPKI',
+  'ROA',
+  'IRR',
+  'IOS',
+  'FRR',
+  'ARP',
+  'MTU',
+  'MAC',
+  'ASNs',
+  'BGP',
+];
+
 const asideSections = [
   {
     id: 'information',
@@ -188,4 +205,5 @@ export default {
   ],
   graphBase: 1e9, // Gbps
   graphUnit: 'Gbps',
+  titleOverrides,
 } as Config;
