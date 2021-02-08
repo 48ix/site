@@ -1,9 +1,11 @@
-import { Box, useColorMode } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useColorValue } from '~context';
 
-export const BlockQuote = props => {
+import type { BoxProps } from '@chakra-ui/react';
+
+export const BlockQuote: React.FC<BoxProps> = (props: BoxProps) => {
   const bg = useColorValue('blackAlpha.100', 'whiteAlpha.100');
-  const border = useColorMode('blackAlpha.300', 'whiteAlpha.300');
+  const border = useColorValue('blackAlpha.300', 'whiteAlpha.300');
   return (
     <Box
       my={8}

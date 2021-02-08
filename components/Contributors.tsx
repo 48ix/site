@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Image, Link, Skeleton, Stack } from '@chakra-ui/react';
 import { useColorValue, useConfig } from '~context';
 
-export const Contributors = () => {
+export const Contributors: React.FC = () => {
   const { contributors } = useConfig();
   const imageStyle = useColorValue({}, { filter: 'grayscale(1) brightness(100)' });
+
   return (
     <Stack my={8} isInline justify="space-between">
       {contributors.map(org => {

@@ -1,22 +1,24 @@
 import { Box } from '@chakra-ui/react';
 import { useColorValue } from '~context';
 
-export const CodeBlock = props => {
+import type { BoxProps } from '@chakra-ui/react';
+
+export const CodeBlock: React.FC<BoxProps> = (props: BoxProps) => {
   const bg = useColorValue('blackAlpha.50', 'whiteAlpha.50');
   const color = useColorValue('black', 'white');
   return (
     <Box
-      fontFamily="mono"
-      mt={5}
       p={3}
-      border="1px"
-      borderColor="inherit"
-      rounded="md"
+      mt={5}
       bg={bg}
+      as="pre"
+      border="1px"
+      rounded="md"
       color={color}
       fontSize="sm"
+      fontFamily="mono"
+      borderColor="inherit"
       whiteSpace="pre-wrap"
-      as="pre"
       {...props}
     />
   );

@@ -23,7 +23,6 @@ export * from './LGButton';
 export * from './Link';
 export * from './Loading';
 export * from './Logo';
-export * from './Meta';
 export * from './MobileNav';
 export * from './NavLink';
 export * from './Paragraph';

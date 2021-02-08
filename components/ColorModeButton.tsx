@@ -2,10 +2,16 @@ import dynamic from 'next/dynamic';
 import { IconButton } from '@chakra-ui/react';
 import { useColorMode, useColorValue } from '~context';
 
-const StripedSun = dynamic(() => import('@meronex/icons/gi').then(i => i.GiStripedSun));
-const Moon = dynamic(() => import('@meronex/icons/bs').then(i => i.BsMoon));
+import type { IconButtonProps } from '@chakra-ui/react';
 
-export const ColorModeButton = ({ ...props }) => {
+const StripedSun = dynamic<MeronexIcon>(() =>
+  import('@meronex/icons/gi').then(i => i.GiStripedSun),
+);
+const Moon = dynamic<MeronexIcon>(() => import('@meronex/icons/bs').then(i => i.BsMoon));
+
+export const ColorModeButton: React.FC<NoAria<IconButtonProps>> = (
+  props: NoAria<IconButtonProps>,
+) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const label = `${colorMode === 'dark' ? 'Hurt' : 'Rest'} your eyes`;
 
