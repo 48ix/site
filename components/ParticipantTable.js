@@ -29,7 +29,7 @@ const InfoTag = props => (
 
 const PortGraph = ({ v, rowData, ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const modalBg = useColorValue('white', 'original.dark');
+  const modalBg = useColorValue('white', 'dark.500');
   const label = `View Port Statistics for ${rowData.name}`;
   const { data: utilization, isError, error, isLoading } = useUtilization(rowData.circuit_id);
   isError && console.error(error);

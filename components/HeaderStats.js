@@ -49,7 +49,7 @@ const HeaderGraph = ({ data, ...props }) => (
 export const HeaderStats = props => {
   const { data, error, isError, isLoading } = useUtilization('all');
   const lineColor = useColorValue('black', 'white');
-  const spinnerColor = useColorValue('original.red', 'yellow.200');
+  const spinnerColor = useColorValue('red.500', 'yellow.200');
   const ixf = useIXF();
 
   isError && console.error(error);

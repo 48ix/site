@@ -6,7 +6,7 @@ import { useColorValue, useMobile } from '~context';
 import { JoinButton, MobileNav, JoinForm, HeaderStats, Logo, ColorModeButton } from '~components';
 
 export const BaseHeader = ({ showBorder, ...props }) => {
-  const bg = useColorValue('white', 'original.dark');
+  const bg = useColorValue('white', 'dark.500');
   return (
     <Box
       top={0}
@@ -18,7 +18,7 @@ export const BaseHeader = ({ showBorder, ...props }) => {
       as="header"
       width="100%"
       height={{ base: 20, lg: 16 }}
-      borderBottomWidth={showBorder ? '1px' : null}
+      borderBottom={showBorder ? '1px' : undefined}
       {...props}
     />
   );
@@ -37,7 +37,7 @@ export const Header = props => {
         setShowHeader(true);
       }
     }
-  }, [isMobile, pathname]);
+  }, [isMobile, pathname, setShowHeader]);
 
   return (
     <BaseHeader showBorder={showHeader} py={{ base: showHeader ? 2 : 6, lg: 0 }} {...props}>

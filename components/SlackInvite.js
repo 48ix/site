@@ -74,7 +74,7 @@ export const SlackInvite = () => {
   };
 
   const btnColor = useColorValue('dark', 'teal');
-  const modalBg = useColorValue('white', 'original.dark');
+  const modalBg = useColorValue('white', 'dark.500');
   return (
     <>
       <SlackButton onClick={onOpen} />

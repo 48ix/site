@@ -148,7 +148,7 @@ export const JoinForm = () => {
     return sendRes;
   };
   const btnColor = useColorValue('blue', 'green');
-  const modalBg = useColorValue('white', 'original.dark');
+  const modalBg = useColorValue('white', 'dark.500');
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

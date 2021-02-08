@@ -6,7 +6,7 @@ import { useGraphData } from '~hooks';
 const margin = { top: 1, right: 0, left: 0, bottom: 5 };
 
 export const LittleGraph = ({ data, yRef = false, ...props }) => {
-  const refColor = useToken('colors', 'original.red');
+  const refColor = useToken('colors', 'red.500');
   const topColor = useColorToken('blue.500', 'blue.400');
   const bottomColor = useColorToken('teal.400', 'teal.300');
 

@@ -19,7 +19,7 @@ export const useColorToken = (light: string, dark: string) =>
   useColorModeValue(useToken('colors', light), useToken('colors', dark));
 
 export const useMobile = (): boolean =>
-  useBreakpointValue({ base: true, md: true, lg: false, xl: false }) ?? true;
+  useBreakpointValue({ base: true, md: true, lg: false, xl: false }) ?? false;
 
 export {
   useTheme,

@@ -2,8 +2,8 @@ import { Flex } from '@chakra-ui/react';
 import { useColorValue } from '~context';
 
 export const CardBody = ({ onClick = () => false, ...props }) => {
-  const bg = useColorValue('white', 'original.dark');
-  const color = useColorValue('original.dark', 'white');
+  const bg = useColorValue('white', 'dark.500');
+  const color = useColorValue('dark.500', 'white');
   return (
     <Flex
       bg={bg}
