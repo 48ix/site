@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import {
   Box,
   Tag,
@@ -22,6 +23,8 @@ import {
 import { DataTable, Graph, LittleGraph } from '~components';
 import { useColorValue } from '~context';
 import { useUtilization } from '~hooks';
+
+const CheckIcon = dynamic(() => import('@meronex/icons/fa').then(i => i.FaCheck));
 
 const InfoTag = props => (
   <Tag size="sm" fontFamily="mono" fontWeight="normal" mx={[1, 2, 2, 2]} my={2} {...props} />
@@ -113,7 +116,7 @@ const MonoField = ({ v, copyable = false, ...props }) => {
           pos="relative"
           transition="opacity .25s ease-in-out"
           color={hasCopied ? copiedColor : undefined}>
-          {hasCopied && <Icon name="check" color="green" mr={1} />}
+          {hasCopied && <Icon as={CheckIcon} color={copiedColor} mr={1} />}
           <Text
             as="span"
             fontSize="sm"

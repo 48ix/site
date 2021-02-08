@@ -46,7 +46,7 @@ export interface Config {
   };
   theme: ThemeConfig;
   sections: AsideSection[];
-  links: string[];
+  links: AsideSection[];
   contributors: Contributor[];
   social: {
     github: {

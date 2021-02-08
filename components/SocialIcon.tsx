@@ -9,7 +9,7 @@ import type { IconButtonProps } from '@chakra-ui/react';
 const Github = dynamic<MeronexIcon>(() => import('@meronex/icons/fa').then(i => i.FaGithub));
 const Twitter = dynamic<MeronexIcon>(() => import('@meronex/icons/fa').then(i => i.FaTwitter));
 
-type SocialNetworks = 'github' | 'twitter';
+export type SocialNetworks = 'github' | 'twitter';
 
 interface SocialIconProps extends Omit<IconButtonProps, 'aria-label'> {
   name: SocialNetworks;

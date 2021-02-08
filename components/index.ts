@@ -15,7 +15,6 @@ export * from './Graphs';
 export * from './Header';
 export * from './HeaderStats';
 export * from './Headings';
-export * from './Icons';
 export * from './InlineCode';
 export * from './JoinButton';
 export * from './JoinForm';

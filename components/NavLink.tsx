@@ -17,7 +17,7 @@ interface TopNavLinkProps extends SideNavLinkProps {
 }
 
 interface ComponentLinkProps extends TopNavLinkProps {
-  side: 'left' | 'right';
+  side?: 'left' | 'right';
 }
 
 export const SideNavLink = forwardRef<HTMLAnchorElement, SideNavLinkProps>((props, ref) => {
