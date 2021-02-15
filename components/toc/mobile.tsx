@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useColorValue } from '~context';
-import { TocContent } from './desktop';
+import { TocContent } from './content';
 
 import type { BoxProps, IconProps } from '@chakra-ui/react';
 

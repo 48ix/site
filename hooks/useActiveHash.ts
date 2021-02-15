@@ -24,34 +24,37 @@
 
 import { useEffect, useState } from 'react';
 
-export const useActiveHash = (itemIds, rootMargin = undefined) => {
-  const [activeHash, setActiveHash] = useState(``);
+export function useActiveHash(itemIds: string[], rootMargin: string = '0% 0% -80% 0%') {
+  const [activeHash, setActiveHash] = useState<string>('');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
-        entries.forEach(entry => {
+        for (const entry of entries) {
           if (entry.isIntersecting) {
             setActiveHash(entry.target.id);
           }
-        });
+        }
       },
-      { rootMargin: rootMargin || `0% 0% -80% 0%` },
+      { rootMargin },
     );
 
-    itemIds.forEach(id => {
-      observer.observe(document.getElementById(id));
-    });
+    for (const id of itemIds) {
+      const element = document.getElementById(id);
+      if (element !== null) {
+        observer.observe(element);
+      }
+    }
 
     return () => {
-      itemIds.forEach(id => {
+      for (const id of itemIds) {
         const element = document.getElementById(id);
         if (element !== null) {
           observer.unobserve(element);
         }
-      });
+      }
     };
   }, []);
 
   return activeHash;
-};
+}

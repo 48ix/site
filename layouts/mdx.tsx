@@ -34,6 +34,8 @@ import {
   ExternalLinkIcon,
 } from '~components';
 
+import type { Components } from '@mdx-js/react';
+
 const components = {
   p: P,
   h1: H1,
@@ -62,9 +64,24 @@ const components = {
   ASN: ASN,
   Admonition: Admonition,
   ExtLink: ExternalLinkIcon,
-};
+} as Components;
 
-export const MDXDefaultLayout = props => {
+interface MDXFrontMatter extends Dict {
+  id: string;
+  title: string;
+  keywords?: string[];
+  defaultTitle?: boolean;
+  hideToc?: boolean;
+  __resourcePath: string;
+}
+
+interface MDXDefaultLayoutProps {
+  frontMatter: MDXFrontMatter;
+  children: React.ReactNode;
+  rightToc: TocHeading[];
+}
+
+export const MDXDefaultLayout: React.FC<MDXDefaultLayoutProps> = (props: MDXDefaultLayoutProps) => {
   const { frontMatter, children, rightToc } = props;
   const title = useTitleCase();
 
@@ -87,13 +104,13 @@ export const MDXDefaultLayout = props => {
   const displayName = title(pageTitle);
 
   const isMobile = useMobile();
-  const { hidden, hide } = useToc();
+  const { hidden, hide, show } = useToc();
 
   useEffect(() => {
     if (hideToc === true && hidden === false) {
-      hide(true);
+      show();
     } else if (hideToc === false && hidden === true) {
-      hide(false);
+      hide();
     }
   }, []);
 
