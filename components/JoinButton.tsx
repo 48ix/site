@@ -1,19 +1,21 @@
 import { Button } from '@chakra-ui/react';
 import { useColorValue, useJoinForm } from '~context';
 
-export const JoinButton = props => {
+import type { ButtonProps } from '@chakra-ui/react';
+
+export const JoinButton: React.FC<ButtonProps> = (props: ButtonProps) => {
   const color = useColorValue('blue', 'teal');
   const { onOpen } = useJoinForm();
   return (
     <Button
+      ml={{ lg: 8 }}
+      mr={{ lg: 4 }}
       variant="solid"
+      onClick={onOpen}
       fontWeight="normal"
       colorScheme={color}
-      mx={[6, 6, null, null]}
-      ml={[null, null, 8, 8]}
-      mr={[null, null, 4, 4]}
       aria-label="Join 48 IX"
-      onClick={onOpen}
+      mx={{ base: 6, lg: undefined }}
       {...props}>
       Join 48 IX
     </Button>

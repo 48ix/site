@@ -32,6 +32,5 @@ export * from './SocialIcon';
 export * from './Subscribe';
 export * from './SupportButton';
 export * from './Table';
-export * from './tocDesktop';
-export * from './tocMobile';
+export * from './toc';
 export * from './Topology';

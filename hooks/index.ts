@@ -4,5 +4,6 @@ export * from './useIXF';
 export * from './useOpposingColor';
 export * from './useRouteChanged';
 export * from './useSubscribeQuery';
+export * from './useUniqueId';
 export * from './useUtilization';
 export * from './useValidEmail';

@@ -1,6 +1,9 @@
 import { useQuery } from 'react-query';
 
-async function utilizationFetcher(circuitId) {
+import type { QueryResult } from 'react-query';
+import type { UtilizationResponse } from '~types';
+
+async function utilizationFetcher<T extends UtilizationResponse>(circuitId: string): Promise<T> {
   const participantUrl = `${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/${circuitId}?period=1`;
   const allUrl = `${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/all`;
   const url = circuitId === 'all' ? allUrl : participantUrl;
@@ -8,6 +11,6 @@ async function utilizationFetcher(circuitId) {
   return await res.json();
 }
 
-export function useUtilization(circuitId) {
-  return useQuery(circuitId, utilizationFetcher);
+export function useUtilization<T extends UtilizationResponse>(circuitId: string): QueryResult<T> {
+  return useQuery<T>(circuitId, utilizationFetcher);
 }

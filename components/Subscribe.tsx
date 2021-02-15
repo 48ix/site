@@ -183,19 +183,18 @@ export const Subscribe: React.FC = () => {
       <FormControl isInvalid={typeof errors.email !== 'undefined'} w="100%">
         <InputGroup>
           <Controller
-            control={control}
             name="email"
             defaultValue=""
+            control={control}
             rules={{ required: true }}
             render={({ value, onChange }) => (
               <Input
                 size="sm"
-                value={value}
-                onChange={onChange}
-                isFullWidth
                 name="email"
                 type="email"
+                value={value}
                 variant="flushed"
+                onChange={onChange}
                 aria-label="Subscribe"
                 borderRadius={errors.email && 'md'}
                 borderColor={errors.email && 'unset'}

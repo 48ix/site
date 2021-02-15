@@ -81,7 +81,7 @@ export const ComponentLink = forwardRef<HTMLAnchorElement, ComponentLinkProps>((
           color: activeColor,
           _hover: {},
         })}
-        {...props}
+        {...rest}
       />
     </NextLink>
   );
