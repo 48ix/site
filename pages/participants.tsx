@@ -2,10 +2,10 @@ import { H1, ParticipantTable } from '~components';
 import { insertAt, getContent, participantColumns } from '~util';
 
 import type { GetStaticProps } from 'next';
-import type { ParticipantsEntry, ParticipantTableProps } from '~types';
+import type { ParticipantsEntry, ParticipantTableData } from '~types';
 
 type Props = {
-  participants: ParticipantTableProps;
+  participants: ParticipantTableData;
   error: string | null;
 };
 
@@ -22,7 +22,7 @@ const Participants = (props: Props) => {
 export default Participants;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  let participants = {} as ParticipantTableProps;
+  let participants = {} as ParticipantTableData;
   let error = null;
   try {
     const participantsData = await getContent<ParticipantsEntry>('participants');
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       participantColumns.filter(c => !excludeColumns.includes(c.accessor)) ?? [],
       -1,
       { Header: 'Port ID', accessor: 'port_id', align: 'right' },
-    ) as ParticipantTableProps['columns'];
+    ) as ParticipantTableData['columns'];
 
     const rows = participantsData.items[0].fields.all.map((p, i) => ({
       ...p.fields,

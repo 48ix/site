@@ -1,3 +1,5 @@
+type ValueOf<T> = T[keyof T];
+
 type Dict<T extends any = any> = Record<string, T>;
 
 type BareProps = { children: JSX.Element; key?: any };

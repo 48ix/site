@@ -3,7 +3,7 @@ import { IconButton } from '@chakra-ui/react';
 import type { IconButtonProps } from '@chakra-ui/react';
 
 interface TableIconButtonProps extends NoAria<IconButtonProps> {
-  color: IconButtonProps['colorScheme'];
+  color?: IconButtonProps['colorScheme'];
 }
 
 export const TableIconButton: React.FC<TableIconButtonProps> = (props: TableIconButtonProps) => {

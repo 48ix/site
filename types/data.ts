@@ -1,15 +1,21 @@
-import type { ParticipantEntry } from '~types';
+import type { ParticipantEntry } from './contentful';
+
+export type ParticipantAccessor = keyof ParticipantEntry;
 
 export interface ParticipantColumn {
   Header: string;
-  accessor: string;
+  // accessor: string;
+  accessor: ParticipantAccessor;
   align: 'left' | 'right' | 'center';
+  hidden?: boolean;
 }
 
-export interface ParticipantTableProps {
+export interface ParticipantTableData {
   rows: ParticipantEntry[];
   columns: ParticipantColumn[];
 }
+
+export type ParticipantField = { [k in keyof ParticipantEntry]: ValueOf<ParticipantEntry> };
 
 export type UtilizationPoint = [string, number];
 

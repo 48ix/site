@@ -8,9 +8,18 @@ async function utilizationFetcher<T extends UtilizationResponse>(circuitId: stri
   const allUrl = `${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/all`;
   const url = circuitId === 'all' ? allUrl : participantUrl;
   const res = await fetch(url, { mode: 'cors' });
-  return await res.json();
+  if (!res.ok) {
+    throw new Error(`Error fetching utilization for ${circuitId}: ${res.statusText}`);
+  }
+  try {
+    return await res.json();
+  } catch (err) {
+    throw new Error(`Error reading utilization response: ${err.message}`);
+  }
 }
 
-export function useUtilization<T extends UtilizationResponse>(circuitId: string): QueryResult<T> {
-  return useQuery<T>(circuitId, utilizationFetcher);
+export function useUtilization<T extends UtilizationResponse>(
+  circuitId: string,
+): QueryResult<T, Error> {
+  return useQuery<T, Error>(circuitId, utilizationFetcher);
 }

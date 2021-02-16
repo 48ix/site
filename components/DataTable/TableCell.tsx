@@ -4,12 +4,12 @@ import { useColorValue } from '~context';
 import type { BoxProps } from '@chakra-ui/react';
 
 interface TableCellProps extends BoxProps {
-  bordersVertical: [boolean, number, number];
   align: BoxProps['textAlign'];
+  bordersVertical?: [boolean, number];
 }
 
 export const TableCell: React.FC<TableCellProps> = (props: TableCellProps) => {
-  const { bordersVertical = [false, 0, 0], align, children, ...rest } = props;
+  const { bordersVertical = [false, 0], align, children, ...rest } = props;
 
   const cellBorder = useColorValue(
     { borderLeft: '1px', borderLeftColor: 'blackAlpha.100' },
