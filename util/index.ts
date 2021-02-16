@@ -54,6 +54,11 @@ export const participantColumns = [
     align: 'left',
   },
   {
+    Header: 'Route Server',
+    accessor: 'routeServerClient',
+    align: 'center',
+  },
+  {
     Header: 'Port Speed',
     accessor: 'port_speed',
     align: 'right',

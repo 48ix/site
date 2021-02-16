@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Box, Alert, AlertIcon, AlertTitle, AlertDescription } from '@chakra-ui/react';
 import { DataTable } from '~components';
 import { useColorValue } from '~context';
-import { MonoField, TextField } from './fields';
+import { MonoField, TextField, BooleanField } from './fields';
 import { PortGraph } from './portGraph';
 
 import type { CellRender } from '~components';
@@ -31,6 +31,9 @@ const Cell: React.FC<CellProps> = (props: CellProps) => {
         return <MonoField v={data.value as string} copyable />;
       case 'circuit_id':
         return <PortGraph rowData={data.row.original as ParticipantEntry} />;
+      case 'routeServerClient':
+        const label = `${data.row.original.name} is a Route Server Peer`;
+        return <BooleanField v={data.value as boolean} label={label} />;
       default:
         return <></>;
     }

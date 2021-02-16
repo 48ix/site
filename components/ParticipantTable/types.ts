@@ -1,4 +1,4 @@
-import type { ModalContentProps, TextProps } from '@chakra-ui/react';
+import type { ModalContentProps, TextProps, BoxProps } from '@chakra-ui/react';
 import type { CellRender } from '~components';
 import type { ParticipantEntry, ParticipantTableData } from '~types';
 
@@ -18,4 +18,9 @@ export interface CellProps {
 export interface ParticipantTableProps {
   data: ParticipantTableData;
   error: string | null;
+}
+
+export interface BooleanFieldProps extends BoxProps {
+  v: boolean;
+  label: string;
 }
