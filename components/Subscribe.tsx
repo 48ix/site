@@ -49,6 +49,10 @@ type SubscribeStatus =
    */
   | 3;
 
+interface StatusMessageProps extends FlexProps {
+  status: number;
+}
+
 async function sendEmail(
   emailAddr: string,
   callback: (message: string, status: number) => void,
@@ -74,10 +78,6 @@ async function sendEmail(
 
 const Form = chakra('form', { baseStyle: { display: 'flex' } });
 
-interface StatusMessageProps extends FlexProps {
-  status: number;
-}
-
 const StatusMessage: React.FC<StatusMessageProps> = (props: StatusMessageProps) => {
   const { status, children, ...rest } = props;
   const formColor = [
@@ -97,8 +97,8 @@ const StatusMessage: React.FC<StatusMessageProps> = (props: StatusMessageProps) 
 
 export const Subscribe: React.FC = () => {
   const border = [
-    useColorValue('purple.500', 'yellow.200'),
-    useColorValue('purple.500', 'yellow.200'),
+    useColorValue('cyan.500', 'yellow.200'),
+    useColorValue('cyan.500', 'yellow.200'),
     useColorValue('red.500', 'red.300'),
     useColorValue('green.500', 'green.300'),
   ];

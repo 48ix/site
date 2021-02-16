@@ -83,6 +83,7 @@ const Fee: React.FC<FeeProps> = (props: FeeProps) => {
   const { price, interval, formId = 'annual', badges = [], ...rest } = props;
   const { onOpen } = useJoinForm();
   const { setTerm } = useJoinTerm();
+  const colorScheme = useColorValue('blue', 'dark');
   const intervalColor = useColorValue('gray.800', 'gray.300');
 
   function handleClick() {
@@ -99,7 +100,9 @@ const Fee: React.FC<FeeProps> = (props: FeeProps) => {
         height="100%"
         display="flex"
         flex="1 0 100%"
-        variant="ghost"
+        // variant="ghost"
+        variant="outline"
+        colorScheme={colorScheme}
         borderWidth="1px"
         overflow="hidden"
         textAlign="unset"

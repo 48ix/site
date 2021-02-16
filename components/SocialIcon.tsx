@@ -32,7 +32,7 @@ export const SocialIcon: React.FC<SocialIconProps> = (props: SocialIconProps) =>
   const displayName = title(name);
 
   const color = useColorValue('blackAlpha.600', 'whiteAlpha.400');
-  const hoverColor = useColorValue('black', 'red.300');
+  const hoverColor = useColorValue('cyan.500', 'red.300');
 
   return (
     <IconButton

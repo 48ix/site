@@ -25,10 +25,14 @@ const UpCaret = dynamic<MeronexIcon>(() => import('@meronex/icons/bs').then(i =>
 
 const GraphTooltip: React.FC<GraphTooltipProps> = (props: GraphTooltipProps) => {
   const { payload, label, avg, unit, ...rest } = props;
-  const bg = useColorValue('gray.100', 'dark.700');
+  const bg = useColorValue('white', 'dark.700');
   const avgColor = useColorValue('red.500', 'yellow.200');
   const color = useColorValue('black', 'white');
   const time = dayjs(label).toString();
+  const tooltipProps = useColorValue(
+    { borderColor: 'blackAlpha.100', bg, boxShadow: 'xl' },
+    { borderColor: 'dark.600', bg },
+  );
 
   const data = useMemo(() => {
     let data = {} as Payload<number, string>;
@@ -39,7 +43,7 @@ const GraphTooltip: React.FC<GraphTooltipProps> = (props: GraphTooltipProps) => 
   }, [payload]);
 
   return (
-    <Box bg={bg} px={4} py={2} borderRadius="md">
+    <Box px={4} py={2} borderRadius="md" border="1px" {...tooltipProps}>
       <Flex justifyContent="space-between">
         <Flex align="center" color={color} justify="space-between" {...rest}>
           <Icon as={data?.name === 'inBits' ? UpCaret : DownCaret} boxSize="10px" mr={1} />
