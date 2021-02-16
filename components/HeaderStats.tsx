@@ -69,12 +69,10 @@ const HeaderGraph: React.FC<HeaderGraphProps> = (props: HeaderGraphProps) => {
 };
 
 export const HeaderStats: React.FC<HeaderStatsProps> = (props: HeaderStatsProps) => {
-  const { data, error, isError, isLoading } = useUtilization<UtilizationAllResponse>('all');
+  const { data, isLoading } = useUtilization<UtilizationAllResponse>('all');
   const lineColor = useColorValue('black', 'white');
   const spinnerColor = useColorValue('red.500', 'yellow.200');
   const ixf = useIXF();
-
-  isError && console.error(error);
 
   const dataCurrent = useMemo(() => humanData(data?.ingress?.slice(-1)[0]?.[1] ?? 0), [isLoading]);
   const dataPeak = useMemo(() => humanData(data?.ingress_peak ?? 0), [isLoading]);

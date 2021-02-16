@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { Box, Flex, Skeleton, Text } from '@chakra-ui/react';
+import { Box, Icon, Flex, Skeleton, Text } from '@chakra-ui/react';
 import {
   Area,
   XAxis,
@@ -15,25 +15,34 @@ import dayjs from 'dayjs';
 import { useColorValue, useColorToken } from '~context';
 import { useGraphData } from '~hooks';
 
-const DownCaret = dynamic(() => import('@meronex/icons/bs').then(i => i.BsCaretDownFill));
-const UpCaret = dynamic(() => import('@meronex/icons/bs').then(i => i.BsCaretUpFill));
+import type { Payload } from 'recharts/types/component/DefaultTooltipContent';
+import type { GraphTooltipProps, BaseGraphProps } from './types';
 
-const GraphTooltip = ({ payload, label, avg, unit, ...props }) => {
+const DownCaret = dynamic<MeronexIcon>(() =>
+  import('@meronex/icons/bs').then(i => i.BsCaretDownFill),
+);
+const UpCaret = dynamic<MeronexIcon>(() => import('@meronex/icons/bs').then(i => i.BsCaretUpFill));
+
+const GraphTooltip: React.FC<GraphTooltipProps> = (props: GraphTooltipProps) => {
+  const { payload, label, avg, unit, ...rest } = props;
   const bg = useColorValue('gray.100', 'dark.700');
   const avgColor = useColorValue('red.500', 'yellow.200');
   const color = useColorValue('black', 'white');
   const time = dayjs(label).toString();
 
-  let data = {};
-  if (payload) {
-    [data] = payload;
-  }
+  const data = useMemo(() => {
+    let data = {} as Payload<number, string>;
+    if (typeof payload !== 'undefined') {
+      [data] = payload;
+    }
+    return data;
+  }, [payload]);
 
   return (
     <Box bg={bg} px={4} py={2} borderRadius="md">
       <Flex justifyContent="space-between">
-        <Flex alignItems="center" color={color} justifyContent="space-between" {...props}>
-          <Box as={data?.name === 'inBits' ? UpCaret : DownCaret} boxSize="10px" mr={1} />
+        <Flex align="center" color={color} justify="space-between" {...rest}>
+          <Icon as={data?.name === 'inBits' ? UpCaret : DownCaret} boxSize="10px" mr={1} />
           <Text as="span" fontWeight={500} fontSize="sm">
             {data?.value}
           </Text>
@@ -56,7 +65,9 @@ const GraphTooltip = ({ payload, label, avg, unit, ...props }) => {
   );
 };
 
-const BaseGraph = ({ data, ...props }) => {
+const BaseGraph: React.FC<BaseGraphProps> = (props: BaseGraphProps) => {
+  const { data, ...rest } = props;
+
   const topColor = useColorToken('blue.500', 'blue.400');
   const bottomColor = useColorToken('teal.500', 'teal.400');
   const gridColor = useColorToken('blackAlpha.400', 'whiteAlpha.400');
@@ -72,8 +83,9 @@ const BaseGraph = ({ data, ...props }) => {
       ),
     [graphData],
   );
+
   return (
-    <Flex flexDir="column" flex="1 0 auto" width="100%" minHeight={400} height={400} {...props}>
+    <Flex flexDir="column" flex="1 0 auto" width="100%" minHeight={400} height={400} {...rest}>
       <ResponsiveContainer>
         <AreaChart
           data={graphData}
@@ -157,8 +169,8 @@ const BaseGraph = ({ data, ...props }) => {
   );
 };
 
-export const Graph = props => (
-  <Skeleton height={400} width="100%" isLoaded={props.data}>
+export const Graph: React.FC<BaseGraphProps> = (props: BaseGraphProps) => (
+  <Skeleton height={400} width="100%" isLoaded={typeof props.data !== 'undefined'}>
     {props.data && <BaseGraph {...props} />}
   </Skeleton>
 );

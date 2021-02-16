@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import NextHead from 'next/head';
 import { chakra, Box } from '@chakra-ui/react';
-import { QueryCache, ReactQueryCacheProvider } from 'react-query';
 import { SEO, Aside, Header, Footer, JoinForm } from '~components';
 import { useColorMode, useColorValue, useMobile, useToc } from '~context';
 
@@ -11,8 +10,6 @@ import type {} from '@mdx-js/react';
 interface LayoutProps extends NoChildren<BoxProps> {
   children: JSX.Element;
 }
-
-const queryCache = new QueryCache();
 
 const SiteContainer = chakra('div', { baseStyle: { minH: '100vh', h: '100%' } });
 
@@ -41,7 +38,7 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
   }
 
   return (
-    <ReactQueryCacheProvider queryCache={queryCache}>
+    <>
       <SEO />
       <NextHead>
         <link rel="icon" type="image/x-icon" href={`/favicon-${colorMode}.ico`} />
@@ -67,6 +64,6 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
           />
         </Main>
       </SiteContainer>
-    </ReactQueryCacheProvider>
+    </>
   );
 };

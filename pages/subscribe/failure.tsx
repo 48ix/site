@@ -23,7 +23,7 @@ const Failure: React.FC = () => {
     return <NotFound />;
   }
 
-  const { emailAddr, listName, error } = useSubscribeQuery(query);
+  const { emailAddr, listName, error } = useSubscribeQuery(query as Dict<string>);
 
   if (typeof emailAddr === 'undefined' || typeof listName === 'undefined') {
     return <NotFound />;

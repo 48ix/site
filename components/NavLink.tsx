@@ -38,7 +38,7 @@ export const SideNavLink = forwardRef<HTMLAnchorElement, SideNavLinkProps>((prop
       fontWeight="normal"
       transition="all 0.2s"
       _notFirst={{ mt: 1 }}
-      _focus={{ shadow: 'outline' }}
+      _focus={{ shadow: 'outline', borderRadius: 'md' }}
       {...rest}>
       {icon && <Box mr={3}>{icon}</Box>}
       <Box>{children}</Box>

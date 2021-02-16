@@ -9,7 +9,7 @@ interface SubscribeQuery {
   error?: string;
 }
 
-export function useSubscribeQuery(query: ParsedQuery) {
+export function useSubscribeQuery(query: ParsedQuery<string>) {
   return useMemo(() => {
     let parsedQuery = {} as SubscribeQuery;
     try {

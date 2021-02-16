@@ -3,17 +3,17 @@ import { AreaChart, Area, ResponsiveContainer, YAxis, ReferenceLine } from 'rech
 import { useColorToken } from '~context';
 import { useGraphData } from '~hooks';
 
+import type { LittleGraphProps } from './types';
+
 const margin = { top: 1, right: 0, left: 0, bottom: 5 };
 
-export const LittleGraph = ({ data, yRef = false, ...props }) => {
+export const LittleGraph: React.FC<LittleGraphProps> = (props: LittleGraphProps) => {
+  const { data, yRef = false, ...rest } = props;
   const refColor = useToken('colors', 'red.500');
   const topColor = useColorToken('blue.500', 'blue.400');
   const bottomColor = useColorToken('teal.400', 'teal.300');
 
-  let utilizationData = { graphData: [] };
-  if (data) {
-    utilizationData = useGraphData(data);
-  }
+  const utilizationData = useGraphData(data);
 
   let topRef, bottomRef;
   if (yRef) {
@@ -29,7 +29,7 @@ export const LittleGraph = ({ data, yRef = false, ...props }) => {
       pointerEvents="none"
       display="inline-flex"
       flexDirection="column"
-      {...props}>
+      {...rest}>
       <ResponsiveContainer>
         <AreaChart data={utilizationData.graphData} margin={margin}>
           {yRef && <ReferenceLine y={topRef} stroke={refColor} strokeWidth={0.5} />}
@@ -47,11 +47,11 @@ export const LittleGraph = ({ data, yRef = false, ...props }) => {
           <YAxis reversed hide />
           {yRef && <ReferenceLine y={bottomRef} stroke={refColor} strokeWidth={0.5} />}
           <Area
-            animationDuration={200}
             type="linear"
             dataKey="outBits"
-            stroke={bottomColor}
             fill={bottomColor}
+            stroke={bottomColor}
+            animationDuration={200}
           />
         </AreaChart>
       </ResponsiveContainer>

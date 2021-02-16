@@ -25,7 +25,7 @@ const Subscribe: React.FC = () => {
   const highlightColor = useColorValue('blue.500', 'teal.300');
   const textColor = useColorValue('blackAlpha.700', 'whiteAlpha.600');
 
-  const { emailAddr, listName, error } = useSubscribeQuery(query);
+  const { emailAddr, listName, error } = useSubscribeQuery(query as Dict<string>);
 
   if (typeof error !== 'undefined') {
     return (

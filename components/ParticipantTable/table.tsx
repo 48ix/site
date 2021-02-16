@@ -34,7 +34,7 @@ const Cell: React.FC<CellProps> = (props: CellProps) => {
       default:
         return <></>;
     }
-  }, [data.column.id]);
+  }, [data.column.id, idColor]);
 
   return component;
 };

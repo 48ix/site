@@ -45,7 +45,7 @@ export const Logo: React.FC<LogoProps> = (props: LogoProps) => {
   const strokeColor = useColorToken('blue.500', 'teal.300');
 
   return (
-    <Box m={4} {...rest}>
+    <Box p={2} {...rest}>
       <motion.svg viewBox="0 0 616.25 439.22" width={size}>
         <defs>
           <clipPath id={id}>

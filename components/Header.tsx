@@ -53,7 +53,7 @@ export const Header: React.FC<BoxProps> = (props: BoxProps) => {
           <Flex align="center">
             {showHeader && (
               <NextLink href="/" passHref>
-                <Link aria-label="Home">
+                <Link aria-label="Home" m={2} _focus={{ shadow: 'outline', borderRadius: 'md' }}>
                   <Logo strokeWidth={30} size={48} noanimate />
                 </Link>
               </NextLink>

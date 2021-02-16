@@ -66,4 +66,5 @@ export const participantColumns = [
 ] as ParticipantColumn[];
 
 export * from './contentful';
+export * from './fetchers';
 export * from './theme';

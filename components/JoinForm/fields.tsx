@@ -10,6 +10,7 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { useJoinTerm } from '~context';
 
 import type { RadioGroupProps } from '@chakra-ui/react';
 import type { UseControllerOptions } from 'react-hook-form';
@@ -106,11 +107,12 @@ export const TermField: React.FC<NoChildren<RadioGroupProps>> = (
   props: NoChildren<RadioGroupProps>,
 ) => {
   const { control } = useFormContext();
+  const { term } = useJoinTerm();
   return (
     <FormField>
       <Controller
         name="term"
-        defaultValue="annual"
+        defaultValue={term}
         control={control}
         render={({ value, onChange }) => (
           <RadioGroup name="term" value={value} onChange={onChange} {...props}>

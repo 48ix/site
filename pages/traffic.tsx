@@ -1,5 +1,5 @@
-import { useQuery } from 'react-query';
 import { H1, H2, Graph } from '~components';
+import { useTraffic } from '~hooks';
 
 interface GraphPeriod {
   title: string;
@@ -12,23 +12,10 @@ const graphPeriods = [
   // { title: 'Last Week', period: 168 },
 ] as GraphPeriod[];
 
-async function getData(url: string) {
-  const res = await fetch(url);
-  return await res.json();
-}
-
 const TrafficGraph: React.FC<GraphPeriod> = (props: GraphPeriod) => {
   const { title, period } = props;
-  const url = `${process.env.NEXT_PUBLIC_UTILIZATION_URL}/utilization/all?period=${period}`;
-  const { data, error, isError } = useQuery(url, getData, {
-    retry: false,
-    cacheTime: 900000,
-    staleTime: 900000,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-  });
-  isError && console.error(error);
+  const data = useTraffic(period);
+
   return (
     <>
       <H2 mb={8}>{title}</H2>

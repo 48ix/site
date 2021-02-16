@@ -19,6 +19,8 @@ export type ParticipantField = { [k in keyof ParticipantEntry]: ValueOf<Particip
 
 export type UtilizationPoint = [string, number];
 
+export type UtilizationTimed = { time: string; inBits: number; outBits: number };
+
 export interface UtilizationCircuitResponse {
   ingress: UtilizationPoint[];
   egress: UtilizationPoint[];
@@ -32,3 +34,14 @@ export interface UtilizationCircuitResponse {
 export type UtilizationAllResponse = UtilizationCircuitResponse & { ingress_peak: number };
 
 export type UtilizationResponse = UtilizationAllResponse | UtilizationCircuitResponse;
+
+export interface GraphData {
+  graphData: UtilizationTimed[];
+  location: string;
+  participantId: number;
+  portId: string;
+  inAvg: number;
+  outAvg: number;
+  inUnit: string;
+  outUnit: string;
+}
