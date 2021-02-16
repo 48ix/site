@@ -203,7 +203,8 @@ export default {
     { id: 1, label: '1 Gbps' },
     { id: 10, label: '10 Gbps' },
   ],
-  graphBase: 1e9, // Gbps
+  // graphBase: 1e9, // Gbps
+  graphBase: 1_000_000,
   graphUnit: 'Gbps',
   titleOverrides,
 } as Config;

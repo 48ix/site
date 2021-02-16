@@ -4,6 +4,24 @@ import { round } from '~util';
 
 import type { UtilizationCircuitResponse, UtilizationTimed, GraphData } from '~types';
 
+function getUnit(graphData: UtilizationTimed[]) {
+  const maxIn = Math.max(...graphData.map(g => g.inBits));
+  const maxOut = Math.max(...graphData.map(g => g.outBits));
+  const max = Math.max(maxIn, maxOut);
+  switch (true) {
+    case max >= 1_000:
+      return 'Kbps';
+    case max >= 1e-6:
+      return 'Mbps';
+    case max >= 1e-9:
+      return 'Gbps';
+    case max >= 1e12:
+      return 'Tbps';
+    default:
+      return 'bps';
+  }
+}
+
 export function useGraphData(utilization?: UtilizationCircuitResponse): GraphData {
   const { graphBase, graphUnit } = useConfig();
 
@@ -12,13 +30,13 @@ export function useGraphData(utilization?: UtilizationCircuitResponse): GraphDat
       return {} as GraphData;
     }
     const {
-      ingress,
       egress,
-      participant_id,
+      ingress,
       port_id,
       location,
-      ingress_average,
+      participant_id,
       egress_average,
+      ingress_average,
     } = utilization;
     const graphData = [] as UtilizationTimed[];
 
@@ -31,6 +49,7 @@ export function useGraphData(utilization?: UtilizationCircuitResponse): GraphDat
 
       graphData[idx] = { inBits, outBits, time };
     }
+    const inUnit = getUnit(graphData);
     return {
       graphData,
       location,
@@ -38,8 +57,8 @@ export function useGraphData(utilization?: UtilizationCircuitResponse): GraphDat
       portId: port_id,
       inAvg: round(ingress_average / graphBase),
       outAvg: round(egress_average / graphBase),
-      inUnit: graphUnit,
-      outUnit: graphUnit,
+      inUnit,
+      outUnit: inUnit,
     };
   }, [utilization]);
 }
