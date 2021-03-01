@@ -1,82 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://48ix.net/404</loc>
+    <loc>
+      https://48ix.net
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/_app</loc>
+    <loc>
+      https://48ix.net/about
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/_document</loc>
+    <loc>
+      https://48ix.net/allowed-traffic
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/about</loc>
+    <loc>
+      https://48ix.net/bogons
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/allowed-traffic</loc>
+    <loc>
+      https://48ix.net/communication
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/bogons</loc>
+    <loc>
+      https://48ix.net/config-guides
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/communication</loc>
+    <loc>
+      https://48ix.net/connection-policy
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/config-guides</loc>
+    <loc>
+      https://48ix.net/contact
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/connection-policy</loc>
+    <loc>
+      https://48ix.net/contributors
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/contact</loc>
+    <loc>
+      https://48ix.net/fees
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/contributors</loc>
+    <loc>
+      https://48ix.net/interfaces
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/fees</loc>
+    <loc>
+      https://48ix.net/maintenance
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net</loc>
+    <loc>
+      https://48ix.net/network
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/interfaces</loc>
+    <loc>
+      https://48ix.net/participants
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/maintenance</loc>
+    <loc>
+      https://48ix.net/privacy
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/network</loc>
+    <loc>
+      https://48ix.net/support
+    </loc>
   </url>
-
   <url>
-    <loc>https://48ix.net/participants</loc>
-  </url>
-
-  <url>
-    <loc>https://48ix.net/privacy</loc>
-  </url>
-
-  <url>
-    <loc>https://48ix.net/support</loc>
-  </url>
-
-  <url>
-    <loc>https://48ix.net/traffic</loc>
+    <loc>
+      https://48ix.net/traffic
+    </loc>
   </url>
 </urlset>

@@ -72,4 +72,5 @@ export const participantColumns = [
 
 export * from './contentful';
 export * from './fetchers';
+export * from './mdx';
 export * from './theme';
