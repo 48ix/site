@@ -1,5 +1,6 @@
 export * from './useActiveHash';
 export * from './useGraphData';
+export * from './useIsMDX';
 export * from './useIXF';
 export * from './useOpposingColor';
 export * from './useRouteChanged';

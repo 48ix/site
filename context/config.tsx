@@ -4,7 +4,7 @@ import siteConfig from '../siteConfig';
 
 import type { Config } from '~types';
 
-const ConfigCtx = createContext<Config>({} as Config);
+const ConfigCtx = createContext<Config>(siteConfig);
 export const useConfig = (): Config => useContext(ConfigCtx);
 
 export const ConfigProvider: React.FC = props => {

@@ -3,9 +3,9 @@ import NextHead from 'next/head';
 import { chakra, Box } from '@chakra-ui/react';
 import { SEO, Aside, Header, Footer, JoinForm } from '~components';
 import { useColorMode, useColorValue, useMobile, useToc } from '~context';
+import { useIsMDX } from '~hooks';
 
 import type { BoxProps } from '@chakra-ui/react';
-import type {} from '@mdx-js/react';
 
 interface LayoutProps extends NoChildren<BoxProps> {
   children: JSX.Element;
@@ -29,13 +29,15 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
   const borderColor = useColorValue('blue.500', 'dark.300');
   const { hidden } = useToc();
 
-  const isMdx = useMemo(() => children?.type?.isMDXComponent === true, [children]);
+  const isMdx = useIsMDX(children);
 
-  let layoutPaddingRight = { base: 2, lg: 0, xl: 0 } as BoxProps['pr'];
-
-  if (isMdx && !hidden) {
-    layoutPaddingRight = { base: 2, lg: '18rem', xl: '18rem' };
-  }
+  const pr = useMemo<BoxProps['pr']>(() => {
+    if (isMdx && !hidden) {
+      return { base: 2, lg: '18rem', xl: '18rem' };
+    } else {
+      return { base: 2, lg: 0, xl: 0 };
+    }
+  }, [isMdx, hidden]);
 
   return (
     <>
@@ -49,11 +51,7 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
         <Header borderColor={borderColor} />
         {!isMobile && <Aside borderColor={borderColor} />}
         <Main>
-          <Box
-            pr={layoutPaddingRight}
-            pl={{ base: 2, lg: '18rem', xl: '18rem' }}
-            mt={[20, 20, 16, 16]}
-            minH="70vh">
+          <Box pr={pr} minH="70vh" mt={{ base: 20, lg: 16 }} pl={{ base: 2, lg: '18rem' }}>
             {children}
           </Box>
           <JoinForm />

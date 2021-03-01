@@ -11,15 +11,15 @@ const Layout = dynamic<BareProps>(() => import('~layouts').then(i => i.Layout), 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
   return (
-    <QueryProvider>
-      <ConfigProvider>
+    <ConfigProvider>
+      <QueryProvider>
         <UIProvider>
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </UIProvider>
-      </ConfigProvider>
-    </QueryProvider>
+      </QueryProvider>
+    </ConfigProvider>
   );
 };
 
