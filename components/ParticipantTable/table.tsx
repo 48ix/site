@@ -32,8 +32,10 @@ const Cell: React.FC<CellProps> = (props: CellProps) => {
       case 'circuit_id':
         return <PortGraph rowData={data.row.original as ParticipantEntry} />;
       case 'routeServerClient':
-        const label = `${data.row.original.name} is a Route Server Peer`;
-        return <BooleanField v={data.value as boolean} label={label} />;
+        const value = data.value as boolean;
+        const clause = value ? "is" : "is not";
+        const label = `${data.row.original.name} ${clause} a Route Server Peer`;
+        return <BooleanField v={value} label={label} />;
       default:
         return <></>;
     }
